@@ -169,7 +169,7 @@
                   </div>
                <!---                      -->
 			     <div class="col-md-12" style="padding-left:0px; padding-top:15px;padding-bottom:15px;">
-				 <div class="col-md-3">
+				 <div class="col-md-4">
                      <div class="card" style="box-shadow:none;">
 					 <div class="imgdesign">
 					 <div class="img">
@@ -182,7 +182,7 @@
 					 </div>
 					</div>
 					 </div>
-					 <div class="col-md-3">
+					 <div class="col-md-4">
                      <div class="card" style="box-shadow:none;">
 					  <div class="imgdesign">
 					 <div class="img1">
@@ -195,20 +195,8 @@
 					 </div>
 					 </div>
 					 </div>
-					 <div class="col-md-3" >
-                     <div class="card" style="box-shadow:none;">
-					  <div class="imgdesign">
-					 <div class="imgs">
-					  <ul style="padding-left:70px;">
-					  <li style="padding-top:13px;list-style-type:none;">
-					 <a href="<?php echo base_url(); ?>communication/view_user_leaves" class="design">Teachers<span style="padding-left:7px;">Leave</span></a>
-					 </li>
-					 </ul>
-					 </div>
-					 </div>
-					 </div>
-					 </div>
-					 <div class="col-md-3" >
+
+					 <div class="col-md-4" >
 			    <div class="card" style="box-shadow:none;">
 				 <div class="imgdesign">
 					 <div class="img4">
