@@ -20,37 +20,37 @@
       <script src="<?php echo base_url(); ?>assets/js/jquery.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jquery-ui.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/bootstrap.min.js" type="text/javascript"></script>
-	  
-	  
+
+
 	  <!-- PDF / Excel  -->
-		
+
 	    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/jquery.dataTables.min.css">
 		<link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/buttons.dataTables.min.css">
-		  
+
 	  <script src="<?php echo base_url(); ?>assets/js/jquery.dataTables.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/pdfmake.min.js" type="text/javascript"></script>
 	  <script src="<?php echo base_url(); ?>assets/js/vfs_fonts.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jszip.min.js" type="text/javascript"></script>
 	  <script src="<?php echo base_url(); ?>assets/js/buttons.colVis.min.js" type="text/javascript"></script>
-	  
+
 	  <script src="<?php echo base_url(); ?>assets/js/dataTables.buttons.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/buttons.flash.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/buttons.html5.min.js" type="text/javascript"></script>
-      <script src="<?php echo base_url(); ?>assets/js/buttons.print.min.js" type="text/javascript"></script> 
-	  
-	  
-	   
+      <script src="<?php echo base_url(); ?>assets/js/buttons.print.min.js" type="text/javascript"></script>
+
+
+
       <script src="<?php echo base_url(); ?>assets/js/jspdf.min.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
-      
+
       <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
-     
+
       <!--  Forms Validations Plugin -->
       <script src="<?php echo base_url(); ?>assets/js/jquery.validate.min.js"></script>
       <script src="http://jqueryvalidation.org/files/dist/additional-methods.min.js"></script>
-     
+
       <style>
          .navbar{
          margin-bottom:0px;}
@@ -263,33 +263,8 @@
                      </ul>
                   </div>
                </li>
-               <li id="payment">
-                  <a data-toggle="collapse" href="#feesmenu">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/fees.png"/>
-                     <p>Payment</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="feesmenu">
-                     <ul class="nav">
-                        <li id="fees"><a href="<?php echo base_url(); ?>feesstructure/fees_master">Fees Structure</a></li>
-                        <li id="fees1"><a href="<?php echo base_url(); ?>feesstructure/view_term_fees_master">Fee Status</a></li>
-                        <li id="fees2"><a href="<?php echo base_url(); ?>quota/home">Quota</a></li>
-                     </ul>
-                  </div>
-               </li>
-               <li id="attendance">
-                  <a data-toggle="collapse" href="#attend">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Attendance.png"/>
-                     <p>Attendance</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="attend">
-                     <ul class="nav">
-                        <li id="attend1"><a href="<?php echo base_url(); ?>adminattendance/home">Day Wise View</a></li>
-                        <li id="attend2"><a href="<?php echo base_url(); ?>adminattendance/monthclass">Month view </a></li>
-                     </ul>
-                  </div>
-               </li>
+
+
                <li id="event">
                   <a data-toggle="collapse" href="#eventmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
@@ -305,33 +280,8 @@
                      </ul>
                   </div>
                </li>
-               <li id="time">
-                  <a data-toggle="collapse" href="#timetablemenu">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
-                     <p>TimeTable</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="timetablemenu">
-                     <ul class="nav">
-                        <li id="time1"><a href="<?php echo base_url(); ?>timetable/home">Add TimeTable</a></li>
-                        <li id="time2"><a href="<?php echo base_url(); ?>timetable/manage">View TimeTable</a></li>
-                     </ul>
-                  </div>
-               </li>
-               <li id="exam">
-                  <a data-toggle="collapse" href="#exammenu">
-                     <i class="pe-7s-note2"></i>
-                     <p>Examination</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="exammenu">
-                     <ul class="nav">
-                        <li id="exam1"><a href="<?php echo base_url(); ?>examination/add_exam">Add / View Exams</a></li>
-                        <li id="exam2"><a href="<?php echo base_url(); ?>examination/add_exam_detail">Examination Calendar</a></li>
-                        <li id="exam3"><a href="<?php echo base_url(); ?>examination/exam_name_status">Exam Result Details</a></li>
-                     </ul>
-                  </div>
-               </li>
+
+
                <li id="communication">
                   <a data-toggle="collapse" href="#communcicationmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
@@ -358,31 +308,8 @@
                      </ul>
                   </div>
                </li>
-               <li id="promotion">
-                  <a data-toggle="collapse" href="#promotionmenu">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/promo.png"/>
-                     <p>Promotion</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="promotionmenu">
-                     <ul class="nav">
-                        <li id="promo1"><a href="<?php echo base_url(); ?>promotion/home">Promotion</a></li>
-                     </ul>
-                  </div>
-               </li>
-               <li id="onduty">
-                  <a data-toggle="collapse" href="#ondutydetails">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
-                     <p>On Duty</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="ondutydetails">
-                     <ul class="nav">
-                        <li id="onduty1"><a href="<?php echo base_url(); ?>onduty/teachers">Teachers</a></li>
-                        <li id="onduty2"><a href="<?php echo base_url(); ?>onduty/students">Students</a></li>
-                     </ul>
-                  </div>
-               </li>
+
+
                <li id="user">
                   <a data-toggle="collapse" href="#usermanagement">
                      <i class="pe-7s-settings"></i>
@@ -397,14 +324,7 @@
                      </ul>
                   </div>
                </li>
-               <li id="rank">
-                  <a href="<?php echo base_url(); ?>rank/home">
-                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/homework&classtest.png"/>
-                     <p>Rank</p>
-                  </a>
-               
-               </li>
+            
             </ul>
          </div>
       </div>
-
