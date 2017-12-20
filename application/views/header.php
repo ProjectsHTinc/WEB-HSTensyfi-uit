@@ -102,16 +102,7 @@
             </div>
             <div class="collapse navbar-collapse" style="float:right;margin-top:17px;">
                <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown" style="padding:08px 10px;">
-                     <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size:12px;
-                        color: white;border-color:white;text-transform: uppercase;border-radius: 8px;">
-                     Quick Links</a>
-                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li>
-                        <li><a href="<?php echo base_url(); ?>event/home">Add Reminder</a></li>
-                        <li><a href="<?php echo base_url(); ?>circular/create_circular_master">Circular Master</a></li>
-                     </ul>
-                  </li>
+
                   <li class="dropdown dropdown-with-icons">
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:3px;">
                         <div class="photo">
@@ -324,7 +315,7 @@
                      </ul>
                   </div>
                </li>
-            
+
             </ul>
          </div>
       </div>
