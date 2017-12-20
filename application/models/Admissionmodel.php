@@ -22,12 +22,12 @@ Class Admissionmodel extends CI_Model
           }
 
        //GET ALL Admission Form
-       function get_all_admission()
-	   {
-        $query="SELECT a.admission_id,a.name,a.admisn_no,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,b.blood_group_name,(select GROUP_CONCAT(p.name SEPARATOR ',') from  edu_parents AS p where FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname FROM edu_admission as a,edu_blood_group as b WHERE a.blood_group=b.id  ORDER BY a.admission_id DESC";
-         $res=$this->db->query($query);
-         return $res->result();
-       }
+    //    function get_all_admission()
+	   // {
+    //     $query="SELECT a.admission_id,a.name,a.admisn_no,a.sex,a.mobile,a.email,a.status,a.enrollment,a.parents_status,a.parnt_guardn_id,b.blood_group_name,(select GROUP_CONCAT(p.name SEPARATOR ',') from  edu_parents AS p where FIND_IN_SET (p.id,a.parnt_guardn_id)) as parentsname FROM edu_admission as a,edu_blood_group as b WHERE a.blood_group=b.id  ORDER BY a.admission_id DESC";
+    //      $res=$this->db->query($query);
+    //      return $res->result();
+    //    }
 
 
 	   
@@ -44,12 +44,12 @@ Class Admissionmodel extends CI_Model
          return $res->result();
        }
 
-       function getall_language_proposed()
-       {
-        $lang="SELECT * FROM edu_subject WHERE is_preferred_lang='1'";
-        $lang1=$this->db->query($lang);
-        return $lang1->result();
-       }
+       // function getall_language_proposed()
+       // {
+       //  $lang="SELECT * FROM edu_subject WHERE is_preferred_lang='1'";
+       //  $lang1=$this->db->query($lang);
+       //  return $lang1->result();
+       // }
 
        function getall_blood_group()
        {

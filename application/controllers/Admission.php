@@ -6,38 +6,20 @@ class Admission extends CI_Controller {
 
 	function __construct() {
 		 parent::__construct();
-		  $this->load->model('admissionmodel');
-		  $this->load->model('yearsmodel');
-		  $this->load->model('classmodel');
 		  $this->load->helper('url');
 		  $this->load->library('session');
+		  $this->load->model('admissionmodel');
+		 
+		
  }
-
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-	 // Class section
-
 
 	 	public function home(){
 	 		$datas=$this->session->userdata();
 	 		$user_id=$this->session->userdata('user_id');
 	 		//$datas['result'] = $this->classmodel->getclass();
-			$datas['class'] = $this->classmodel->getclass();
-			$datas['result'] = $this->yearsmodel->getall_years();
-			$datas['lang'] = $this->admissionmodel->getall_language_proposed();
+			//$datas['class'] = $this->classmodel->getclass();
+			//$datas['result'] = $this->yearsmodel->getall_years();
+			//$datas['lang'] = $this->admissionmodel->getall_language_proposed();
 			$datas['blood'] = $this->admissionmodel->getall_blood_group();
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
@@ -184,8 +166,8 @@ class Admission extends CI_Controller {
 		 $user_id=$this->session->userdata('user_id');
 		 $user_type=$this->session->userdata('user_type');
 
-		 $datas['result'] = $this->yearsmodel->getall_years();
-		 $datas['class'] = $this->classmodel->getclass();
+		 //$datas['result'] = $this->yearsmodel->getall_years();
+		 //$datas['class'] = $this->classmodel->getclass();
 		 $datas['res']=$this->admissionmodel->get_ad_id($admission_id);
 		 $datas['lang'] = $this->admissionmodel->getall_language_proposed();
 		 $datas['blood'] = $this->admissionmodel->getall_blood_group();

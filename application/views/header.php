@@ -192,9 +192,7 @@
                   <div class="collapse" id="mastersmenu">
                      <ul class="nav">
                         <li id="masters1"><a href="<?php echo base_url();  ?>years/home">Academic Years</a></li>
-                        <li id="masters2"><a href="<?php echo base_url();  ?>years/terms">Academic Terms</a></li>
-                        <li id="masters3"><a href="<?php echo base_url(); ?>classadd/addclass">Class & Sections</a></li>
-                        <li id="masters4" ><a href="<?php echo base_url(); ?>subjectadd/addsubject">Subjects</a></li>
+                        <li id="masters3"><a href="<?php echo base_url(); ?>trade/addtrade">Trade & Batch</a></li>
                         <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
                      </ul>
                   </div>

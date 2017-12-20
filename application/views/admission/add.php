@@ -19,40 +19,13 @@
                         <div class="col-sm-4">
                            <input type="text" name="admission_year"  class="form-control datepicker1" placeholder="Select Admission Year"/>
                         </div>
-                        <label class="col-sm-2 control-label">Admission No</label>
-                        <div class="col-sm-4">
-                           <input type="text" class="form-control" onkeyup="checkemailfun1(this.value)" name="admission_no" id="admission_no">
-                           <p id="no" style="color:red;"></p>
-                           <p id="no1" style="color:green;"></p>
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Admission Date</label>
+                       <label class="col-sm-2 control-label">Admission Date</label>
                         <div class="col-sm-4">
                            <input type="text" name="admission_date" class="form-control datepicker" placeholder="Admission Date "/>
                         </div>
-                        <label class="col-sm-2 control-label">EMSI Number</label>
-                        <div class="col-sm-4">
-                           <input type="text" name="emsi_num" class="form-control" placeholder="Enter EMSI Number "/>
-                        </div>
                      </div>
                   </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Email</label>
-                        <div class="col-sm-4">
-                           <input type="text" name="email"  class="form-control"  onkeyup="checkemailfun(this.value)" id="email" placeholder="Email Address" />
-                           <p id="msg" style="color:red;"></p>
-                           <p id="msg1" style="color:green;"></p>
-                        </div>
-                        <label class="col-sm-2 control-label">Secondary-Email</label>
-                        <div class="col-sm-4">
-                           <input type="text" name="sec_email" class="form-control " id="sec_email" placeholder="Secondary Email Address" />
-                        </div>
-                     </div>
-                  </fieldset>
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
@@ -68,6 +41,22 @@
                         </div>
                      </div>
                   </fieldset>
+                 
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="email"  class="form-control"  onkeyup="checkemailfun(this.value)" id="email" placeholder="Email Address" />
+                           <p id="msg" style="color:red;"></p>
+                           <p id="msg1" style="color:green;"></p>
+                        </div>
+                        <label class="col-sm-2 control-label">Secondary-Email</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="sec_email" class="form-control " id="sec_email" placeholder="Secondary Email Address" />
+                        </div>
+                     </div>
+                  </fieldset>
+                  
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Date of birth</label>
