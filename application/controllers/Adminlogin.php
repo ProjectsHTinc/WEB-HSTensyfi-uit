@@ -25,7 +25,7 @@ class Adminlogin extends CI_Controller {
 	 *
 	 * So any other public methods not prefixed with an underscore will
 	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html 
+	 * @see https://codeigniter.com/user_guide/general/urls.html
 	 */
 	public function home()
 	{
@@ -56,29 +56,16 @@ class Adminlogin extends CI_Controller {
 								$datas= array("user_name"=>$user_name, "msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
 								//$this->session->userdata($user_name);
 								$session_data=$this->session->set_userdata($datas);
-								$datas['res']=$this->dashboard->get_user_count_student();
-								$datas['parents']=$this->dashboard->get_user_count_parents();
-								$datas['teacher']=$this->dashboard->dash_teacher_users();
-	                            $datas['pending_leave']=$this->dashboard->pending_leave();
-								//print_r($datas['pending_leave']);
-								$datas['das_events']=$this->dashboard->dash_events();
-								$datas['das_users']=$this->dashboard->dash_users();
-								$datas['dash_comm']=$this->dashboard->dash_comm();
-								// print_r($datas['dash_comm']);exit;
-								$datas['dash_reminder']=$this->dashboard->dash_reminder($user_id);
-								$datas['class']=$this->dashboard->get_all_class_sec();
-							   //print_r($datas['class']);exit;
-								$this->load->view('header',$datas);
+
+								$this->load->view('header');
 								$this->load->view('home',$datas);
 								$this->load->view('footer');
 							break;
 							case '2':
 							$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];
 							$datas= array("user_name"=>$user_name, "msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
-							$session_data=$this->session->set_userdata($datas);
-							$datas['das_events']=$this->dashboard->dash_events();
-							$datas['user_details']=$this->dashboard->dash_teacher($user_id);
-							$this->load->view('adminteacher/teacher_header',$datas);
+
+							$this->load->view('adminteacher/teacher_header');
 							$this->load->view('adminteacher/home',$datas);
 							$this->load->view('adminteacher/teacher_footer');
 							break;
@@ -122,28 +109,6 @@ class Adminlogin extends CI_Controller {
 				}
 
 
-	    // if($user_type==1){
-		// 		$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];
-		// 		$datas['user_data'] = array("user_name"=>$user_name, "msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
-		// 		 //$this->session->userdata($user_name);
-		// 		$this->load->view('header',$datas);
-		// 		$this->load->view('home');
-		// 		$this->load->view('footer');
-		//
-		// 	}
-		//
-		// elseif($msg=="Password Wrong"){
-		// 	$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
-		// 	$this->session->set_flashdata('msg', 'Password Wrong');
-		// 	redirect('/');
-		//
-		// }
-		//
-		// else{
-		// 	$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
-		// 	$this->session->set_flashdata('msg', ' Email invalid');
-		// 	 redirect('/');
-		// }
 
 }
 
@@ -174,49 +139,15 @@ class Adminlogin extends CI_Controller {
 		 $datas['result'] = $this->login->getuser($user_id);
 		 $user_type=$this->session->userdata('user_type');
 		 if($user_type==1){
-			 $datas['res']=$this->dashboard->get_user_count_student();
-			 $datas['parents']=$this->dashboard->get_user_count_parents();
-			 $datas['teacher']=$this->dashboard->dash_teacher_users();
-			 $datas['das_events']=$this->dashboard->dash_events();
-			 $datas['das_users']=$this->dashboard->dash_users();
-			 $datas['dash_comm']=$this->dashboard->dash_comm();
-			// print_r($datas['dash_comm']);exit;
-			 $datas['dash_reminder']=$this->dashboard->dash_reminder($user_id);
-			 
-			 $datas['pending_leave']=$this->dashboard->pending_leave();
-			 $datas['class']=$this->dashboard->get_all_class_sec();
-			 //echo'<pre>'; print_r($datas['class']);exit;
 
-			$this->load->view('header',$datas);
+			$this->load->view('header');
 			$this->load->view('home',$datas);
 			$this->load->view('footer');
 		}else if($user_type==2){
-			$datas['user_details']=$this->dashboard->dash_teacher($user_id);
-			$datas['das_events']=$this->dashboard->dash_events();
-			$this->load->view('adminteacher/teacher_header',$datas);
+
+			$this->load->view('adminteacher/teacher_header');
 			$this->load->view('adminteacher/home',$datas);
 			$this->load->view('adminteacher/teacher_footer');
-		}else if($user_type==3){
-			$datas['user_details']=$this->dashboard->dash_students($user_id);
-			$datas['stud_details']=$this->dashboard->get_students($user_id);
-			$datas['stud_circular']=$this->dashboard->get_students_circular($user_id);
-			$datas['stud_cls_id']=$this->dashboard->get_students_cls_id($user_id);
-
-			//print_r($datas['stud_circular']);exit;
-
-			$this->load->view('adminstudent/student_header',$datas);
-			$this->load->view('adminstudent/home',$datas);
-			$this->load->view('adminstudent/student_footer');
-		}else if($user_type==4){
-			$datas['user_details']=$this->dashboard->dash_parents($user_id);
-			$datas['stud_details']=$this->dashboard->get_students($user_id);
-			$datas['parents_circular']=$this->dashboard->get_parents_circular($user_id);
-			$datas['res']=$this->dashboard->stud_details($user_id);
-            //echo '<pre>'; print_r($datas['user_details']);exit;
-			//echo '<pre>'; print_r($datas['user_details']);exit;
-			$this->load->view('adminparent/parent_header',$datas);
-			$this->load->view('adminparent/home',$datas);
-			$this->load->view('adminparent/parent_footer');
 		}
 		else{
 				 redirect('/');

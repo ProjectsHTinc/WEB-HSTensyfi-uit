@@ -1,15 +1,4 @@
-<?php
-          $server_url = $_SERVER['HTTP_HOST'];
-          $query="SELECT user_pic,school_id,name FROM edu_users WHERE user_type=1";
-		  $objRs=$this->db->query($query);
-		  $row=$objRs->result();
-		  foreach ($row as $rows1)
-		  {
-			   $pic=$rows1->user_pic;
-			   $sid=$rows1->school_id;
-			   $sname=$rows1->name;
-		  }
-?>
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -70,21 +59,13 @@ body{
                             <div class="card card-hidden">
 
 
-						<?php
-									  if($pic!='')
-									  {
-								?>
-                                  <div class="header text-center">
-					                <img src="http://<?php echo $server_url; ?>/<?php echo $sid; ?>/assets/admin/profile/<?php echo $pic; ?>" class="img-circle" style="width:150px;height: 150px;"> </div>
-						 <?php }else{
-							   ?><div class="header text-center">
-							  <img src="http://<?php echo $server_url; ?>/<?php echo $sid; ?>/assets/main_logo.png"> </div>
-						 <?php } ?>
+
+                                <div class="header text-center">
+							                           <img src="<?php echo base_url(); ?>/assets/main_logo.png">
+                                  </div>
+
                                 <div class="content">
-								<!-- <div class="form-group">
-										<label>School ID</label>
-										<input type="text" placeholder="Enter School ID" name="school_id" class="form-control" value="">
-								</div> -->
+					
                                     <div class="form-group">
                                         <label>Username</label>
                                         <input type="text" placeholder="Enter Username" name="email" class="form-control">
