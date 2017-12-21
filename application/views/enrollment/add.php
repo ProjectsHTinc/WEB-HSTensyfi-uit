@@ -31,11 +31,11 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Admission No</label>
+                        <label class="col-sm-2 control-label">Student Name</label>
                         <div class="col-sm-4">
-                           <select name="admisn_no" id="admission_no" onchange="checknamefun(this.value)" class="selectpicker form-control" data-title="Select Admission No" >
-                              <?php foreach ($admisno as $row) {  ?>
-                              <option value="<?php echo $row->admisn_no; ?>"><?php echo $row->admisn_no; ?></option>
+                           <select name="name" id="name" onchange="checknamefun(this.value)" class="selectpicker form-control" data-title="Select Student Name" >
+                              <?php foreach ($admisn as $row) {  ?>
+                              <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
                               <?php      } ?>
                            </select>
                             </div>
@@ -58,54 +58,19 @@
                         </div>
                      </div>
                   </fieldset>
-                  <fieldset>
+                 <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Class</label>
+                        <label class="col-sm-2 control-label">Trade & Batch </label>
                         <div class="col-sm-4">
-                           <select name="class_section" class="selectpicker form-control" data-title="Select Class" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <?php foreach ($getall_class as $rows) {  ?>
-                              <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>&nbsp; - &nbsp;<?php echo $rows->sec_name; ?></option>
+                           <select name="trade_batch" class="selectpicker form-control" data-title="Select Trade & Batch" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                              <?php foreach ($getall as $rows) {  ?>
+                              <option value="<?php echo $rows->id; ?>"><?php echo $rows->trade_name; ?>&nbsp; - &nbsp;<?php echo $rows->batch_name; ?></option>
                               <?php      } ?>
                            </select>
                         </div>
                      </div>
                   </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Quota</label>
-                        <div class="col-sm-4">
-                           <select name="quota_id" class="selectpicker form-control" data-title="Select Quota Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <?php foreach ($quota as $row1) {  ?>
-                              <option value="<?php echo $row1->id; ?>"><?php echo $row1->quota_name; ?></option>
-                              <?php      } ?>
-                           </select>
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">House Groups</label>
-                        <div class="col-sm-4">
-                           <select name="groups_id" class="selectpicker form-control" data-title="Select Groups Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <?php foreach ($groups as $row2) {  ?>
-                              <option value="<?php echo $row2->id; ?>"><?php echo $row2->group_name; ?></option>
-                              <?php      } ?>
-                           </select>
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Extra curricular Activities</label>
-                        <div class="col-sm-4">
-                           <select multiple name="activity_id[]" class="selectpicker form-control" data-title="Select Actvities Name" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <?php foreach ($activities as $row3) {  ?>
-                              <option value="<?php echo $row3->id; ?>"><?php echo $row3->extra_curricular_name; ?></option>
-                              <?php      } ?>
-                           </select>
-                        </div>
-                     </div>
-                  </fieldset>
+                  
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Status</label>
@@ -197,7 +162,7 @@
 	   $.ajax({
 	   type:'post',
 	   url:'<?php echo base_url(); ?>/enrollment/checker',
-	   data:'admisno='+val,
+	   data:'stuname='+val,
 	   
 	   success:function(test)
 	   {
@@ -210,7 +175,7 @@
 		   //$("#msg").html(test);
 	     }
 	   else{
-	   alert("Admission Number not found");
+	   alert("Name not found");
 	   $("#save1").hide();
 	   //$("#msg").html(test);
 	   

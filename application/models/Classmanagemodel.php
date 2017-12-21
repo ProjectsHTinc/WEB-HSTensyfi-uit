@@ -45,7 +45,7 @@ Class Classmanagemodel extends CI_Model
   {
     $year_id=$this->getYear();
     
-    $query="SELECT cm.*,t.trade_name,b.batch_name FROM  edu_trade_batch AS cm,edu_trade AS t,edu_batch AS b WHERE  cm.year_id='$year_id' AND cm.trade_id=t.id AND cm.batch_id=b.id";
+    $query="SELECT tb.*,t.trade_name,b.batch_name FROM  edu_trade_batch AS tb,edu_trade AS t,edu_batch AS b WHERE  tb.year_id='$year_id' AND tb.trade_id=t.id AND tb.batch_id=b.id";
     $resultset=$this->db->query($query);
     return $resultset->result();
   }
@@ -78,14 +78,14 @@ Class Classmanagemodel extends CI_Model
 
   function getall_class()
   {
-    $query="SELECT c.class_name,s.sec_name,cm.class_sec_id,cm.status FROM edu_class AS c,edu_sections AS s ,edu_trade_batch AS cm WHERE cm.class = c.class_id AND cm.section = s.sec_id ORDER BY c.class_name";
+    $query="SELECT c.class_name,s.sec_name,tb.class_sec_id,tb.status FROM edu_class AS c,edu_sections AS s ,edu_trade_batch AS tb WHERE tb.class = c.class_id AND tb.section = s.sec_id ORDER BY c.class_name";
     $result=$this->db->query($query);
     return $result->result();
   }
 
   function edit_cs($class_sec_id)
   {
-    $query="SELECT t.trade_name,t.id,b.batch_name,b.id,cm.id,cm.trade_id,cm.batch_id,cm.status FROM edu_trade AS t,edu_batch AS b,edu_trade_batch AS cm WHERE cm.trade_id=t.id AND cm.batch_id =b.id AND cm.id='$class_sec_id'";
+    $query="SELECT t.trade_name,t.id,b.batch_name,b.id,tb.id,tb.trade_id,tb.batch_id,tb.status FROM edu_trade AS t,edu_batch AS b,edu_trade_batch AS tb WHERE tb.trade_id=t.id AND tb.batch_id =b.id AND tb.id='$class_sec_id'";
     $result=$this->db->query($query);
     return $result->result();
   }

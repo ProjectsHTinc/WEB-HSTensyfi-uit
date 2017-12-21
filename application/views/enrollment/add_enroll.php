@@ -1,5 +1,3 @@
-
-
 <div class="main-panel">
    <div class="content">
       <div class="col-md-12">
@@ -28,27 +26,22 @@
                            <?php   }else{  ?>
                            <input type="text" name="year_id"  class="form-control" value="" readonly="">
                            <?php     } ?>
-                           <!-- <select name="admit_year" class="selectpicker form-control" data-title="Select Year" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <?php foreach ($years as $row) {
-                                 $fyear=$row->from_month;
-                                 $month= strtotime($fyear);
-                                 // echo $rows->year_id;
-                                 $eyear=$row->to_month;
-                                 $month1= strtotime($eyear);
-                                 ?>
-                              <option value="<?php echo $row->year_id; ?>"><?php echo date('Y',$month); ?> (To) <?php  echo date('Y',$month1); ?></option>
-                              <?php } ?>
-                              
-                              </select>-->
                         </div>
                      </div>
                   </fieldset>
+                  <!--fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Admission Number</label>
+                        <div class="col-sm-4">
+                           <input type="text" readonly class="form-control" value="<?php echo $rows->id; ?>" name="admission_id" id="admission_id">
+                        </div>
+                     </div>
+                  </fieldset-->
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Admission No</label>
+                        <label class="col-sm-2 control-label">Student Name</label>
                         <div class="col-sm-4">
-                           <input type="text" class="form-control" readonly value="<?php echo $rows->admisn_no; ?>" name="admisn_no" id="admission_no">
-                           <input type="hidden" class="form-control" value="<?php echo $rows->admission_id; ?>" name="admission_id" id="admission_id">
+                           <input type="text" value="<?php echo $rows->name; ?>" name="name" readonly class="form-control">
                         </div>
                      </div>
                   </fieldset>
@@ -56,31 +49,24 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Registration Date</label>
                         <div class="col-sm-4">
-                           <input type="text" value="" name="admit_date" class="form-control datepicker" placeholder="Registration Date"/>
+                           <input type="text"  name="admit_date" class="form-control datepicker" placeholder="Registration Date"/>
                         </div>
                      </div>
                   </fieldset>
+                  
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Student Name</label>
+                        <label class="col-sm-2 control-label">Trade & Batch </label>
                         <div class="col-sm-4">
-                           <input type="text" value="<?php echo $rows->name; ?>"name="name" readonly class="form-control">
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Class</label>
-                        <div class="col-sm-4">
-                           <select name="class_section" class="selectpicker form-control" data-title="Select Class" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                              <?php foreach ($getall_class as $rows) {  ?>
-                              <option value="<?php echo $rows->class_sec_id; ?>"><?php echo $rows->class_name; ?>&nbsp; - &nbsp;<?php echo $rows->sec_name; ?></option>
+                           <select name="trade_batch" class="selectpicker form-control" data-title="Select Trade & Batch" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                              <?php foreach ($getall as $rows) {  ?>
+                              <option value="<?php echo $rows->id; ?>"><?php echo $rows->trade_name; ?>&nbsp; - &nbsp;<?php echo $rows->batch_name; ?></option>
                               <?php      } ?>
                            </select>
                         </div>
                      </div>
                   </fieldset>
-                  <fieldset>
+                  <!--fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Quota</label>
                         <div class="col-sm-4">
@@ -115,14 +101,14 @@
                            </select>
                         </div>
                      </div>
-                  </fieldset>
+                  </fieldset-->
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Status</label>
                         <div class="col-sm-4">
                            <select name="status" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <option value="Active">Active</option>
-                              <option value="Deactive">DE-Active</option>
+                              <option value="Deactive">DeActive</option>
                            </select>
                         </div>
                      </div>
@@ -131,7 +117,7 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">&nbsp;</label>
                         <div class="col-sm-10">
-                           <button type="submit" class="btn btn-info btn-fill center">Save Profile</button>
+                           <button type="submit" class="btn btn-info btn-fill center">Save</button>
                         </div>
                      </div>
                   </fieldset>
@@ -147,43 +133,28 @@
    
     $('#admissionform').validate({ // initialize the plugin
         rules: {
-             year_id:{required:true},
-       year_name:{required:true},
-            admit_year:{required:true, number: true },
-            admisn_no:{required:true },
-            admit_date:{required:true },
-            name:{required:true },
-            admit_date:{required:true },
-            class:{required:true },
-            section:{required:true },
-        quota_id:{required:true },
-       groups_id:{required:true },
-       //"activity_id[]":{required:true },
-        status:{required:true }
+          year_id:{required:true},
+          year_name:{required:true},
+          admit_year:{required:true, number: true },
+          admit_date:{required:true },
+          name:{required:true },
+          trade_batch:{required:true },
+          status:{required:true }
    
         },
         messages: {
-              year_id:"Academic Year not enable",
+         year_id:"Academic Year not enable",
          year_name:"Academic Year not enable",
-              admit_year: "Enter Admission Year",
-              admisn_no: "Enter Admission No",
-              admit_date: "Select Admission Date",
-              name: "Enter Name",
-               admit_date: "Select The Date",
-              class: "Select Class",
-              section: "Select Section",
-          quota_id: "Select Quota",
-               groups_id: "Select House Groups ",
-              //"activity_id[]": "Select Extra Curricular  ",
-              status: "Select Status"
-   
+         admit_year: "Enter Admission Year",
+         admit_date: "Select Admission Date",
+         name: "Enter Name",
+         admit_date: "Select The Date",
+         trade_batch:"Select Trade & Batch",
+         status: "Select Status"
             }
     });
-   });
+  
    
-</script>
-<script type="text/javascript">
-   $().ready(function(){
    jQuery('#enrollmentmenu').addClass('collapse in');
    $('#enroll').addClass('active');
    $('#enroll1').addClass('active');

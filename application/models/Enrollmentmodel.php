@@ -27,47 +27,41 @@ Class Enrollmentmodel extends CI_Model
 
 //CREATE ADMISSION   ad_enrollment
 
-        function ad_enrollment($admisnid,$admit_year,$formatted_date,$admisn_no,$name,$class,$quota_id,$groups_id,$activity_id,$status){
-        	//echo $admisn_no; echo'<br>'; echo $admisnid;
+      function ad_enrollment($admisnid,$admit_year,$formatted_date,$trade_batch,$name,$status,$user_id)
+      {
 			$year_id=$this->getYear();
-          $check_email="SELECT * FROM edu_enrollment WHERE admit_year='$admit_year' AND admit_year='$year_id' AND admisn_no='$admisn_no'";
+
+         $check_email="SELECT * FROM edu_enrollment WHERE admit_year='$admit_year' AND admit_year='$year_id' AND admission_id='$admisnid'";
           $result=$this->db->query($check_email);
-          if($result->num_rows()==0){
-
-			  $digits = 6;
+          if($result->num_rows()==0)
+          {
+			   $digits = 6;
 		      $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
-			  //echo $OTP;
-              $md5pwd=md5($OTP);
+            $md5pwd=md5($OTP);
 
-			  $admisn="select name,admission_id,admisn_no from edu_admission WHERE admisn_no='".$admisn_no."'"; 
-     	      $resultset = $this->db->query($admisn);
-		      foreach ($resultset->result() as $rows)
-		      {}
-			    if(!empty($admisnid)){
-		        $admisnid=$rows->admission_id; 
-				}else{
-					$admisnid=$admisnid;
-				}
+			 //  $admisn="select name,admission_id from edu_admission WHERE admission_id='".$admisnid."'"; 
+         // $resultset = $this->db->query($admisn);
+		  //     foreach ($resultset->result() as $rows)
+		  //     {}
+			 //    if(!empty($admisnid)){
+		  //       $admisnid=$rows->admission_id; 
+				// }else{
+				// 	$admisnid=$admisnid;
+				// }
 				//echo  $admisn_no;exit;
-             $query="INSERT INTO edu_enrollment (admission_id,admit_year,admit_date,admisn_no,name,class_id,house_id,extra_curicullar_id,quota_id,created_at,status) VALUES ('$admisnid','$admit_year','$formatted_date','$admisn_no','$name','$class','$groups_id','$activity_id','$quota_id',NOW(),'$status')";
+             $query="INSERT INTO edu_enrollment (admission_id,admit_year,admit_date,name,batch_trade_id,created_at,created_by,status) VALUES ('$admisnid','$admit_year','$formatted_date','$name','$trade_batch',NOW(),'$user_id','$status')";
              $resultset=$this->db->query($query);
-             
-            //Student User Creation
-             $sql="SELECT COUNT(admission_id) AS student FROM edu_admission " ;
-             $resultsql=$this->db->query($sql);
-             $result1= $resultsql->result();
-             $cont=$result1[0]->student;
-			//echo $cont;
-             $user_id=$admisnid+400000;
+			 
+             $user_id=$admisnid+500000;
               //echo $user_id;
-             $getmail="select email,mobile,name from edu_admission WHERE admission_id='".$admisnid."'";
-     	      $resultset12 = $this->db->query($getmail);
-			  $reu=$resultset12->result();
-
+             $getmail="select email,mobile,name from edu_admission WHERE id='".$admisnid."'";
+     	       $resultset12 = $this->db->query($getmail);
+			    $reu=$resultset12->result();
+ 
              foreach($reu as $rows){}
              $email=$rows->email;
-			 $cell=$rows->mobile;
-			 $sname=$rows->name;
+				 $cell=$rows->mobile;
+				 $sname=$rows->name;
 
 			 if(!empty($email))
 			 {
@@ -120,10 +114,10 @@ Class Enrollmentmodel extends CI_Model
 				curl_close($ch);
 			 }
 
-              $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,student_id,created_date,updated_date,status) VALUES ('$name','$user_id','$md5pwd','3','$admisnid','$admisnid',NOW(),NOW(),'$status')";
+              $stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,created_date,updated_date,status) VALUES ('$name','$user_id','$md5pwd','5','$admisnid',NOW(),NOW(),'$status')";
               $resultset=$this->db->query($stude_insert);
 
-      		 $query2="UPDATE edu_admission SET enrollment='1' WHERE admission_id='$admisnid'";
+      		 $query2="UPDATE edu_admission SET enrollment='1' WHERE id='$admisnid'";
       		 $resultset=$this->db->query($query2);
 
             $data= array("status" => "success");
@@ -138,9 +132,9 @@ Class Enrollmentmodel extends CI_Model
 	   function add_enrollment($admission_id)
 	   {
 
-		    $query="SELECT admission_id,admisn_year,name,admisn_no FROM edu_admission WHERE admission_id='$admission_id'";
+		    $query="SELECT id,admission_date,name FROM edu_admission WHERE id='$admission_id'";
 		    $res=$this->db->query($query);
-            return $res->result();
+           return $res->result();
 	   }
 
 	    function get_current_years()
@@ -157,6 +151,22 @@ Class Enrollmentmodel extends CI_Model
 			//print_r($all_year);
 		  }
 
+		}
+
+		function get_all_admission()
+		{
+		 $query="SELECT * FROM edu_admission WHERE enrollment='0' AND status='Active'";
+	    $res=$this->db->query($query);
+        return $res->result();
+		}
+
+		function get_all_trade_batch()
+		{
+			$year_id=$this->getYear();
+    
+    $query="SELECT tb.*,t.trade_name,b.batch_name FROM  edu_trade_batch AS tb,edu_trade AS t,edu_batch AS b WHERE  tb.year_id='$year_id' AND tb.trade_id=t.id AND tb.batch_id=b.id";
+    $resultset=$this->db->query($query);
+    return $resultset->result();
 		}
 
        //GET ALL Admission Form get_enrollmentid
@@ -242,15 +252,14 @@ Class Enrollmentmodel extends CI_Model
          return $data;
        }
 
-	    function getData($admisno)
+	    function getData($stu_name)
 		{
 
-		  $query = "select name,admission_id,admisn_no from edu_admission WHERE admisn_no='".$admisno."'";
+		  $query = "select name,id from edu_admission WHERE name='".$stu_name."'";
      	  $resultset = $this->db->query($query);
 		  foreach ($resultset->result() as $rows)
 		  {
-		   echo $rows->name;
-		   //echo $rows->admission_id;  
+		   echo $rows->id;
 		   exit;
 		  }
 

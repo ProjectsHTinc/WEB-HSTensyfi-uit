@@ -223,10 +223,10 @@
                         <div class="col-sm-10">
                            <div class="row">
                               <div class="col-md-4">
-                                 <input type="text" name="institute_name" placeholder="Previous Institute Name" class="form-control">
+                                 <input type="text" name="institute_name" placeholder="Previous Institute Or School Name" class="form-control">
                               </div>
                               <div class="col-md-4">
-                                 <input type="text" name="last_studied" placeholder="Past Out From" class="form-control">
+                                 <input type="text" name="last_studied" placeholder="Class  Or Degree" class="form-control">
                               </div>
                               <div class="col-md-4">
                                  <select name="qual" class="selectpicker" data-title="Qualified for promotion" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
