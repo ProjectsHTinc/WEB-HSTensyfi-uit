@@ -194,7 +194,7 @@
 
                         <li id="masters1"><a href="<?php echo base_url();  ?>years/home">Academic Years</a></li>
                         <li id="masters3"><a href="<?php echo base_url(); ?>trade/addtrade">Trade & Batch</a></li>
-                        <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Class Management </a></li>
+                        <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Trade & Batch Management </a></li>
                         <li id="masters6"><a href="<?php echo base_url();  ?>scheme/home">Scheme</a></li>
                         <li id="masters7"><a href="<?php echo base_url();  ?>center/home">Center</a></li>
                      </ul>

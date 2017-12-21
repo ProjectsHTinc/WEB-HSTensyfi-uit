@@ -5,7 +5,7 @@
       <div class="container-fluid">
          <div class="col-md-8">
             <div class="card">
-               <div class="header">Class Management</div>
+               <div class="header">Trade & Batch Management</div>
                <div class="content">
                   <br>
                   <form class="form-horizontal" method="post" action="<?php echo base_url(); ?>classmanage/assign" enctype="multipart/form-data" id="myformclassmange">

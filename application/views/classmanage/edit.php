@@ -7,7 +7,7 @@
             <div class="col-md-10">
                <?php foreach ($res as $rows) { } ?>
                <div class="card">
-                  <div class="header">Class Management</div>
+                  <div class="header">Edit Trade & Batch Management </div>
                   <div class="content">
                      <form class="form-horizontal" method="post" action="<?php echo base_url(); ?>classmanage/update_cs" name="class_manage" enctype="multipart/form-data" id="myformclassmange">
                         <div class="form-group">
