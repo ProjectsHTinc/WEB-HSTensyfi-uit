@@ -1,3 +1,6 @@
+<script src="<?php echo base_url(); ?>assets/js/timepicki.js"></script>
+<link href="<?php echo base_url(); ?>assets/css/timepicki.css" rel="stylesheet" type="text/css">
+  
 <div class="main-panel">
    <div class="content">
       <div class="col-md-12">
@@ -13,15 +16,32 @@
             <?php endif; ?>
             <div class="content">
                <form method="post" action="<?php echo base_url(); ?>admission/create" class="form-horizontal" enctype="multipart/form-data" id="admissionform">
+
+                <fieldset>
+                     <div class="form-group">
+                      <label class="col-sm-2 control-label">Had Aadhar Card</label>
+                        <div class="col-sm-4">
+                           <select name="had_aadhar_card" class="selectpicker form-control" data-title="Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                              <option value="1">Yes</option>
+                              <option value="0">No</option>
+                           </select>
+                        </div>
+                        <label class="col-sm-2 control-label">Aadhar Card Number</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Enter Aadhar Card Number" name="aadhar_card_num" class="form-control" >
+                        </div>
+                     </div>
+                  </fieldset>
+
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Admission Year</label>
-                        <div class="col-sm-4">
-                           <input type="text" name="admission_year"  class="form-control datepicker1" placeholder="Select Admission Year"/>
-                        </div>
                        <label class="col-sm-2 control-label">Admission Date</label>
                         <div class="col-sm-4">
                            <input type="text" name="admission_date" class="form-control datepicker" placeholder="Admission Date "/>
+                        </div>
+                        <label class="col-sm-2 control-label">Admission Location</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="admission_location" class="form-control" placeholder="Enter Admission Location"/>
                         </div>
                      </div>
                   </fieldset>
@@ -30,9 +50,9 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Name</label>
                         <div class="col-sm-4">
-                           <input type="text" name="name" class="form-control" value="">
+                           <input type="text" name="name" class="form-control" placeholder="Enter Name">
                         </div>
-                        <label class="col-sm-2 control-label">Gender</label>
+                         <label class="col-sm-2 control-label">Gender</label>
                         <div class="col-sm-4">
                            <select name="sex" class="selectpicker form-control" data-title="Select Gender" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <option value="Male">Male</option>
@@ -41,19 +61,36 @@
                         </div>
                      </div>
                   </fieldset>
+
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Father Name</label>
+                        <div class="col-sm-4">
+                         <input type="text" name="fname" class="form-control" placeholder="Enter Father Name">
+                        </div>
+                        <label class="col-sm-2 control-label">Mother Name</label>
+                        <div class="col-sm-4">
+                           <input type="text" name="mname" class="form-control "  placeholder="Enter  Mother Name" />
+                        </div>
+                     </div>
+                  </fieldset>
                  
                   <fieldset>
                      <div class="form-group">
+                       <label class="col-sm-2 control-label">Disability</label>
+                        <div class="col-sm-4">
+                           <select name="disability" class="selectpicker form-control" data-title="Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                              <option value="1">Yes</option>
+                              <option value="0">No</option>
+                           </select>
+                        </div>
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-4">
                            <input type="text" name="email"  class="form-control"  onkeyup="checkemailfun(this.value)" id="email" placeholder="Email Address" />
                            <p id="msg" style="color:red;"></p>
                            <p id="msg1" style="color:green;"></p>
                         </div>
-                        <label class="col-sm-2 control-label">Secondary-Email</label>
-                        <div class="col-sm-4">
-                           <input type="text" name="sec_email" class="form-control " id="sec_email" placeholder="Secondary Email Address" />
-                        </div>
+                        
                      </div>
                   </fieldset>
                   
@@ -69,47 +106,21 @@
                         </div>
                      </div>
                   </fieldset>
-                  <fieldset>
+
+                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">Nationality</label>
+                        <label class="col-sm-2 control-label">Address</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Nationality" name="nationality" class="form-control">
+                           <textarea name="address" rows="5" cols="43"></textarea>
                         </div>
-                        <label class="col-sm-2 control-label">Religion</label>
+                        <label class="col-sm-2 control-label">preferred_timing</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Religion" name="religion" class="form-control">
+                            <input  type="text" class="form-control" id="stime" name="prefer_time">
                         </div>
                      </div>
                   </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Community Class</label>
-                        <div class="col-sm-4">
-                           <input type="text" placeholder="Community Class" name="community_class" class="form-control">
-                        </div>
-                        <label class="col-sm-2 control-label">Community</label>
-                        <div class="col-sm-4">
-                           <input type="text" placeholder="Community" name="community" class="form-control">
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Mother Tongue</label>
-                        <div class="col-sm-4">
-                           <input type="text" placeholder="Mother Tongue" name="mother_tongue" class="form-control">
-                        </div>
-                        <label class="col-sm-2 control-label">Language Proposed</label>
-                        <div class="col-sm-4">
-                           <select name="lang" class="selectpicker" data-title="Language Proposed" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                            <?php foreach($lang as $res){ ?>
-                              <option value="<?php echo $res->subject_id;?>"><?php echo $res->subject_name;?></option>
-                              <?php } ?>
-                           </select>
-                        </div>
-                     </div>
-                  </fieldset>
-                  <fieldset>
+
+                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Mobile</label>
                         <div class="col-sm-4">
@@ -118,10 +129,13 @@
                         </div>
                         <label class="col-sm-2 control-label">Secondary Mobile</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mobile Number" name="sec_mobile" class="form-control">
+                           <input type="text" placeholder="Secondary Mobile Number" name="sec_mobile" class="form-control">
                         </div>
                      </div>
                   </fieldset>
+
+
+                   
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Student Picture</label>
@@ -139,40 +153,99 @@
                        
                      </div>
                   </fieldset>
+                  
                   <fieldset>
                      <div class="form-group">
-                        <label class="col-sm-2 control-label">School Studied</label>
+                        <label class="col-sm-2 control-label">City</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Enter City Name" name="city" class="form-control" >
+                           <p id="cellmsg1"></p>
+                        </div>
+                        <label class="col-sm-2 control-label">State</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Enter State Name" name="state" class="form-control">
+                        </div>
+                     </div>
+                  </fieldset>
+
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Nationality</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Nationality" name="nationality" class="form-control">
+                        </div>
+                        <label class="col-sm-2 control-label">Religion</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Religion" name="religion" class="form-control">
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Community Class</label>
+                        <div class="col-sm-4">
+                          <select name="community_class" class="selectpicker" data-title="Community Class" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                            <option value="SC">Scheduled Castes-SC</option>
+                            <option value="ST">Scheduled Tribes-ST</option>
+                            <option value="MBC">Most Backward Classes-MBC</option>
+                            <option value="BC">Backward Classes-BC</option>
+                            <option value="BCM">Backward Classes Muslims-BCM</option>
+                            <option value="DC">Denotified Communities-DC</option>
+                            <option value="FC">Forward Class-FC</option>
+                          </select>
+                        </div>
+                        <label class="col-sm-2 control-label">Community</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Community" name="community" class="form-control">
+                        </div>
+                     </div>
+                  </fieldset>
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label">Mother Tongue</label>
+                        <div class="col-sm-4">
+                           <input type="text" placeholder="Mother Tongue" name="mother_tongue" class="form-control">
+                        </div>
+                        <label class="col-sm-2 control-label">Preferred Course</label>
+                        <div class="col-sm-4">
+                           <select name="course" class="selectpicker" data-title="Preferred Course" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                            <?php foreach($lang as $res){ ?>
+                              <option value="<?php echo $res->id;?>"><?php echo $res->trade_name;?></option>
+                              <?php } ?>
+                           </select>
+                        </div>
+                     </div>
+                  </fieldset>
+
+                  <fieldset>
+                     <div class="form-group">
+                        <label class="col-sm-2 control-label"> Institute Details</label>
                         <div class="col-sm-10">
                            <div class="row">
                               <div class="col-md-4">
-                                 <input type="text" name="sch_name" placeholder="Previous School" class="form-control">
+                                 <input type="text" name="institute_name" placeholder="Previous Institute Name" class="form-control">
                               </div>
                               <div class="col-md-4">
-                                 <select name="class_name" class="selectpicker" data-title="Pass Out From" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                    <?php foreach ($class as $clas) {  ?>
-                                    <option value="<?php  echo $clas->class_id; ?>"><?php  echo $clas->class_name; ?></option>
-                                    <?php } ?>
-                                 </select>
+                                 <input type="text" name="last_studied" placeholder="Past Out From" class="form-control">
                               </div>
                               <div class="col-md-4">
                                  <select name="qual" class="selectpicker" data-title="Qualified for promotion" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+                                    <option value="pass">Pass</option>
+                                    <option value="fail">Fail</option>
+                                    <option value="drop">Drop Out</option>
                                  </select>
                               </div>
                            </div>
                         </div>
                      </div>
                   </fieldset>
-                  <fieldset>
+
+                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Certificates</label>
                         <div class="col-sm-4">
                            <label class="checkbox checkbox-inline">
                            <input type="checkbox" data-toggle="checkbox" name="trn_cert" value="1">Transfer Certificate
-                           </label>
-                           <label class="checkbox checkbox-inline">
-                           <input type="checkbox" data-toggle="checkbox" name="rec_sheet" value="1">Record Sheet
                            </label>
                         </div>
                         <label class="col-sm-2 control-label">Status</label>
@@ -184,6 +257,7 @@
                         </div>
                      </div>
                   </fieldset>
+                 
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">&nbsp;</label>
@@ -203,116 +277,97 @@
    </div>
 </div>
 <script type="text/javascript">
+  $('#stime').timepicki();
    var loadFile = function(event) {
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
    };
    
-   $(document).ready(function () {
-   
+   $(document).ready(function () 
+   {
    jQuery('#admissionmenu').addClass('collapse in');
    $('#admission').addClass('active');
    $('#admission1').addClass('active');
-   
-      $('#admissionform').validate({ // initialize the plugin
-        rules: {
-            admission_no:{required:true, number: true,  // will count space
-               maxlength: 9 },
-            admission_year:{required:true },
-            admission_date:{required:true },
-            name:{required:true },
-            //email:{required:true,email:true},
-           sex:{required:true },
-            dob:{required:true },
-            emsi_num:{required:true },
-            age:{required:true,number:true,maxlength:2 },
-            nationality:{required:true },
-            religion:{required:true },
-            community_class:{required:true },
-            community:{required:true },
-            blood_group:{required:true },
-            //mobile:{required:true },
-            //student_pic:{required:true }
+
+   $('#admissionform').validate({ // initialize the plugin
+      rules: {
+        had_aadhar_card:{required:true },
+        aadhar_card_num:{required:true },
+        admission_location:{required:true },
+        admission_date:{required:true },
+        name:{required:true },
+        fname:{required:true},
+        mname:{required:true},
+        sex:{required:true },
+        dob:{required:true },
+        email:{required:true },
+        disability:{required:true },
+        age:{required:true,number:true,maxlength:2 },
+        nationality:{required:true },
+        religion:{required:true },
+        community_class:{required:true },
+        community:{required:true },
+        blood_group:{required:true },
+        address:{required:true },
+        city:{required:true },
+        state:{required:true },
+        course:{required:true },
+        mother_tongue:{required:true},
+        prefer_time:{required:true},
+        mobile:{required:true}
         },
-        messages: {
-              admission_no: "Enter the Admission Number max length 9 Digits",
-             //  minlength:"Enter the Number 6 to 9 Digits",
-              admission_year: "Enter Admission Year",
-              admission_date: "Select Admission Date",
-              name: "Enter Name",
-               //email: "Enter Email Address",
-              //sec_email:"Enter Email Address",
-              remote: "Email already in use!",
-              sex: "Select Gender",
-              dob: "Select Date of Birth",
-              emsi_num:"Enter EMSI Number",
-              age: "Enter AGE",
-              nationality: "Nationality",
-              religion: "Enter the Religion",
-              community:"Enter the Community",
-              community_class:"Enter the Community Class",
-              blood_group:"Select Blood Group",
-              //mobile:"Enter the mobile Number",
-             // student_pic:"Enter the Student Picture"
-            }
-   
+    messages: {
+        had_aadhar_card: "Select Yes Or No ",
+        aadhar_card_num:"Enter The Aadhar Card Number",
+        admission_location: "Enter Admission Location",
+        admission_date: "Select Admission Date",
+        name: "Enter Full Name",
+        fname: "Enter Father Name",
+        mname:"Enter Mother Name",
+        sex: "Select Gender",
+        address:"Enter The Address",
+        dob: "Select Date of Birth",
+        email:"Enter Email Id",
+        disability:"Select Disability",
+        age: "Enter AGE",
+        nationality: "Nationality",
+        religion: "Enter the Religion",
+        community:"Enter the Community",
+        community_class:"Enter the Community Class",
+        blood_group:"Select Blood Group",
+        prefer_time:"Select Preferred Time",
+        city:"Enter City Name",
+        state:"Enter State Name",
+        course:"Select Course",
+        mother_tongue:"Enter Mother Tongue",
+        mobile:"Enter The Mobile Number"
+    }
     }); 
    });
-   
-</script>
-<script type="text/javascript">
-   function checkemailfun1(val)
-     {
-        $.ajax({
-      type:'post',
-      url:'<?php echo base_url(); ?>/admission/checker1',
-      data:'admission_no='+val,
-      success:function(test1)
-      {
-        if(test1=="Admission No already Exit")
-        {
-        /* alert(test); */
-              $("#no").html(test1);
-          $("#no1").html(test1).hide();
-              $("#save").hide();
-        }
-        else{
-          /* alert(test); */
-          $("#no1").html(test1);
-   
-              $("#save").show();
-        }
-   
-      }
-     });
-   }
-   
-   function checkmobilefun(val)
-     { //alert('hi');exit;
-        $.ajax({
-     type:'post',
-     url:'<?php echo base_url(); ?>/admission/cellchecker',
-     data:'cell='+val,
-     success:function(test)
-     {
-      //alert(test)
-      if(test=="Mobile Number Available")
-      {
-      $("#cellmsg1").html('<span style="color:green;">Mobile Number Available</span>');
-      $("#save").show();
-      }
-      else{
-        $("#cellmsg1").html('<span style="color:red;">Mobile number already Exist</span>');
-          $("#save").hide();
+
+function checkmobilefun(val)
+   { //alert('hi');exit;
+      $.ajax({
+   type:'post',
+   url:'<?php echo base_url(); ?>/admission/cellchecker',
+   data:'cell='+val,
+   success:function(test)
+   {
+    //alert(test)
+    if(test=="Mobile Number Available")
+    {
+    $("#cellmsg1").html('<span style="color:green;">Mobile Number Available</span>');
+    $("#save").show();
     }
-     }
-     });
-     }
+    else{
+      $("#cellmsg1").html('<span style="color:red;">Mobile number already Exist</span>');
+        $("#save").hide();
+  }
+   }
+   });
+   }
      
-</script>
-<script type="text/javascript">
    $().ready(function(){
-   
      $('.datepicker').datetimepicker({
        format: 'DD-MM-YYYY',
        icons: {
@@ -327,50 +382,29 @@
            close: 'fa fa-remove'
        }
     });
-   
-   $('.datepicker1').datetimepicker({
-       format: 'YYYY',
-   maxDate: new Date(),
-       icons: {
-           time: "fa fa-clock-o",
-           date: "fa fa-calendar",
-           up: "fa fa-chevron-up",
-           down: "fa fa-chevron-down",
-           previous: 'fa fa-chevron-left',
-           next: 'fa fa-chevron-right',
-           today: 'fa fa-screenshot',
-           clear: 'fa fa-trash',
-           close: 'fa fa-remove'
-       }
-    });
-   
+  
    });
-</script>
-<script type="text/javascript">
+
    function checkemailfun(val)
    {
-      $.ajax({
-   type:'post',
-   url:'<?php echo base_url(); ?>/admission/checker',
-   data:'email='+val,
-   success:function(test)
-   {
-    if(test=="Email Id already Exit")
-    {
-    /* alert(test); */
-           $("#msg").html(test);
-      $("#msg1").html(test).hide();
-           $("#save").hide();
-    }
-    else{
-      /* alert(test); */
-      $("#msg1").html(test);
-      $("#msg").html(test).hide();
-           $("#save").show();
-    }
-   
-   }
-   });
+     $.ajax({
+     type:'post',
+     url:'<?php echo base_url(); ?>/admission/checker',
+     data:'email='+val,
+     success:function(test)
+     {
+      if(test=="Email Id already Exit")
+      {
+        $("#msg").html(test);
+        $("#msg1").html(test).hide();
+        $("#save").hide();
+      }else{
+        $("#msg1").html(test);
+        $("#msg").html(test).hide();
+        $("#save").show();
+       }
+     }
+       });
    }
    
 </script>
