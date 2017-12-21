@@ -1,324 +1,279 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admission extends CI_Controller {
+class Admission extends CI_Controller 
+{
+	function __construct() 
+	{
+		parent::__construct();
+		$this->load->helper('url');
+		$this->load->library('session');
+		$this->load->model('admissionmodel');		
+	}
 
-
-	function __construct() {
-		 parent::__construct();
-		  $this->load->helper('url');
-		  $this->load->library('session');
-		  $this->load->model('admissionmodel');
-		 
-		
- }
-
-	 	public function home(){
-	 		$datas=$this->session->userdata();
-	 		$user_id=$this->session->userdata('user_id');
-	 		//$datas['result'] = $this->classmodel->getclass();
-			//$datas['class'] = $this->classmodel->getclass();
-			//$datas['result'] = $this->yearsmodel->getall_years();
-			//$datas['lang'] = $this->admissionmodel->getall_language_proposed();
-			$datas['blood'] = $this->admissionmodel->getall_blood_group();
-			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
-	 		 $this->load->view('header');
-	 		 $this->load->view('admission/add',$datas);
-	 		 $this->load->view('footer');
-	 		 }
-	 		 else{
-	 				redirect('/');
-	 		 }
-	 	}
-
-		
-
-		public function create()
-		{
-			$datas=$this->session->userdata();
-			 $user_id=$this->session->userdata('user_id');
-			 $user_type=$this->session->userdata('user_type');
-		 	if($user_type==1){
-				
-			 $admission_year=$this->input->post('admission_year');
-			 //echo $admission_year;exit; 
-			 $admission_no=$this->input->post('admission_no');
-			 $emsi_num=$this->input->post('emsi_num');
-			 $admission_date=$this->input->post('admission_date');
-
-			 $dateTime1 = new DateTime($admission_date);
-			 $formatted_date=date_format($dateTime1,'Y-m-d' );
-
-			 $name=$this->input->post('name');
-			 $email=$this->input->post('email');
-			 $sec_email=$this->input->post('sec_email');
-		     $sex=$this->input->post('sex');
-
-			 $dob=$this->input->post('dob');
-			 $dateTime = new DateTime($dob);
-			 $dob_date=date_format($dateTime,'Y-m-d' );
-
-
-			 $age=$this->input->post('age');
-		     $nationality=$this->input->post('nationality');
-			 $religion=$this->input->post('religion');
-			 $community_class=$this->input->post('community_class');
-		     $community=$this->input->post('community');
-			 $mother_tongue=$this->input->post('mother_tongue');
-			 
-			 $language=$this->input->post('lang');
-			 $blood_group=$this->input->post('blood_group');
-			 $status=$this->input->post('status');
-			 //echo $status;exit;
-			 
-			 $mobile=$this->input->post('mobile');
-			 $sec_mobile=$this->input->post('sec_mobile');
-		  // $student_pic=$this->input->post('student_pic');
-			 $student_pic = $_FILES["student_pic"]["name"];
-			 $userFileName =$student_pic;
-
-				$uploaddir = 'assets/students/';
-				$profilepic = $uploaddir.$userFileName;
-				move_uploaded_file($_FILES['student_pic']['tmp_name'], $profilepic);
-				
-				$last_sch=$this->input->post('sch_name');
-				$last_studied=$this->input->post('class_name');
-				$qual=$this->input->post('qual');
-				$tran_cert=$this->input->post('trn_cert');
-				$recod_sheet=$this->input->post('rec_sheet');
-				$emsi_num=$this->input->post('emsi_num');
-				
-				$datas=$this->admissionmodel->ad_create($admission_year,$admission_no,$emsi_num,$formatted_date,$name,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$language,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$blood_group,$status);
-			     //print_r($datas['status']); print_r($datas['last_id']);exit;
-               //print_r$data['admisn_no'] ; exit;
-       
-				if($datas['status']=="success"){
-					$id=$datas['last_id'];
-					//$this->session->set_flashdata('msg', 'Added Successfully');
-					redirect('/parents/home/'.$id.'');
-				}else if($datas['status']=="Email Already Exist"){
-					$this->session->set_flashdata('msg', 'Email Already Exist');
-					redirect('admission/home');
-				}	else if($datas['status']=="Already Mobile Number Exist"){
-					$this->session->set_flashdata('msg', 'Already Number Exist');
-					redirect('admission/home');
-				}else{
-					$this->session->set_flashdata('msg', 'Failed to Add');
-					redirect('admission/home');
-				}
-			 }
-			 else{
-					redirect('/');
-			 }
-		}
-
-// GET ALL ADMISSION DETAILS
-
-		public function view()
-		{
-			 $datas=$this->session->userdata();
-			 $user_id=$this->session->userdata('user_id');
-			 $user_type=$this->session->userdata('user_type');
-			 $gender=$this->input->post('gender');
-			 
-			 $datas['result'] = $this->admissionmodel->get_all_admission();
-			 //echo "<pre>";print_r($datas['result']);exit;
-			 //$datas['sorting'] = $this->admissionmodel->get_sorting_admission_details();
-			 if(!empty($gender)){
-			 $datas['gender'] = $this->admissionmodel->get_sorting_gender_details($gender);
-			 }
-			
-		     if($user_type==1){
-			 $this->load->view('header');
-			 $this->load->view('admission/view',$datas);
-			 $this->load->view('footer');
-			 }
-			 else{
-					redirect('/');
-			 }
-		}
-        //-----------Sorting----------------
-		
-		/*  public function get_sorting_details()
-		{
-		 $datas=$this->session->userdata();
-		 $user_id=$this->session->userdata('user_id');
-		 $user_type=$this->session->userdata('user_type');
-		 $gender=$this->input->post('gender');
-		 $datas['result'] = $this->admissionmodel->get_all_admission();
-		 //$datas['sorting'] = $this->admissionmodel->get_sorting_admission_details();
-		 $datas['gender'] = $this->admissionmodel->get_sorting_gender_details($gender);
-		 //echo "<pre>";print_r($datas['gender']);exit;
-	 	 if($user_type==1){
-		 $this->load->view('header');
-		 $this->load->view('admission/view',$datas);
-		 $this->load->view('footer');
-		 }
-		 else{
-				redirect('/');
-		 }
-			
-		}  */
-		//-------------------------
-		public function get_ad_id($admission_id){
-		 $datas=$this->session->userdata();
-		 $user_id=$this->session->userdata('user_id');
-		 $user_type=$this->session->userdata('user_type');
-
-		 //$datas['result'] = $this->yearsmodel->getall_years();
-		 //$datas['class'] = $this->classmodel->getclass();
-		 $datas['res']=$this->admissionmodel->get_ad_id($admission_id);
-		 $datas['lang'] = $this->admissionmodel->getall_language_proposed();
-		 $datas['blood'] = $this->admissionmodel->getall_blood_group();
-		//echo "<pre>";print_r($datas['res']);exit;
-		
-		if($user_type==1){
-		 $this->load->view('header');
-		 $this->load->view('admission/edit',$datas);
-		 $this->load->view('footer');
-		 }
-		 else{
-				redirect('/');
-		 }
-		}
-		public function get_ad_id1($admission_id){
-		 $datas=$this->session->userdata();
-		 $user_id=$this->session->userdata('user_id');
-
-		 $datas['result'] = $this->yearsmodel->getall_years();
-
-		 $datas['res']=$this->admissionmodel->get_ad_id1($admission_id);
-		 $datas['lang'] = $this->admissionmodel->getall_language_proposed();
-		 $datas['blood'] = $this->admissionmodel->getall_blood_group();
-		//	echo "<pre>";print_r(	$datas['res']);exit;
+	public function home()
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
+		$datas['lang'] = $this->admissionmodel->getall_trade();
+		$datas['blood'] = $this->admissionmodel->getall_blood_group();
 		if($user_type==1){
-		 $this->load->view('header');
-		 $this->load->view('admission/edit',$datas);
-		 $this->load->view('footer');
-		 }
-		 else{
-				redirect('/');
-		 }
+			$this->load->view('header');
+			$this->load->view('admission/add',$datas);
+			$this->load->view('footer');
+		}else{
+			redirect('/');
 		}
+	}
 
 
-		public function save_ad()
+
+	public function create()
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		if($user_type==1)
 		{
-			 $datas=$this->session->userdata();
-			 $user_id=$this->session->userdata('user_id');
-			 $user_type=$this->session->userdata('user_type');
-			 if($user_type==1)
-			 {
-			 $admission_id=$this->input->post('admission_id');
-			 $admission_year=$this->input->post('admission_year');
-			 $admission_no=$this->input->post('admission_no');
-			 $admission_date=$this->input->post('admission_date');
-			 $name=$this->input->post('name');
-			 $email=$this->input->post('email');
-		     $sex=$this->input->post('sex');
-			 $dob=$this->input->post('dob');
-			 $age=$this->input->post('age');
-		     $nationality=$this->input->post('nationality');
-			 $religion=$this->input->post('religion');
-			 $community_class=$this->input->post('community_class');
-		     $community=$this->input->post('community');
-			 $mother_tongue=$this->input->post('mother_tongue');
-			 $lang=$this->input->post('lang');
-			  $blood_group=$this->input->post('blood_group');
-			 $mobile=$this->input->post('mobile');
-			 
-			 $sec_mobile=$this->input->post('sec_mobile');
-			 $sec_email=$this->input->post('sec_email');
-			 
-			 $status=$this->input->post('status');
-			 $last_sch=$this->input->post('sch_name');
-			 $last_studied=$this->input->post('class_name');
-			 $qual=$this->input->post('qual');
-			 //echo $last_sch;exit;			 
-				$tran_cert=$this->input->post('trn_cert');
-				$recod_sheet=$this->input->post('rec_sheet');
-				$emsi_num=$this->input->post('emsi_num');
-				//echo $tran_cert;echo $recod_sheet;exit;
-			    
-			 $user_pic_old=$this->input->post('user_pic_old');
-			 $student_pic = $_FILES["student_pic"]["name"];
-			 $userFileName =$admission_no.'-'.$student_pic;
+			$had_aadhar_card=$this->input->post('had_aadhar_card');
+			$aadhar_card_num=$this->input->post('aadhar_card_num');
+			$admission_location=$this->input->post('admission_location');
+			$admit_date=$this->input->post('admission_date');
 
-				$uploaddir = 'assets/students/';
-				$profilepic = $uploaddir.$userFileName;
-				move_uploaded_file($_FILES['student_pic']['tmp_name'], $profilepic);
-				if(empty($student_pic)){
-						$userFileName=$user_pic_old;
-				}
+			$dateTime1 = new DateTime($admit_date);
+			$admission_date=date_format($dateTime1,'Y-m-d' );
 
-				$datas=$this->admissionmodel->save_ad($admission_id,$admission_year,$admission_no,$emsi_num,$admission_date,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$lang,$mobile,$sec_mobile,$email,$sec_email,$userFileName,$last_sch,$last_studied,$qual,$tran_cert,$recod_sheet,$blood_group,$status);
+			$name=$this->input->post('name');
+			$fname=$this->input->post('fname');
+			$mname=$this->input->post('mname');
+			$email=$this->input->post('email');
+			$prefer_time=$this->input->post('prefer_time');
+			$sex=$this->input->post('sex');
+
+			$dob=$this->input->post('dob');
+			$dateTime = new DateTime($dob);
+			$dob_date=date_format($dateTime,'Y-m-d' );
+
+
+			$age=$this->input->post('age');
+			$nationality=$this->input->post('nationality');
+			$religion=$this->input->post('religion');
+			$community_class=$this->input->post('community_class');
+			$community=$this->input->post('community');
+			$mother_tongue=$this->input->post('mother_tongue');
+
+			$course=$this->input->post('course');
+			$blood_group=$this->input->post('blood_group');
+			$status=$this->input->post('status');
+
+			$mobile=$this->input->post('mobile');
+			$sec_mobile=$this->input->post('sec_mobile');
+
+			$student_pic = $_FILES["student_pic"]["name"];
+		   $temp = pathinfo($student_pic, PATHINFO_EXTENSION);
+		   $userFileName = round(microtime(true)) . '.' . $temp;
+			$uploaddir = 'assets/students/';
+			$profilepic = $uploaddir.$userFileName;
+			move_uploaded_file($_FILES['student_pic']['tmp_name'], $profilepic);
+
+			$institute_name=$this->input->post('institute_name');
+			$last_studied=$this->input->post('last_studied');
+			$qual=$this->input->post('qual');
+			$tran_cert=$this->input->post('trn_cert');
+			$address=$this->input->post('address');
+			$disability=$this->input->post('disability');
+			$city=$this->input->post('city');
+			$state=$this->input->post('state');
+
+			$datas=$this->admissionmodel->ad_create($had_aadhar_card,$aadhar_card_num,$admission_location,$admission_date,$name,$fname,$mname,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$course,$mobile,$sec_mobile,$email,$userFileName,$institute_name,$last_studied,$qual,$tran_cert,$address,$disability,$city,$state,$blood_group,$status,$user_id,$prefer_time);
+			if($datas['status']=="success"){
+				$this->session->set_flashdata('msg', 'Added Successfully');
+					redirect('admission/view');
+			}else{
+				$this->session->set_flashdata('msg', 'Failed to Add');
+				redirect('admission/view');
+			}
+		}else{
+		  redirect('/');
+		}
+	}
+
+	// GET ALL ADMISSION DETAILS
+
+	public function view()
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$gender=$this->input->post('gender');
+		$datas['result'] = $this->admissionmodel->get_all_admission();
+		//echo "<pre>";print_r($datas['result']);exit;
+		//$datas['sorting'] = $this->admissionmodel->get_sorting_admission_details();
+		if(!empty($gender)){
+		$datas['gender'] = $this->admissionmodel->get_sorting_gender_details($gender);
+		}
+
+		if($user_type==1){
+			$this->load->view('header');
+			$this->load->view('admission/view',$datas);
+			$this->load->view('footer');
+		}else{
+			redirect('/');
+		}
+	}
+	//-----------Sorting----------------
+
+	/*  public function get_sorting_details()
+	{
+	$datas=$this->session->userdata();
+	$user_id=$this->session->userdata('user_id');
+	$user_type=$this->session->userdata('user_type');
+	$gender=$this->input->post('gender');
+	$datas['result'] = $this->admissionmodel->get_all_admission();
+	//$datas['sorting'] = $this->admissionmodel->get_sorting_admission_details();
+	$datas['gender'] = $this->admissionmodel->get_sorting_gender_details($gender);
+	//echo "<pre>";print_r($datas['gender']);exit;
+	if($user_type==1){
+	$this->load->view('header');
+	$this->load->view('admission/view',$datas);
+	$this->load->view('footer');
+	}
+	else{
+	redirect('/');
+	}
+
+	}  */
+	//-------------------------
+	public function edit_stu_details($admission_id)
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		$datas['lang'] = $this->admissionmodel->getall_trade();
+		$datas['blood'] = $this->admissionmodel->getall_blood_group();
+		$datas['res']=$this->admissionmodel->get_edit_details($admission_id);
+		if($user_type==1){
+			$this->load->view('header');
+			$this->load->view('admission/edit',$datas);
+			$this->load->view('footer');
+		}else{
+			redirect('/');
+		}
+	}
+
+
+	public function save_ad()
+	{
+		$datas=$this->session->userdata();
+		$user_id=$this->session->userdata('user_id');
+		$user_type=$this->session->userdata('user_type');
+		if($user_type==1)
+		{
+			$had_aadhar_card=$this->input->post('had_aadhar_card');
+			$aadhar_card_num=$this->input->post('aadhar_card_num');
+			$admission_location=$this->input->post('admission_location');
+			$admit_date=$this->input->post('admission_date');
+
+			$dateTime1 = new DateTime($admit_date);
+			$admission_date=date_format($dateTime1,'Y-m-d' );
+         
+         $admission_id=$this->input->post('admission_id');
+			$name=$this->input->post('name');
+			$fname=$this->input->post('fname');
+			$mname=$this->input->post('mname');
+			$email=$this->input->post('email');
+			$prefer_time=$this->input->post('prefer_time');
+			$sex=$this->input->post('sex');
+
+			$dob=$this->input->post('dob');
+			$dateTime = new DateTime($dob);
+			$dob_date=date_format($dateTime,'Y-m-d' );
+
+
+			$age=$this->input->post('age');
+			$nationality=$this->input->post('nationality');
+			$religion=$this->input->post('religion');
+			$community_class=$this->input->post('community_class');
+			$community=$this->input->post('community');
+			$mother_tongue=$this->input->post('mother_tongue');
+
+			$course=$this->input->post('course');
+			$blood_group=$this->input->post('blood_group');
+			$status=$this->input->post('status');
+
+			$mobile=$this->input->post('mobile');
+			$sec_mobile=$this->input->post('sec_mobile');
+
+			
+			$institute_name=$this->input->post('institute_name');
+			$last_studied=$this->input->post('last_studied');
+			$qual=$this->input->post('qual');
+			$tran_cert=$this->input->post('trn_cert');
+			$address=$this->input->post('address');
+			$disability=$this->input->post('disability');
+			$city=$this->input->post('city');
+			$state=$this->input->post('state');
+
+			$user_pic_old=$this->input->post('user_pic_old');
+
+			$student_pic = $_FILES["student_pic"]["name"];
+			$temp = pathinfo($student_pic, PATHINFO_EXTENSION);
+		   $userFileName = round(microtime(true)) . '.' . $temp;
+			$uploaddir = 'assets/students/';
+			$profilepic = $uploaddir.$userFileName;
+			move_uploaded_file($_FILES['student_pic']['tmp_name'], $profilepic);
+
+			if(empty($student_pic))
+			{
+			 $userFileName=$user_pic_old;
+			 }
+			$datas=$this->admissionmodel->update_details($admission_id,$had_aadhar_card,$aadhar_card_num,$admission_location,$admission_date,$name,$fname,$mname,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$course,$mobile,$sec_mobile,$email,$userFileName,$institute_name,$last_studied,$qual,$tran_cert,$address,$disability,$city,$state,$blood_group,$status,$user_id,$prefer_time);
 			//	print_r($datas['status']);exit;
-				if($datas['status']=="success"){
-					$this->session->set_flashdata('msg', 'Updated Successfully');
-					redirect('admission/view');
-				}else if($datas['status']=="Email Already Exist"){
-					$this->session->set_flashdata('msg', 'Email Already Exist');
-					redirect('admission/view');
-				}else{
-					$this->session->set_flashdata('msg', 'Failed to Add');
-					redirect('admission/view');
-				}
-			 }
-			 else{
-					redirect('/');
-			 }
+			if($datas['status']=="success"){
+			$this->session->set_flashdata('msg', 'Updated Successfully');
+			redirect('admission/view');
+			}else{
+				$this->session->set_flashdata('msg', 'Failed to Add');
+				redirect('admission/view');
+			}
+		}else{
+		redirect('/');
 		}
+	}
 
-		public function check_email_exists($email){
-			echo $email=$this->input->post('email');
-			$data=$this->admissionmodel->check_email($email);
+	public function check_email_exists($email)
+	{
+		echo $email=$this->input->post('email');
+		$data=$this->admissionmodel->check_email($email);
 
+	}
+
+	public function checker()
+	{
+		$email = $this->input->post('email');
+		$numrows = $this->admissionmodel->getData($email);
+		if ($numrows>0)
+		{
+			echo "Email Id already Exist";
+		}else{
+			echo "Email Id Available";
 		}
+	}
 
-           public function checker()
-                {
-					$email = $this->input->post('email');
-					$numrows = $this->admissionmodel->getData($email);
-					if ($numrows>0)
-				     {
-						echo "Email Id already Exist";
-					 }
-					else
-					 {
-						echo "Email Id Available";
-					 }
-                }
 
-				 public function checker1()
-                {
-					$admission_no=$this->input->post('admission_no');
-					$numrows1 = $this->admissionmodel->getData1($admission_no);
-					if ($numrows1 > 0)
-				     {
-						echo "Admission Number already Exist";
-					 }
-					else
-					 {
-						echo "Admission Number Available";
-					 }
-                }
-				
-				public function cellchecker()
-				{
-					$cell = $this->input->post('cell');
-					$numrows2 = $this->admissionmodel->checkcellnum($cell);
-					if($numrows2 > 0) 
-				     {
-						echo "Mobile Number Not Found";
-					 } 
-					else 
-					 {
-						echo "Mobile Number Available";
-					 }
-				}
+	public function cellchecker()
+	{
+		$cell = $this->input->post('cell');
+		$numrows2 = $this->admissionmodel->checkcellnum($cell);
+		if($numrows2 > 0) 
+		{
+			echo "Mobile Number Not Found";
+		}else{
+		 echo "Mobile Number Available";
+		 }
+	}
 
 
 
-}
+} ?>

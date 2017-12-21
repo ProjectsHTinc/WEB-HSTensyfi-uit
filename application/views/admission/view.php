@@ -1,5 +1,3 @@
-
-
 <style>
    .formdesign
    {
@@ -43,7 +41,6 @@
                               <thead>
                                  <th>ID</th>
                                  <th>Name</th>
-                                 <th>Admission No</th>
                                  <th>Parents Name</th>
                                  <th>Blood Group</th>
                                  <th>Gender</th>
@@ -55,15 +52,15 @@
                                     $i=1;
                                     if(!empty($gender))
                                     {
-                                    foreach ($gender as $rows)
-                                    {$stu=$rows->status; $pname=$rows->parentsname;?>
+                                    foreach ($gender as $res)
+                                    { $stu=$res->status; $pname=$res->father_name; 
+                                       $pname1=$res->mother_name;?>
                                  <tr>
                                     <td><?php echo $i; ?></td>
-                                    <td><?php echo $rows->name; ?></td>
-                                    <td><?php echo $rows->admisn_no; ?></td>
-                                    <td><?php echo $pname; ?></td>
-                                    <td><?php echo $rows->blood_group_name; ?></td>
-                                    <td><?php echo $rows->sex; ?></td>
+                                    <td><?php echo $res->name; ?></td>
+                                    <td><?php echo $pname; ?> <?php echo $pname1; ?> </td>
+                                    <td><?php echo $res->blood_group_name; ?></td>
+                                    <td><?php echo $res->sex; ?></td>
                                     <td><?php
                                        if($stu=='Active'){?>
                                        <button class="btn btn-success btn-fill btn-wd">Active</button>
@@ -73,43 +70,22 @@
                                     </td>
                                     <td>
                                        <?php
-                                          $enrollment_status=$rows->enrollment;
+                                          $enrollment_status=$res->enrollment;
                                           if($enrollment_status==0)
                                           {
                                           ?>
-                                       <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                       <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $res->id; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                           <i class="fa fa-address-book" aria-hidden="true"></i>
                                           <!--  <i class="fa fa-address-card-o" aria-hidden="true"></i> -->
                                        </a>
                                        <?php
-                                          }
-                                          else{
-                                             ?>
-                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                          }else{ ?>
+                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $resres->id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                        </a>
-                                       <?php
-                                          }
-                                          ?>
-                                       <?php
-                                          $parent_status=$rows->parents_status;
-                                          if($parent_status==0)
-                                          {
-                                             ?>
-                                       <a href="<?php echo base_url(); ?>parents/home/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Parent" class="btn btn-simple btn-info btn-icon table-action view" >
-                                       <i class="fa fa-user-plus" aria-hidden="true"></i></a>
-                                       <?php
-                                          }
-                                          else
-                                          {
-                                             // echo base_url(); parents/edit_parent/ echo $rows->parnt_guardn_id;
-                                          ?>
-                                       <a href="<?php echo base_url(); ?>parents/edit_parents/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Parent Details" class="btn btn-simple btn-info btn-icon table-action view" >
-                                       <i class="fa fa-id-card-o" aria-hidden="true"></i></a>
-                                       <?php
-                                          }
-                                          ?>
-                                       <a href="<?php echo base_url(); ?>admission/get_ad_id/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                       <?php } ?>
+                                   
+                                       <a href="<?php echo base_url(); ?>admission/get_ad_id/<?php echo $res->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
                                  <?php  $i++;  }
@@ -118,13 +94,14 @@
                                     foreach ($result as $rows)
                                      { 
                                        $stu=$rows->status;
-                                       $pname=$rows->parentsname;
+                                       $pname=$rows->father_name; 
+                                       $pname1=$rows->mother_name;
                                       ?>
                                  <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->name; ?></td>
-                                    <td><?php echo $rows->admisn_no; ?></td>
-                                    <td><?php echo $pname; ?></td>
+                                  
+                                    <td><?php echo $pname; ?> <?php echo $pname1; ?> </td>
                                     <td><?php echo $rows->blood_group_name; ?></td>
                                     <td><?php echo $rows->sex; ?></td>
                                     <td><?php
@@ -140,7 +117,7 @@
                                           if($enrollment_status==0)
                                           {
                                           ?>
-                                       <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                       <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $rows->id; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                           <i class="fa fa-address-book" aria-hidden="true"></i>
                                           <!--  <i class="fa fa-address-card-o" aria-hidden="true"></i> -->
                                        </a>
@@ -148,30 +125,14 @@
                                           }
                                           else{
                                              ?>
-                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $rows->id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                        </a>
                                        <?php
                                           }
                                           ?>
-                                       <?php
-                                          $parent_status=$rows->parents_status;
-                                          if($parent_status==0)
-                                          {
-                                             ?>
-                                       <a href="<?php echo base_url(); ?>parents/home/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Add Parent" class="btn btn-simple btn-info btn-icon table-action view" >
-                                       <i class="fa fa-user-plus" aria-hidden="true"></i></a>
-                                       <?php
-                                          }
-                                          else
-                                          {
-                                          ?>
-                                       <a href="<?php echo base_url(); ?>parents/edit_parents/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Already Added Parent Details" class="btn btn-simple btn-info btn-icon table-action view" >
-                                       <i class="fa fa-id-card-o" aria-hidden="true"></i></a>
-                                       <?php
-                                          }
-                                          ?>
-                                       <a href="<?php echo base_url(); ?>admission/get_ad_id/<?php echo $rows->admission_id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                      
+                                       <a href="<?php echo base_url(); ?>admission/edit_stu_details/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
                                  <?php $i++;  }  }?>
