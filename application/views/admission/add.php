@@ -115,7 +115,12 @@
                         </div>
                         <label class="col-sm-2 control-label">preferred_timing</label>
                         <div class="col-sm-4">
-                            <input  type="text" class="form-control" id="stime" name="prefer_time">
+                            <!--input  type="text" class="form-control" id="stime" name="prefer_time"-->
+                            <select name="prefer_time" class="selectpicker" data-title="Select Preferred Time" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                            <?php foreach($time as $times){ ?>
+                              <option value="<?php echo $times->id;?>"><?php echo $times->from_time;?> ( To ) <?php echo $times->to_time;?></option>
+                              <?php } ?>
+                           </select>
                         </div>
                      </div>
                   </fieldset>

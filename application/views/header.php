@@ -191,12 +191,12 @@
                   </a>
                   <div class="collapse" id="mastersmenu">
                      <ul class="nav">
-
-                        <li id="masters1"><a href="<?php echo base_url();  ?>years/home">Academic Years</a></li>
-                        <li id="masters3"><a href="<?php echo base_url(); ?>trade/addtrade">Trade & Batch</a></li>
-                        <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Trade & Batch Management </a></li>
-                        <li id="masters6"><a href="<?php echo base_url();  ?>scheme/home">Scheme</a></li>
-                        <li id="masters7"><a href="<?php echo base_url();  ?>center/home">Center</a></li>
+                   <li id="masters1"><a href="<?php echo base_url();  ?>years/home">Academic Years</a></li>
+                    <li id="masters2"><a href="<?php echo base_url();  ?>time/home">Timing</a></li>
+                   <li id="masters3"><a href="<?php echo base_url(); ?>trade/addtrade">Trade & Batch</a></li>
+                   <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Trade & Batch Management </a></li>
+                  <li id="masters6"><a href="<?php echo base_url();  ?>scheme/home">Scheme</a></li>
+                  <li id="masters7"><a href="<?php echo base_url();  ?>center/home">Center</a></li>
                      </ul>
                   </div>
                </li>
@@ -211,11 +211,10 @@
                      <ul class="nav">
                         <li id="admission1"><a href="<?php echo base_url(); ?>admission/home">Student Detail</a></li>
                         <li id="admission2"><a href="<?php echo base_url(); ?>admission/view">Student Search</a></li>
-                        <li id="admission3"><a href="<?php echo base_url(); ?>parents/view">Parents Search</a></li>
                      </ul>
                   </div>
                </li>
-               <li id="activities">
+               <!--li id="activities">
                   <a data-toggle="collapse" href="#curricular">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/extracurricular.png"/>
                      <p>Extra-Co curricular</p>
@@ -227,7 +226,7 @@
                         <li id="curricular2"><a href="<?php echo base_url(); ?>groups/home">House Groups</a></li>
                      </ul>
                   </div>
-               </li>
+               </li-->
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>

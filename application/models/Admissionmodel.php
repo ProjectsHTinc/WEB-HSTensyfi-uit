@@ -32,7 +32,13 @@ Class Admissionmodel extends CI_Model
       $resultset=$this->db->query($query);
       return $resultset->result();
      }
-        
+     
+     function getall_session_details()
+      {
+      $query1="SELECT * FROM edu_timing WHERE status='Active' ORDER BY id DESC ";
+      $res=$this->db->query($query1);
+      return $res->result();
+     }    
 
     function ad_create($had_aadhar_card,$aadhar_card_num,$admission_location,$admission_date,$name,$fname,$mname,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$course,$mobile,$sec_mobile,$email,$userFileName,$institute_name,$last_studied,$qual,$tran_cert,$address,$disability,$city,$state,$blood_group,$status,$user_id,$prefer_time)
     {
