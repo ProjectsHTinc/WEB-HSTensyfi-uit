@@ -47,17 +47,17 @@ Class Taskmodel extends CI_Model
  }
 
    
-    function edit_session_details($time_id)
+    function edit_task_details($task_id)
     {
-      $query1 = "SELECT * FROM  edu_timing WHERE id='$time_id'";
+      $query1 = "SELECT * FROM  edu_task WHERE id='$task_id'";
       $res    = $this->db->query($query1);
       return $res->result();
     }
 
-    function update_session_details($tid,$ses_name,$stime,$etime,$status,$user_id)
+    function update_task_details($task_id,$users_name,$title,$task_date,$description,$status,$user_id)
     {
      
-      $query = "UPDATE edu_timing SET session_name='$ses_name',from_time='$stime',to_time='$etime',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$tid,'";
+      $query = "UPDATE edu_task SET user_id='$users_name',task_title='$title',task_description='$description',task_date='$task_date',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$task_id,'";
       $res   = $this->db->query($query);
       $data  = array("status" => "success");
       return $data;

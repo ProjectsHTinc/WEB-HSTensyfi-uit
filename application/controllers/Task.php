@@ -67,12 +67,13 @@ public function create_task()
 
 }
 
-public function edit_session($task_id)
+public function edit_task($task_id)
 {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		$datas['res']=$this->taskmodel->edit_session_details($task_id);
+		$datas['res']=$this->taskmodel->edit_task_details($task_id);
+		$datas['users'] = $this->taskmodel->getall_users_details();
 		if($user_type==1)
 		{
 			$this->load->view('header');
@@ -84,20 +85,25 @@ public function edit_session($task_id)
 		}
 }
 
-public function update_session()
+public function update_task()
 {
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		if($user_type==1)
 		{  
-			$tid=$this->input->post('tid');
-			$ses_name=$this->input->post('session_name');
-			$stask=$this->input->post('from_task');
-			$etask=$this->input->post('to_task');
+			$task_id=$this->input->post('task_id');
+			$users_name=$this->input->post('users_id');
+			$title=$this->input->post('task_title');
+			$tdate=$this->input->post('task_date');
+
+			$datechange = new DateTime($tdate);
+			$task_date=date_format($datechange,'Y-m-d');
+
+			$description=$this->input->post('description');
 			$status=$this->input->post('status');
 
-			$datas=$this->taskmodel->update_session_details($tid,$ses_name,$stask,$etask,$status,$user_id);
+			$datas=$this->taskmodel->update_task_details($task_id,$users_name,$title,$task_date,$description,$status,$user_id);
 
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg','Updated Successfully');

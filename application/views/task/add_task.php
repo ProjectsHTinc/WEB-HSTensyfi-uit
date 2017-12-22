@@ -104,7 +104,7 @@
                                     <?php } ?>
                                  </td>
                                  <td>
-                                    <a href="<?php echo base_url(); ?>task/edit_session/<?php echo $rows->id; ?>" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
+                                    <a href="<?php echo base_url(); ?>task/edit_task/<?php echo $rows->id; ?>" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                  </td>
                               </tr>
                               <?php $i++;  }  }?>
