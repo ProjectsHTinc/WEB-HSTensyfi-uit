@@ -25,17 +25,22 @@
                            <form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="gender" style="margin-top:30px;"  class="selectpicker">
-                                    <option value="">Select</option>
+                                    <option value="">Select Gender</option>
                                     <option value="Male">Male</option>
                                     <option value="Female">Female</option>
                                  </select>
+                                <?php if(!empty($gender)){
+                                   foreach ($gender as $res)
+                                    { $sex=$res->sex; } ?>
+                                 <script language="javascript">document.myformsection.gender.value="<?php echo $res->sex; ?>";</script>
+                               <?php  }?> 
                               </div>
                               <div class="col-sm-10">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
                               </div>
                            </form>
                            <div class="toolbar">
-                              <!--        Here you can write extra buttons/actions for the toolbar              -->
+                              <!--Here you can write extra buttons/actions for the toolbar-->
                            </div>
                            <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
                               <thead>
@@ -80,7 +85,7 @@
                                        </a>
                                        <?php
                                           }else{ ?>
-                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $resres->id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
+                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $res->id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
                                        <i class="fa fa-address-card-o" aria-hidden="true"></i>
                                        </a>
                                        <?php } ?>
