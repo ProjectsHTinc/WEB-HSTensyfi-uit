@@ -165,7 +165,7 @@ class Apimainmodel extends CI_Model {
 	{
 		$year_id = $this->getYear();
 
- 		$sql = "SELECT * FROM edu_users A, edu_role B  WHERE A.user_type = B.role_id AND A.user_name ='".$username."' and A.user_password = md5('".$password."') and A.status='Active'";
+ 		$sql = "SELECT * FROM edu_users A, edu_role B  WHERE A.user_type = B.id AND A.user_name ='".$username."' and A.user_password = md5('".$password."') and A.status='Active'";
 		$user_result = $this->db->query($sql);
 		$ress = $user_result->result();
 
@@ -185,8 +185,8 @@ class Apimainmodel extends CI_Model {
 							"name" => $ress[0]->name,
 							"user_name" => $ress[0]->user_name,
 							"user_pic" => $ress[0]->user_pic,
+							"user_type_name" => $ress[0]->user_type_name,							
 							"user_type" => $ress[0]->user_type,
-							"user_type_name" => $ress[0]->user_type_name,
 							"password_status" => $ress[0]->password_status
 						);
 
@@ -205,15 +205,32 @@ class Apimainmodel extends CI_Model {
 				 	 	$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData, "year_id" => $year_id);
 						return $response;
 				  }
-				  else if ($user_type==2) {
+				  else if ($user_type==4) {
 
 						$mobilizer_id = $rows->user_master_id;
 
-                       $staff_query = "SELECT t.id, t.name, t.sex, t.age, t.nationality, t.religion, t.community_class, t.community, t.address, t.email,t.sec_email, t.phone,t.sec_phone, t.profile_pic, t.trade_batch_id, t.qualification FROM edu_staff_details AS t WHERE t.id = '$mobilizer_id'";
+                        $staff_query = "SELECT t.id, t.name, t.sex, t.age, t.nationality, t.religion, t.community_class, t.community, t.address, t.email, t.phone, t.profile_pic, t.qualification FROM edu_staff_details AS t WHERE t.id = '$mobilizer_id'";
 						$staff_res = $this->db->query($staff_query);
 						$staff_profile = $staff_res->result();
+						if($staff_res->num_rows()>0)
+                        	{
+                        	    $staffData  = array(
+    							"staff_id" => $staff_profile[0]->id,
+    							"name" => $staff_profile[0]->name,
+    							"sex" => $staff_profile[0]->sex,
+    							"age" => $staff_profile[0]->age,
+    							"nationality" => $staff_profile[0]->nationality,
+    							"religion" => $staff_profile[0]->religion,
+    							"community_class" => $staff_profile[0]->community_class,
+    							"community" => $staff_profile[0]->community,
+    							"address" => $staff_profile[0]->address,
+    							"email" => $staff_profile[0]->email,
+    							"phone" => $staff_profile[0]->phone,
+    							"qualification" => $staff_profile[0]->qualification
+						        );
+                        	}
 
-						$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData,"staffProfile" =>$staff_profile,"year_id" => $year_id);
+						$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData,"staffProfile" =>$staffData,"year_id" => $year_id);
 						return $response;
 				  }
 
@@ -258,6 +275,274 @@ class Apimainmodel extends CI_Model {
 			return $response;
 	}
 //#################### Change Password End ####################//
+
+//#################### Select Trade ####################//
+	public function Selecttrade($user_id)
+	{
+	        $trade_query = "SELECT id,trade_name from edu_trade WHERE status = 'Active'";
+			$trade_res = $this->db->query($trade_query);
+
+			 if($trade_res->num_rows()>0){
+			     	$trade_result= $trade_res->result();
+			     	$response = array("status" => "success", "msg" => "View Trades","Trades"=>$trade_result);
+				 
+			}else{
+			        $response = array("status" => "error", "msg" => "Trade not found");
+			}  
+
+			return $response;
+	}
+//#################### Select Trade End ####################//
+
+//#################### Select Timing ####################//
+	public function Selecttimings($user_id)
+	{
+	        $time_query = "SELECT id,session_name,from_time,to_time from edu_timing WHERE status = 'Active'";
+			$time_res = $this->db->query($time_query);
+
+			 if($time_res->num_rows()>0){
+			     	$time_result= $time_res->result();
+			     	$response = array("status" => "success", "msg" => "View Timings","Timings"=>$time_result);
+				 
+			}else{
+			        $response = array("status" => "error", "msg" => "Timings not found");
+			}  
+
+			return $response;
+	}
+//#################### Select Timing End ####################//
+
+//#################### Select Blood group ####################//
+	public function Selectbloodgroup($user_id)
+	{
+	        $bgroup_query = "SELECT id,blood_group_name from edu_blood_group WHERE status = 'Active'";
+			$bgroup_res = $this->db->query($bgroup_query);
+
+			 if($bgroup_res->num_rows()>0){
+			     	$bgroup_result= $bgroup_res->result();
+			     	$response = array("status" => "success", "msg" => "View Trades","Bloodgroup"=>$bgroup_result);
+				 
+			}else{
+			        $response = array("status" => "error", "msg" => "Blood group not found");
+			}  
+
+			return $response;
+	}
+//#################### Select Blood group End ####################//
+
+
+//#################### Add Student ####################//
+	public function addStudent ($have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$status,$created_by,$created_at)
+	{
+			$year_id = $this->getYear();
+
+            $student_query = "INSERT INTO `edu_admission` (`have_aadhaar_card`, `aadhaar_card_number`, `name`, `sex`, `dob`, `age`, `nationality`, `religion`, `community_class`, `community`, `father_name`, `mother_name`, `mobile`, `sec_mobile`, `email`, `state`, `city`, `address`, `mother_tongue`, `disability`, `blood_group`, `admission_date`, `admission_location`, `admission_latitude`, `admission_longitude`, `preferred_trade`, `preferred_timing`, `last_institute`, `last_studied`, `qualified_promotion`, `transfer_certificate`, `status`, `created_by`, `created_at`) VALUES ('$have_aadhaar_card', '$aadhaar_card_number', '$name', '$sex', '$dob', '$age', '$nationality', '$religion', '$community_class', '$community', '$father_name', '$mother_name', '$mobile', '$sec_mobile', '$email', '$state', '$city', '$address', '$mother_tongue', '$disability', '$blood_group', '$admission_date', '$admission_location', '$admission_latitude', '$admission_longitude', '$preferred_trade', '$preferred_timing', '$last_institute', '$last_studied', '$qualified_promotion', '$transfer_certificate', '$status', '$created_by', '$created_at')";
+	        $student_res = $this->db->query($student_query);
+            $admission_id = $this->db->insert_id();
+            
+			if($student_res) {
+			    $response = array("status" => "success", "msg" => "Student Added", "admission_id"=>$admission_id);
+			} else {
+			    $response = array("status" => "error");
+			}
+			return $response;
+	}
+//#################### Add Student End ####################//
+
+
+//#################### Student Pic Update ####################//
+	public function studentPic($admission_id,$userFileName)
+	{
+            $update_sql= "UPDATE edu_users SET student_pic ='$userFileName', updated_at =NOW() WHERE id='$admission_id'";
+			$update_result = $this->db->query($update_sql);
+
+			$response = array("status" => "success", "msg" => "Student Picture Updated","student_picture"=>$userFileName);
+			return $response;
+	}
+//#################### Student Pic Update End ####################//
+
+//#################### List Students ####################//
+	public function listStudents($user_id)
+	{
+			$year_id = $this->getYear();
+
+		 	$student_query = "SELECT name,sex,mobile,email,enrollment,status FROM `edu_admission` WHERE created_by ='$user_id'";
+			$student_res = $this->db->query($student_query);
+			$student_result= $student_res->result();
+			$student_count = $student_res->num_rows();
+
+			 if($student_res->num_rows()==0){
+				 $response = array("status" => "error", "msg" => "Students Not Found");
+			}else{
+				$response = array("status" => "success", "msg" => "View Events", "count" => $student_count, "studentList"=>$student_result);
+			}
+
+			return $response;
+	}
+//#################### List Students End ####################//
+
+//#################### View Student ####################//
+	public function viewStudent($admission_id)
+	{
+			$year_id = $this->getYear();
+
+		 	$student_query = "SELECT * FROM `edu_admission` WHERE id ='$admission_id'";
+			$student_res = $this->db->query($student_query);
+			$student_result= $student_res->result();
+			
+			 if($student_res->num_rows()==0){
+				 $response = array("status" => "error", "msg" => "Students Not Found");
+			}else{
+				$response = array("status" => "success", "msg" => "View Events", "studentDetails"=>$student_result);
+			}
+
+			return $response;
+	}
+//#################### View Student End ####################//
+
+//#################### Update Student ####################//
+	public function updateStudent($admission_id,$have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$status,$updated_by,$updated_at)
+	{
+			$year_id = $this->getYear();
+
+		 	$student_query = "UPDATE `edu_admission` SET `have_aadhaar_card`=$have_aadhaar_card,`aadhaar_card_number`=$aadhaar_card_number,`name`=$name,`sex`=$sex,`dob`=$dob,`age`=$age,`nationality`=$nationality,`religion`=$religion,`community_class`=$community_class,`community`=$community,`father_name`=$father_name,`mother_name`=$mother_name,`mobile`=$mobile,`sec_mobile`=$sec_mobile,`email`=$email,`state`=$state,`city`=$city,`address`=$address,`mother_tongue`=$mother_tongue,`disability`=$disability,`blood_group`=$blood_group,`admission_date`=$admission_date,`admission_location`=$admission_location,`admission_latitude`=$admission_latitude,`admission_longitude`=$admission_longitude,`preferred_trade`=$preferred_trade,`preferred_timing`=$preferred_timing,`last_institute`=$last_institute,`last_studied`=$last_studied,`qualified_promotion`=$qualified_promotion,`transfer_certificate`=$transfer_certificate,`status`=$status,`updated_by`=$updated_by,`updated_at`=$updated_at WHERE id ='$admission_id'";
+			$student_res = $this->db->query($student_query);
+			
+			if($student_res) {
+			    $response = array("status" => "success", "msg" => "Student Details Updated");
+			}else{
+				$response = array("status" => "success", "msg" => "View Events", "studentDetails"=>$student_result);
+			}
+
+			return $response;
+	}
+//#################### Update Student End ####################//
+
+
+//#################### View Center ####################//
+	public function centerDetails($user_id)
+	{
+			$year_id = $this->getYear();
+
+		 	$center_query = "SELECT * FROM `edu_center_details`";
+			$center_res = $this->db->query($center_query);
+			$center_result= $center_res->result();
+
+			if($center_res->num_rows()>0)
+			    {
+			        foreach($center_result as $rows){
+						$center_id = $rows->id;
+					}
+
+    				$centerData  = array(
+    					"center_id" => $center_result[0]->id,
+    					"center_name" => $center_result[0]->center_name,
+    					"center_banner" => base_url().'assets/center/logo/'.$center_result[0]->center_banner,
+    					"center_info" => $center_result[0]->center_info ,
+    					"center_address" => $center_result[0]->center_address
+    				);
+
+
+            		$photo_query = "SELECT center_photos FROM edu_center_photos WHERE center_id = '$center_id'  AND status  ='Active' ORDER BY id DESC LIMIT 4 ";
+        			$photo_res = $this->db->query($photo_query);
+        				if($photo_res->num_rows()>0){
+            			    foreach ($photo_res->result() as $rows)
+        			        {
+        				        $photo_result[]  = array(
+        						   "center_photos" => base_url().'assets/center/'.$rows->center_photos
+        				        );
+        			         }
+        				} else {
+        				    $photo_result = array();
+        				}
+        				
+        			$video_query = "SELECT video_title,center_videos FROM edu_center_videos WHERE center_id = '$center_id'  AND status  ='Active' ORDER BY id DESC LIMIT 4 ";
+        			$video_res = $this->db->query($video_query);
+        				if($video_res->num_rows()>0){
+            			    foreach ($video_res->result() as $rows)
+        			        {
+        				        $video_result[]  = array(
+        						   "video_title" => $rows->video_title,
+        						   "center_videos" => $rows->center_videos
+        				        );
+        			         }
+        				} else {
+        				    $video_result = array();
+        				}
+        			
+        			$staff_query = "SELECT name,profile_pic FROM edu_staff_details WHERE role_type ='4'  AND status  ='Active' ORDER BY id DESC LIMIT 4 ";
+        			$staff_res = $this->db->query($staff_query);
+        				if($staff_res->num_rows()>0){
+            			    foreach ($staff_res->result() as $rows)
+        			        {
+        				        $staff_result[]  = array(
+        						   "name" => $rows->name,
+        						   "profile_pic" => base_url().'assets/staff/'.$rows->profile_pic
+        				        );
+        			         }
+        				} else {
+        				    $staff_result = array();
+        				}
+        			
+        			$trade_query = "SELECT trade_name FROM edu_trade WHERE status  ='Active' ORDER BY id DESC LIMIT 4 ";
+        			$trade_res = $this->db->query($trade_query);
+        			    if($trade_res->num_rows()>0){
+            			    foreach ($trade_res->result() as $rows)
+        			        {
+        				        $trade_result[]  = array(
+        						   "trade_name" => $rows->trade_name
+        				        );
+        			         }
+        				} else {
+        				    $trade_result = array();
+        				}
+        			
+        			$sstory_query = "SELECT details,story_video FROM edu_success_stories WHERE center_id = '$center_id' AND status  ='Active' ORDER BY id DESC LIMIT 4 ";
+        			$sstory_res = $this->db->query($sstory_query);
+        			    if($sstory_res->num_rows()>0){
+            			    foreach ($sstory_res->result() as $rows)
+        			        {
+        				        $sstory_result[]  = array(
+        						   "storydetails" => $rows->details,
+        						    "storyvideo" => $rows->story_video
+        				        );
+        			         }
+        				} else {
+        				    $sstory_result = array();
+        				}
+        			
+    		        $response = array("status" => "Sucess", "msg" => "Center Details", "centerData" => $centerData,"Photo" => $photo_result,"video" => $video_result,"trainer" => $staff_result,"trade" => $trade_result,"stories" => $sstory_result);
+
+			    } else {
+			        $response = array("status" => "error", "msg" => "Center not found.");
+			    }
+
+			return $response;
+	}
+//#################### View Center Details End ####################//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 //#################### Events for Students and Parents ####################//

@@ -29,7 +29,7 @@ class Apimain extends CI_Controller {
     {
         parent::__construct();
 		$this->load->model("apimainmodel");
-
+        $this->load->helper("url");
     }
 
 	public function checkMethod()
@@ -50,7 +50,7 @@ class Apimain extends CI_Controller {
 
 	public function login()
 	{
-	   $_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -86,22 +86,19 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function user_profilepic_upload($user_id,$user_type)
+	public function user_profilepic($user_id)
 	{
-	    $_POST = json_decode(file_get_contents("php://input"), TRUE);
+	    //$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		$user_id = $user_id;
-     	$user_type = $user_type;
 		$profile = $_FILES["user_pic"]["name"];
 		$userFileName = time().'-'.$profile;
 		
 	    if($user_type==1) {
 		    $uploadPicdir = 'assets/admin/profile/';
-		} else if ($user_type==2) {
+		} else if ($user_type==4) {
 		     $uploadPicdir = 'assets/mobilizer/profile/';
-		} else {
-		   $uploadPicdir = 'assets/parents/profile/';
-		}
+		} 
 		$profilepic = $uploadPicdir.$userFileName;
 		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
 		
@@ -113,9 +110,9 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function change_Password()
+	public function change_password()
 	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -146,11 +143,434 @@ class Apimain extends CI_Controller {
 		echo json_encode($response);
 	}
 	
+//-----------------------------------------------//
+
+	public function select_trade()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Select Trade";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apimainmodel->Selecttrade($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+	public function select_timings()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Select Trade";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apimainmodel->Selecttimings($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+	public function select_bloodgroup()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Select Blood Group";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apimainmodel->Selectbloodgroup($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+
+//-----------------------------------------------//
+	public function add_student()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Student Add";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+		
+		$have_aadhaar_card = '';
+		$aadhaar_card_number = '';
+		$name = '';
+		$sex = '';
+		$dob = '';
+		$age = '';
+		$nationality = '';
+		$religion = '';
+		$community_class = '';
+		$community = '';
+		$father_name = '';
+		$mother_name = '';
+		$mobile = '';
+		$sec_mobile = '';
+		$email = '';
+		$state = '';
+		$city = '';
+		$address = '';
+		$mother_tongue = '';
+		$disability = '';
+		$blood_group = '';
+		$admission_date = '';
+		$admission_location = '';
+		$admission_latitude = '';
+		$admission_longitude = '';
+		$preferred_trade = '';
+		$preferred_timing = '';
+		$last_institute = '';
+		$last_studied = '';
+		$qualified_promotion = '';
+		$transfer_certificate = '';
+		$status = '';
+		$created_by = '';
+		$created_at = '';
+
+        $have_aadhaar_card = $this->input->post("have_aadhaar_card");
+		$aadhaar_card_number = $this->input->post("aadhaar_card_number");
+		$name = $this->input->post("name");
+		$sex = $this->input->post("sex");
+		$dob = $this->input->post("dob");
+		$age = $this->input->post("age");
+		$nationality = $this->input->post("nationality");
+		$religion = $this->input->post("religion");
+		$community_class = $this->input->post("community_class");
+		$community = $this->input->post("community");
+		$father_name = $this->input->post("father_name");
+		$mother_name = $this->input->post("mother_name");
+		$mobile = $this->input->post("mobile");
+		$sec_mobile = $this->input->post("sec_mobile");
+		$email = $this->input->post("email");
+		$state = $this->input->post("state");
+		$city = $this->input->post("city");
+		$address = $this->input->post("address");
+		$mother_tongue = $this->input->post("mother_tongue");
+		$disability = $this->input->post("disability");
+		$blood_group = $this->input->post("blood_group");
+		$admission_date = $this->input->post("admission_date");
+		$admission_location = $this->input->post("admission_location");
+		$admission_latitude = $this->input->post("admission_latitude");
+		$admission_longitude = $this->input->post("admission_longitude");
+		$preferred_trade = $this->input->post("preferred_trade");
+		$preferred_timing = $this->input->post("preferred_timing");
+		$last_institute = $this->input->post("last_institute");
+		$last_studied = $this->input->post("last_studied");
+		$qualified_promotion = $this->input->post("qualified_promotion");
+		$transfer_certificate = $this->input->post("transfer_certificate");
+		$status = $this->input->post("status");
+		$created_by = $this->input->post("created_by");
+		$created_at = $this->input->post("created_at");
+
+
+        
+		$data['result']=$this->apimainmodel->addStudent($have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$enrollment,$status,$created_by,$created_at);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+//-----------------------------------------------//	
 	
+//-----------------------------------------------//
+
+	public function student_picupload($admission_id)
+	{
+	    //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		$user_id = $user_id;
+		$profile = $_FILES["student_pic"]["name"];
+		$userFileName = time().'-'.$profile;
+
+		$uploadPicdir = 'assets/students/';
+		$profilepic = $uploadPicdir.$userFileName;
+		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
+		
+		$data['result']=$this->apimainmodel->studentPic($admission_id,$userFileName);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//	
 	
-	
-	
-	
+//-----------------------------------------------//
+
+	public function list_students($user_id)
+	{
+	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "List of Students";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$user_id= '';
+	 	$user_id = $this->input->post("user_id");
+
+
+		$data['result']=$this->apimainmodel->listStudents($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//	
+
+//-----------------------------------------------//
+
+	public function view_student($admission_id)
+	{
+	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "View Student";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$admission_id = '';
+	 	$admission_id = $this->input->post("admission_id");
+
+
+		$data['result']=$this->apimainmodel->viewStudent($admission_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//	
+
+//-----------------------------------------------//
+
+	public function update_student($admission_id)
+	{
+	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "View Student";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+        $have_aadhaar_card = '';
+		$aadhaar_card_number = '';
+		$name = '';
+		$sex = '';
+		$dob = '';
+		$age = '';
+		$nationality = '';
+		$religion = '';
+		$community_class = '';
+		$community = '';
+		$father_name = '';
+		$mother_name = '';
+		$mobile = '';
+		$sec_mobile = '';
+		$email = '';
+		$state = '';
+		$city = '';
+		$address = '';
+		$mother_tongue = '';
+		$disability = '';
+		$blood_group = '';
+		$admission_date = '';
+		$admission_location = '';
+		$admission_latitude = '';
+		$admission_longitude = '';
+		$preferred_trade = '';
+		$preferred_timing = '';
+		$last_institute = '';
+		$last_studied = '';
+		$qualified_promotion = '';
+		$transfer_certificate = '';
+		$status = '';
+		$updated_by = '';
+		$updated_at = '';
+
+        $have_aadhaar_card = $this->input->post("have_aadhaar_card");
+		$aadhaar_card_number = $this->input->post("aadhaar_card_number");
+		$name = $this->input->post("name");
+		$sex = $this->input->post("sex");
+		$dob = $this->input->post("dob");
+		$age = $this->input->post("age");
+		$nationality = $this->input->post("nationality");
+		$religion = $this->input->post("religion");
+		$community_class = $this->input->post("community_class");
+		$community = $this->input->post("community");
+		$father_name = $this->input->post("father_name");
+		$mother_name = $this->input->post("mother_name");
+		$mobile = $this->input->post("mobile");
+		$sec_mobile = $this->input->post("sec_mobile");
+		$email = $this->input->post("email");
+		$state = $this->input->post("state");
+		$city = $this->input->post("city");
+		$address = $this->input->post("address");
+		$mother_tongue = $this->input->post("mother_tongue");
+		$disability = $this->input->post("disability");
+		$blood_group = $this->input->post("blood_group");
+		$admission_date = $this->input->post("admission_date");
+		$admission_location = $this->input->post("admission_location");
+		$admission_latitude = $this->input->post("admission_latitude");
+		$admission_longitude = $this->input->post("admission_longitude");
+		$preferred_trade = $this->input->post("preferred_trade");
+		$preferred_timing = $this->input->post("preferred_timing");
+		$last_institute = $this->input->post("last_institute");
+		$last_studied = $this->input->post("last_studied");
+		$qualified_promotion = $this->input->post("qualified_promotion");
+		$transfer_certificate = $this->input->post("transfer_certificate");
+		$status = $this->input->post("status");
+		$updated_by = $this->input->post("updated_by");
+		$updated_at = $this->input->post("updated_at");
+
+
+		$data['result']=$this->apimainmodel->updateStudent($admission_id,$have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$status,$updated_by,$updated_at);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+
+//-----------------------------------------------//
+
+	public function view_centerdetails()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Select Center";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$user_id = '';
+		$user_id = $this->input->post("user_id");
+
+		$data['result']=$this->apimainmodel->centerDetails($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //-----------------------------------------------//
 
