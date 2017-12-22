@@ -81,24 +81,6 @@ Class Enrollmentmodel extends CI_Model
 		$headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
 		mail($to,$subject,$htmlContent,$headers);
 		}
-		// if(!empty($cell))
-		// {
-		// $userdetails="Name : " .$sname. ",Username".$user_id.",Password :".$OTP.",";
-		// //echo $userdetails;
-		// $textmsg =urlencode($userdetails."To Known more details login into http://bit.ly/2wLwdRQ");
-		// $smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
-		// $api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
-		// $api_params = $api_element.'&numbers='.$cell.'&message='.$textmsg;
-		// $smsgatewaydata = $smsGatewayUrl.$api_params;
-		// $url = $smsgatewaydata;
-		// //echo $url;
-		// $ch = curl_init();
-		// curl_setopt($ch, CURLOPT_POST, false);
-		// curl_setopt($ch, CURLOPT_URL, $url);
-		// curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-		// $output = curl_exec($ch);
-		// curl_close($ch);
-		// }
 
 		$stude_insert="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,created_date,updated_date,status) VALUES ('$name','$user_id','$md5pwd','5','$admisnid',NOW(),NOW(),'$status')";
 		$resultset=$this->db->query($stude_insert);
