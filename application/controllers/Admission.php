@@ -18,6 +18,7 @@ class Admission extends CI_Controller
 		$user_type=$this->session->userdata('user_type');
 		$datas['lang'] = $this->admissionmodel->getall_trade();
 		$datas['blood'] = $this->admissionmodel->getall_blood_group();
+		$datas['time'] =$this->admissionmodel->getall_session_details();
 		if($user_type==1){
 			$this->load->view('header');
 			$this->load->view('admission/add',$datas);
@@ -152,6 +153,7 @@ class Admission extends CI_Controller
 		$user_type=$this->session->userdata('user_type');
 		$datas['lang'] = $this->admissionmodel->getall_trade();
 		$datas['blood'] = $this->admissionmodel->getall_blood_group();
+		$datas['time'] =$this->admissionmodel->getall_session_details();
 		$datas['res']=$this->admissionmodel->get_edit_details($admission_id);
 		if($user_type==1){
 			$this->load->view('header');

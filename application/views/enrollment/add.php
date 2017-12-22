@@ -31,25 +31,20 @@
                   </fieldset>
                   <fieldset>
                      <div class="form-group">
+
                         <label class="col-sm-2 control-label">Student Name</label>
                         <div class="col-sm-4">
+                             <p id="msg1" style="color: red;"></p>
                            <select name="name" id="name" onchange="checknamefun(this.value)" class="selectpicker form-control" data-title="Select Student Name" >
                               <?php foreach ($admisn as $row) {  ?>
-                              <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?></option>
+                              <option value="<?php echo $row->name; ?>"><?php echo $row->name; ?> ( <?php echo $row->id; ?> ) </option>
                               <?php      } ?>
                            </select>
+                             <input type="hidden" name="admission_id" id="stuid" readonly class="form-control">
                             </div>
                      </div>
                   </fieldset>
-                  <fieldset>
-                     <div class="form-group">
-                        <label class="col-sm-2 control-label">Student Name</label>
-                        <div class="col-sm-4">
-                           <p id="msg" name="name">  </p>
-                           <input type="text" name="name" id="name" readonly  class="form-control">
-                        </div>
-                     </div>
-                  </fieldset>
+              
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Registration Date</label>
@@ -103,34 +98,24 @@
    $('#admissionform').validate({ // initialize the plugin
    rules: {
    year_id:{required:true},
-   year_name:{required:true},
-   admisn_no:{required:true},
-   admit_date:{required:true },
-   name:{required:true },
-   admit_date:{required:true },
-   class_section:{required:true },
-   section:{required:true },
-   quota_id:{required:true },
-   groups_id:{required:true },
-   // "activity_id[]":{required:true },
-   status:{required:true }
+          year_name:{required:true},
+          admit_year:{required:true, number: true },
+          admit_date:{required:true },
+          name:{required:true },
+          trade_batch:{required:true },
+          status:{required:true }
    
    },
    messages: {
-   year_id:"Academic Year not enable",
-   year_name:"Academic Year not enable",
-   admisn_no: "Select Admission No",
-   admit_date: "Select Admission Date",
-   name: "Enter Name",
-   admit_date: "Select The Date",
-   class_section: "Select Class",
-   section: "Select Section",
-   quota_id: "Select Quota",
-   groups_id: "Select House Groups ",
-   // "activity_id[]": "Select Extra Curricular  ",
-   status: "Select Status"
-   
-   }
+    year_id:"Academic Year not enable",
+         year_name:"Academic Year not enable",
+         admit_year: "Enter Admission Year",
+         admit_date: "Select Admission Date",
+         name: "Enter Name",
+         admit_date: "Select The Date",
+         trade_batch:"Select Trade & Batch",
+         status: "Select Status"
+            }
    });
    });
    
@@ -163,50 +148,38 @@
 	   type:'post',
 	   url:'<?php echo base_url(); ?>/enrollment/checker',
 	   data:'stuname='+val,
-	   
 	   success:function(test)
 	   {
-	     //alert(test);
 	     if(test!='')
 	     {
-		   $('#name').val(test);
-		   $('#name1').val(test);
-		   checknamefun1(val);
-		   //$("#msg").html(test);
-	     }
-	   else{
-	   alert("Name not found");
-	   $("#save1").hide();
-	   //$("#msg").html(test);
-	   
+		   $('#stuid').val(test);
+         $('#save1').show();
+		   checknamefun1(test);
+	     }else{
+	      alert("Name not found");
+	      $("#save1").hide();
 	   }
 	   }
 	   });
    }
-</script>
-<script type="text/javascript">
-   function checknamefun1(val)
-   {//alert(val);
+
+   function checknamefun1(test)
+   {
    $.ajax({
    type:'post',
    url:'<?php echo base_url(); ?>/enrollment/checker1',
-   data:'admisno='+val,
-   
+   data:'sid='+test,
    success:function(test1)
    {
-   //alert(test1);
-   if(test1=="Already Enrollment Added")
-   {
-   
-   $("#msg1").html(test1);
-   $("#msg2").html(test1).hide();
+      if(test1=="Already Enrollment Added")
+      {
+         $("#msg1").html(test1);
+         $('#save1').hide();
+      }else{
+        $('#save1').show();
+      }
    }
-   else{
-   $("#msg2").html(test1);
-   
-   }
-   }
-   });
-   }
+ });
+ }
 </script>
 
