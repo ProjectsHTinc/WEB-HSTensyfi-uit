@@ -241,6 +241,19 @@
                      </ul>
                   </div>
                </li>
+               <li id="tradematerial">
+                  <a data-toggle="collapse" href="#tradematerialmenu">
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
+                     <p>Trade Material	</p>
+                     <b class="caret"></b>
+                  </a>
+                  <div class="collapse" id="tradematerialmenu">
+                     <ul class="nav">
+                        <li id="trade1"><a href="<?php echo base_url(); ?>tradematerial/home">Create</a></li>
+                        <li id="trade2"><a href="<?php echo base_url(); ?>tradematerial/view">View</a></li>
+                     </ul>
+                  </div>
+               </li>
                <li id="teacher">
                   <a data-toggle="collapse" href="#teachermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
