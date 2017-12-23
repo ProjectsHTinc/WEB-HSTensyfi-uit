@@ -62,227 +62,43 @@ Class Mailmodel extends CI_Model
 
   }
 
-  function send_circular_via_mail($title,$notes,$cdate,$tusers_id,$stusers_id,$pusers_id,$users_id)
+  function send_circular_via_mail($title,$notes,$cdate,$musers_id,$user_id)
   {
+	  //-----------------------------Teacher---------------------
 
-	   $user_type=$users_id;
-	  //-----------Admin------------------------
-	  if(!empty($user_type))
-	   {
-        // echo $user_type; echo $title; echo $notes;exit;
-		 switch($user_type)
+	 if(!empty($musers_id))
+	 {
+	    $countid=count($musers_id);
+	     //echo $countid;
+		 for($i=0;$i<$countid;$i++)
 		 {
+			$muserid=$musers_id[$i];
+			$mbsql="SELECT u.user_id,u.user_type,u.user_master_id,mb.id,mb.name,mb.phone,mb.email,mb.role_type FROM edu_users AS u, edu_staff_details AS mb WHERE u.user_id='$muserid' AND u.user_type='4' AND u.user_type=mb.role_type AND u.user_master_id=mb.id";
+			$mbmail=$this->db->query($mbsql);
+			$mbres=$mbmail->result();
+			foreach($mbres as $mbrow)
+			{}
+			 $mbemail=$mbrow->email;
+          $to=$mbemail;
+			 $subject=$title;
+			 $cnotes=$notes.$cdate;
+			 $htmlContent = '
+				 <html>
+				 <head><title></title>
+				 </head>
+				 <body>
+				 <p style="margin-left:50px;">'.$cnotes.'</p>
+				 </body>
+				 </html>';
+		 $headers = "MIME-Version: 1.0" . "\r\n";
+		 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		 //Additional headers
 
-			case '2':
+		 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+		 $sent= mail($to,$subject,$htmlContent,$headers);
 
-					$tsql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone,t.email FROM edu_users AS u,edu_teachers AS t  WHERE u.user_type='$user_type' AND u.user_master_id=t.teacher_id AND u.status='Active'";
-					$res=$this->db->query($tsql);
-					$result1=$res->result();
-					foreach($result1 as $rows)
-					{ $tmail[]=$rows->email;}
-
-				     $mail_to=implode(',',$tmail);
-					 $to=$mail_to;
-
-					 $subject=$title;
-					 $cnotes=$notes.$cdate;
-					 $htmlContent = '
-						 <html>
-						 <head><title></title>
-						 </head>
-						 <body>
-						<p style="margin-left:50px;">'.$cnotes.'</p>
-						 </body>
-						 </html>';
-				 $headers = "MIME-Version: 1.0" . "\r\n";
-				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-				 // Additional headers
-				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-				 $sent= mail($to,$subject,$htmlContent,$headers);
-              //exit;
-            break;
-
-			 case '3':
-
-					$ssql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,a.admission_id,a.name,a.mobile,a.email FROM edu_users AS u,edu_admission AS a  WHERE u.user_type='$user_type' AND u.user_master_id=a.admission_id AND u.name=a.name AND u.status='Active'";
-					$res2=$this->db->query($ssql);
-					$result2=$res2->result();
-					foreach($result2 as $rows1)
-					{ $smail[]=$rows1->email;}
-
-					 $smail_to=implode(',',$smail);
-					 $to = $smail_to;
-					 $subject=$title;
-					  $cnotes=$notes.$cdate;
-					 $htmlContent = '
-						 <html>
-						 <head><title></title>
-						 </head>
-						 <body>
-						 <p style="margin-left:50px;">'.$cnotes.'</p>
-						 </body>
-						 </html>';
-				 $headers = "MIME-Version: 1.0" . "\r\n";
-				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-				 // Additional headers
-				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-				 $sent= mail($to,$subject,$htmlContent,$headers);
-
-              //exit;
-            break;
-
-			case '4':
-
-					$psql="SELECT u.user_id,u.user_type,u.user_master_id,u.name,p.id,p.mobile,p.email FROM edu_users AS u,edu_parents AS p WHERE u.user_type='$users_id' AND u.user_master_id=p.id AND u.status='Active'";
-					$pres2=$this->db->query($psql);
-					$presult2=$pres2->result();
-					foreach($presult2 as $prows1)
-					{ $pmail[]=$prows1->email; }
-					 $pmail_to=implode(',',$pmail);
-					 $to = $pmail_to;
-					 $subject=$title;
-					 $cnotes=$notes.$cdate;
-					 $htmlContent = '
-						 <html>
-						 <head><title></title>
-						 </head>
-						 <body>
-						 <p style="margin-left:50px;">'.$cnotes.'</p>
-						 </body>
-						 </html>';
-				 $headers = "MIME-Version: 1.0" . "\r\n";
-				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-				 // Additional headers
-				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-				 $sent= mail($to,$subject,$htmlContent,$headers);
-             // exit;
-            break;
-
-			default:
-            echo "No result found";
-            break;
-
-		 }//Switch	close
-
-	   }//admin close
-
-	  //-----------------------------Teacher----------------------
-
-			 if(!empty($tusers_id))
-			 {
-			     $countid=count($tusers_id);
-			     //echo $countid;
-				 for ($i=0;$i<$countid;$i++)
-				 {
-					$userid=$tusers_id[$i];
-
-					$tesql="SELECT u.user_id,u.user_type,u.user_master_id,t.teacher_id,t.name,t.phone,t.email FROM edu_users AS u,edu_teachers AS t WHERE u.user_id='$userid' AND u.user_type='2' AND u.user_master_id=t.teacher_id";
-					$tmail=$this->db->query($tesql);
-					$tres=$tmail->result();
-					foreach($tres as $trow)
-					{}
-					 $temail=$trow->email;
-                     $to=$temail;
-					 $subject=$title;
-					  $cnotes=$notes.$cdate;
-					 $htmlContent = '
-						 <html>
-						 <head><title></title>
-						 </head>
-						 <body>
-						 <p style="margin-left:50px;">'.$cnotes.'</p>
-						 </body>
-						 </html>';
-				 $headers = "MIME-Version: 1.0" . "\r\n";
-				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-				 // Additional headers
-				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-				 $sent= mail($to,$subject,$htmlContent,$headers);
-
-                }
-
-             }//teacher close
-
-
-			  //-----------------------------Students----------------------
-
-			  if(!empty($stusers_id))
-			 {
-			     $scountid=count($stusers_id);
-			      //echo $scountid; exit;
-				 for ($i=0;$i<$scountid;$i++)
-				 {
-				  $clsid=$stusers_id[$i];
-
-				 $sql1="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id,a.admission_id,a.admisn_no,a.name,a.mobile,a.email FROM edu_enrollment AS e,edu_admission AS a WHERE e.class_id='$clsid' AND e.admission_id=a.admission_id";
-					$scell=$this->db->query($sql1);
-					$res1=$scell->result();
-					foreach($res1 as $row1)
-					{
-       				 $semail=$row1->email;
-                     $to=$semail;
-					 $subject=$title;
-					 $cnotes=$notes.$cdate;
-					 $htmlContent = '
-						 <html>
-						 <head><title></title>
-						 </head>
-						 <body>
-						 <p style="margin-left:50px;">'.$cnotes.'</p>
-						 </body>
-						 </html>';
-				 $headers = "MIME-Version: 1.0" . "\r\n";
-				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-				 // Additional headers
-				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-				 $sent= mail($to,$subject,$htmlContent,$headers);
-				}
-              }
-
-             }//Students close
-
-	  //-----------------------------Parents----------------------
-
-			 if(!empty($pusers_id))
-		     {
-			   $pcountid=count($pusers_id);
-			  //echo $pcountid;exit;
-			  for ($i=0;$i<$pcountid;$i++)
-			  {
-				 $classid=$pusers_id[$i];
-
-				 $pgid="SELECT e.enroll_id,e.admission_id,e.admisn_no,e.name,e.class_id FROM edu_enrollment AS e WHERE e.class_id='$classid'";
-					 $pcell=$this->db->query($pgid);
-				     $res2=$pcell->result();
-				     foreach($res2 as $row2)
-				     {
-					  $stuid=$row2->admission_id;
-					  $class="SELECT p.id,p.admission_id,p.email,p.primary_flag FROM edu_parents AS p WHERE FIND_IN_SET('$stuid',admission_id) AND p.primary_flag='Yes'";
-					  $pcell1=$this->db->query($class);
-					  $res3=$pcell1->result();
-					  foreach($res3 as $row3)
-					   {
-       				 $pmail=$row3->email;
-                     $to=$pmail;
-					 $subject=$title;
-					 $cnotes=$notes.$cdate;
-					 $htmlContent = '
-						 <html>
-						 <head><title></title>
-						 </head>
-						 <body>
-						 <p style="margin-left:50px;">'.$cnotes.'</p>
-						 </body>
-						 </html>';
-				 $headers = "MIME-Version: 1.0" . "\r\n";
-				 $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-				 // Additional headers
-				 $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
-				 $sent= mail($to,$subject,$htmlContent,$headers);
-				}
-              }
-			  }
-             }//Parents close
+          }
+       }//teacher close
 
   }//function close
 
