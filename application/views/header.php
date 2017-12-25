@@ -268,8 +268,8 @@
                      <ul class="nav">
                         <li id="event2"><a href="<?php echo base_url(); ?>event/create">Add / View Event</a></li>
                         <li id="event1"><a href="<?php echo base_url(); ?>event/home">Event Calendar</a></li>
-                        <li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
-                        <!-- <li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->
+                        <!-- li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
+                        <<li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->
                      </ul>
                   </div>
                </li>

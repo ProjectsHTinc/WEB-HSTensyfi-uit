@@ -10,7 +10,20 @@ Class Eventmodel extends CI_Model
   }
 
 //GET ALL Years
-
+public function getYear()
+   {
+      $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
+      $year_result = $this->db->query($sqlYear);
+      $ress_year = $year_result->result();
+      if($year_result->num_rows()==1)
+      {
+         foreach ($year_result->result() as $rows)
+         {
+            $year_id = $rows->year_id;
+         }
+         return $year_id;
+      }
+   }
         function get_cur_year(){
           $check_year="SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month";
           $get_year=$this->db->query($check_year);
@@ -27,10 +40,19 @@ Class Eventmodel extends CI_Model
           }
 
         }
-       function create_event($event_date,$event_name,$event_details,$event_status){
+
+ function get_all_trade_batch()
+  {
+    $year_id=$this->getYear();
+    $query="SELECT tb.*,t.trade_name,b.batch_name FROM  edu_trade_batch AS tb,edu_trade AS t,edu_batch AS b WHERE  tb.year_id='$year_id' AND tb.trade_id=t.id AND tb.batch_id=b.id AND tb.status='Active'";
+    $resultset=$this->db->query($query);
+    return $resultset->result();
+  }
+
+       function create_event($event_date,$event_name,$event_details,$event_status,$trade_batch,$user_id){
          $acd_year=$this->get_cur_year();
           $year_id= $acd_year['cur_year'];
-          $query="INSERT INTO edu_events (year_id,event_name,event_date,event_details,status,created_at) VALUES ('$year_id','$event_name','$event_date','$event_details','$event_status',NOW())";
+          $query="INSERT INTO edu_events (year_id,batch_trade_id,event_name,event_date,event_details,status,created_at,created_by) VALUES ('$year_id','$trade_batch','$event_name','$event_date','$event_details','$event_status',NOW(),'$user_id')";
           $res=$this->db->query($query);
 		  if($res){
             $data= array("status" => "success");
@@ -47,18 +69,18 @@ Class Eventmodel extends CI_Model
         function getall_events(){
             $acd_year=$this->get_cur_year();
              $year_id= $acd_year['cur_year'];
-               $query="SELECT * FROM edu_events  WHERE year_id='$year_id' ORDER BY event_id DESC";
+               $query="SELECT * FROM edu_events  WHERE year_id='$year_id' ORDER BY id DESC";
           //$query="SELECT * FROM edu_events ORDER BY event_id DESC";
           $result=$this->db->query($query);
           return $result->result();
         }
         function get_event_id($event_id){
-          $query="SELECT * FROM edu_events WHERE event_id='$event_id'";
+          $query="SELECT * FROM edu_events WHERE id='$event_id'";
           $result=$this->db->query($query);
           return $result->result();
         }
-        function save_event($event_id,$event_date,$event_name,$event_details,$event_status){
-           $query="UPDATE edu_events SET event_name='$event_name',event_date='$event_date',event_details='$event_details',status='$event_status' WHERE event_id='$event_id'";
+        function save_event($event_id,$event_date,$event_name,$event_details,$event_status,$trade_batch,$user_id){
+           $query="UPDATE edu_events SET batch_trade_id='$trade_batch',event_name='$event_name',event_date='$event_date',event_details='$event_details',status='$event_status',updated_at=NOW(),updated_by='$user_id' WHERE id='$event_id'";
            $result=$this->db->query($query);
           if($result){
             $data= array("status" => "success");
