@@ -44,10 +44,9 @@
                           <td class="text-left"><?php echo $rows1->task_title;?></td>
                           <td class="text-left"><?php echo $rows1->task_description;?></td>
                           <td class="text-left"><?php $date=date_create($rows1->task_date);
-                            echo date_format($date,"d-m-Y");
-                            ?></td>
-                             <td class="text-left"><?php echo $rows1->task_image;?></td>
-                        
+                            echo date_format($date,"d-m-Y"); ?></td>
+                          <td class="text-left"><a href="<?php echo base_url(); ?>task/view_gallery/<?php echo $rows1->user_id; ?>" rel="tooltip" title="View Gallery" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+                          </td>
                         </tr>
                         <?php $i++;  }   ?>
                       </tbody>
