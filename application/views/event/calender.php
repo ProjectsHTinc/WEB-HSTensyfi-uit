@@ -154,27 +154,27 @@
    function(isConfirm) 
    {
 	   if (isConfirm)
-	    {
-	   $.ajax({
-	   url: "<?php echo base_url(); ?>event/todolist",
-	   type:'POST',
-	   data: $('#to_do_form').serialize(),
-	   success: function(response) {
-	   if(response=="success"){
-	   //  swal("Success!", "Thanks for Your Note!", "success");
-	   $('#to_do_form')[0].reset();
-	   swal({
-	   title: "Wow!",
-	   text: "Message!",
-	   type: "success"
-	   }, function() {
-	   window.location = "<?php echo base_url(); ?>event/home";
-	   });
-	   }else{
-	   sweetAlert("Oops...", "Something went wrong!", "error");
-	   }
-	   }
-	   });
+	   {
+		   $.ajax({
+			   url: "<?php echo base_url(); ?>event/todolist",
+			   type:'POST',
+			   data: $('#to_do_form').serialize(),
+			   success: function(response) {
+			   if(response=="success"){
+			   //  swal("Success!", "Thanks for Your Note!", "success");
+			   $('#to_do_form')[0].reset();
+			   swal({
+			   title: "Wow!",
+			   text: "Message!",
+			   type: "success"
+			   }, function() {
+			   window.location = "<?php echo base_url(); ?>event/home";
+			   });
+			   }else{
+			   sweetAlert("Oops...", "Something went wrong!", "error");
+			   }
+			   }
+		   });
 	   }else{
 	  	 swal("Cancelled", "Process Cancel :)", "error");
 	   }

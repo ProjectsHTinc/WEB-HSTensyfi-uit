@@ -22,7 +22,7 @@
                      <div class="content">
                         <div class="fresh-datatables">
                            <h4 class="title" style="padding-bottom:10px;">List of Admission</h4>
-                           <form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
+                           <!--form method="post" action="<?php echo base_url(); ?>admission/view" class="form-horizontal formdesign" enctype="multipart/form-data" name="myformsection">
                               <div class="col-sm-2">
                                  <select name="gender" style="margin-top:30px;"  class="selectpicker">
                                     <option value="">Select Gender</option>
@@ -38,7 +38,7 @@
                               <div class="col-sm-10">
                                  <button type="submit" id="save" class="btn btn-info btn-fill center">Search</button>
                               </div>
-                           </form>
+                           </form-->
                            <div class="toolbar">
                               <!--Here you can write extra buttons/actions for the toolbar-->
                            </div>
@@ -46,69 +46,25 @@
                               <thead>
                                  <th>ID</th>
                                  <th>Name</th>
-                                 <th>Parents Name</th>
-                                 <th>Blood Group</th>
-                                 <th>Gender</th>
+                                 <th>Cell Number</th>
+                                 <th>Created By</th>
+                                 <th>Created Date</th>
                                  <th>Status</th>
                                  <th>Action</th>
                               </thead>
                               <tbody>
                                  <?php
                                     $i=1;
-                                    if(!empty($gender))
-                                    {
-                                    foreach ($gender as $res)
-                                    { $stu=$res->status; $pname=$res->father_name; 
-                                       $pname1=$res->mother_name;?>
-                                 <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo $res->name; ?></td>
-                                    <td><?php echo $pname; ?> <?php echo $pname1; ?> </td>
-                                    <td><?php echo $res->blood_group_name; ?></td>
-                                    <td><?php echo $res->sex; ?></td>
-                                    <td><?php
-                                       if($stu=='Active'){?>
-                                       <button class="btn btn-success btn-fill btn-wd">Active</button>
-                                       <?php  }else{?>
-                                       <button class="btn btn-danger btn-fill btn-wd">DeActive</button><?php }
-                                          ?>
-                                    </td>
-                                    <td>
-                                       <?php
-                                          $enrollment_status=$res->enrollment;
-                                          if($enrollment_status==0)
-                                          {
-                                          ?>
-                                       <a href="<?php echo base_url(); ?>enrollment/add_enrollment/<?php echo $res->id; ?>" rel="tooltip" title="Add Registration" class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
-                                          <i class="fa fa-address-book" aria-hidden="true"></i>
-                                          <!--  <i class="fa fa-address-card-o" aria-hidden="true"></i> -->
-                                       </a>
-                                       <?php
-                                          }else{ ?>
-                                       <a href="<?php echo base_url(); ?>enrollment/edit_enroll/<?php echo $res->id; ?>" rel="tooltip" title="Already Added Registration Details " class="btn btn-simple btn-info btn-icon table-action view" href="javascript:void(0)">
-                                       <i class="fa fa-address-card-o" aria-hidden="true"></i>
-                                       </a>
-                                       <?php } ?>
-                                   
-                                       <a href="<?php echo base_url(); ?>admission/get_ad_id/<?php echo $res->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
-                                    </td>
-                                 </tr>
-                                 <?php  $i++;  }
-                                    }else{
-                                       //echo'<pre>';print_r($result);exit;
                                     foreach ($result as $rows)
                                      { 
                                        $stu=$rows->status;
-                                       $pname=$rows->father_name; 
-                                       $pname1=$rows->mother_name;
                                       ?>
                                  <tr>
-                                    <td><?php echo $i; ?></td>
-                                    <td><?php echo $rows->name; ?></td>
-                                  
-                                    <td><?php echo $pname; ?> <?php echo $pname1; ?> </td>
-                                    <td><?php echo $rows->blood_group_name; ?></td>
-                                    <td><?php echo $rows->sex; ?></td>
+                                 <td><?php echo $i; ?></td>
+                                 <td><?php echo $rows->name; ?></td>
+                                 <td><?php echo $rows->mobile; ?></td>
+                                 <td><?php echo $rows->cname; ?></td>
+                              <td><?php echo $new_date = date('d-m-Y',strtotime($rows->created_at));?></td>
                                     <td><?php
                                        if($stu=='Active'){?>
                                        <button class="btn btn-success btn-fill btn-wd">Active</button>
@@ -140,7 +96,7 @@
                                        <a href="<?php echo base_url(); ?>admission/edit_stu_details/<?php echo $rows->id; ?>" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a>
                                     </td>
                                  </tr>
-                                 <?php $i++;  }  }?>
+                                 <?php $i++;  }  ?>
                               </tbody>
                            </table>
                         </div>

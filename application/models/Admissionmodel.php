@@ -54,7 +54,7 @@ Class Admissionmodel extends CI_Model
        //GET ALL Admission Form
        function get_all_admission()
 	   {
-        $query="SELECT a.*,b.blood_group_name FROM edu_admission AS a,edu_blood_group AS b WHERE a.blood_group=b.id";
+        $query="SELECT a.*,u.user_id,u.name as cname FROM edu_admission AS a,edu_users AS u WHERE a.created_by=u.user_id";
          $res=$this->db->query($query);
          return $res->result();
        }
