@@ -205,14 +205,14 @@ Class Taskmodel extends CI_Model
 
   function get_all_mobilizer_detailstask($mobilizer_id)
   {
-     $query1="SELECT t.*,tp.task_id,tp.user_id,tp.task_image,u.user_id,u.name,u.user_type FROM edu_task AS t LEFT JOIN edu_task_photos AS tp ON tp.task_id IN(t.id) LEFT JOIN edu_users AS u ON u.user_id IN(t.user_id)   WHERE t.user_id IN('$mobilizer_id') ";
+     $query1="SELECT t.*,u.user_id,u.name,u.user_type FROM edu_task AS t  LEFT JOIN edu_users AS u ON u.user_id IN(t.user_id)   WHERE t.user_id IN('$mobilizer_id') ";
     $res1=$this->db->query($query1);
     $result1=$res1->result();
     return $result1;
   }
-  function view_all_photos($mobilizer_id)
+  function view_all_photos($mobilizer_id,$taskid)
   {
-     $query1="SELECT tp.task_id,tp.user_id,tp.task_image,u.user_id,u.name,u.user_type FROM edu_task_photos AS tp LEFT JOIN edu_users AS u ON u.user_id=tp.user_id WHERE tp.user_id IN('$mobilizer_id')";
+     $query1="SELECT tp.task_id,tp.user_id,tp.task_image,u.user_id,u.name,u.user_type FROM edu_task_photos AS tp LEFT JOIN edu_users AS u ON u.user_id=tp.user_id WHERE tp.user_id IN('$mobilizer_id') AND tp.task_id IN('$taskid')";
     $res1=$this->db->query($query1);
     $result1=$res1->result();
     return $result1;
