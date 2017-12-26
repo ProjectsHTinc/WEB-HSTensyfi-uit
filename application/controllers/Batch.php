@@ -17,6 +17,7 @@ class Batch extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['result'] = $this->batchmodel->get_batch_details();
+		$datas['cenert'] = $this->batchmodel->getall_center_name();
 		if($user_type==1)
 		{
 			$this->load->view('header');
@@ -32,10 +33,11 @@ class Batch extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-
+        
+        $center_id=$this->input->post('center_id');
 		$batchname=$this->input->post('batchname');
 		$status=$this->input->post('status');
-		$res = $this->batchmodel->add_batch_details($batchname,$status,$user_id);
+		$res = $this->batchmodel->add_batch_details($center_id,$batchname,$status,$user_id);
 		if($res['status']=="success")
 		{
 			$this->session->set_flashdata('msg', 'Added Successfully');
@@ -49,6 +51,7 @@ class Batch extends CI_Controller
 	public function edit_batch($batch_id)
 	{
 		$res['datas'] = $this->batchmodel->edit_batch($batch_id);
+		$res['cenert'] = $this->batchmodel->getall_center_name();
 		$this->load->view('header');
 		$this->load->view('batch/edit',$res);
 		$this->load->view('footer');
@@ -59,11 +62,12 @@ class Batch extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-
+        
+        $center_id=$this->input->post('center_id');
 		$batch_name=$this->input->post('batchname');
 		$status=$this->input->post('status');
 		$batch_id=$this->input->post('batch_id');
-		$res = $this->batchmodel->save_batch($batch_name,$batch_id,$status,$user_id);
+		$res = $this->batchmodel->save_batch($center_id,$batch_name,$batch_id,$status,$user_id);
 		if($res['status']=="success")
 		{
 			$this->session->set_flashdata('msg', 'Update Successfully');
