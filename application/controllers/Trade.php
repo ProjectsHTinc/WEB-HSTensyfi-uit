@@ -18,6 +18,8 @@ class Trade extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['result'] = $this->trademodel->getall_trade();
+	    $datas['cenert'] = $this->trademodel->getall_center_name();
+        // print_r($datas['cenert']);exit;
 		if($user_type==1){
 		$this->load->view('header');
 		$this->load->view('trade/add',$datas);
@@ -35,9 +37,11 @@ class Trade extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 
+      $center_id=$this->input->post('center_id');
 		$tradename=$this->input->post('tradename');
+
 		$status=$this->input->post('status');
-		$res = $this->trademodel->add_trade($tradename,$status,$user_id);
+		$res = $this->trademodel->add_trade($center_id,$tradename,$status,$user_id);
 		//print_r($res);exit;
 		if($res['status']=="success"){
 		$this->session->set_flashdata('msg', 'Added Successfully');
@@ -51,6 +55,7 @@ class Trade extends CI_Controller
 	public function edit_trade($id)
 	{
 		$res['datas'] = $this->trademodel->edit_trade($id);
+		$res['cenert'] = $this->trademodel->getall_center_name();
 		$this->load->view('header');
 		$this->load->view('trade/edit',$res);
 		$this->load->view('footer');
@@ -62,11 +67,12 @@ class Trade extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 
+      $center_id=$this->input->post('center_id'); 
 		$trade_name=$this->input->post('tradename');
 		$trade_id=$this->input->post('trade_id');
 		$status=$this->input->post('status');
 
-		$res = $this->trademodel->update_trade_details($trade_name,$trade_id,$status,$user_id);
+		$res = $this->trademodel->update_trade_details($center_id,$trade_name,$trade_id,$status,$user_id);
 		if($res['status']=="success"){
 		$this->session->set_flashdata('msg', 'Update Successfully');
 		redirect('trade/addtrade');

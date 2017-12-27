@@ -18,6 +18,20 @@
                   <div class="content">
                      <form action="<?php echo base_url(); ?>trade/update_trade" method="post" enctype="multipart/form-data" id="tradeform" name="tradeform">
                         <div class="row">
+
+                           <div class="col-md-5">
+                              <div class="form-group">
+                                 <label class="col-sm-4 control-label">Center Name</label>
+                               <select name="center_id"  class="selectpicker form-control">
+                                 <?php foreach ($cenert as $res) { ?>
+                                    <option value="<?php echo $res->id; ?>"><?php echo $res->center_name; ?></option>
+                                   <?php } ?>
+                                 </select>
+                                 <script language="JavaScript">document.tradeform.center_id.value="<?php echo $rows->center_id; ?>";</script>
+                              </div>
+                           </div>
+
+
                            <div class="col-md-5">
                               <div class="form-group">
                                  <label>Trade Name</label>
@@ -25,7 +39,9 @@
                                  <input type="hidden" class="form-control" name="trade_id" value="<?php  echo $rows->id; ?>">
                               </div>
                            </div>
-                           <div class="col-md-5">
+                        </div>
+                         <div class="row">
+                             <div class="col-md-5">
                               <div class="form-group">
                                  <label>Status</label>
                                  <select name="status" class="selectpicker form-control">
@@ -35,9 +51,14 @@
                                  <script language="JavaScript">document.tradeform.status.value="<?php echo $rows->status; ?>";</script>
                               </div>
                            </div>
-                        </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-left">Update</button>
-                        <div class="clearfix"></div>
+
+                           <div class="col-md-5">
+                              <div class="form-group" style="margin-top: 22px;">
+                                 <label></label>
+                                   <button type="submit" class="btn btn-info btn-fill pull-left">Update</button>
+                              </div>
+                            </div>
+                         </div>                       
                      </form>
                   </div>
                </div>

@@ -31,18 +31,24 @@ Class Batchmodel extends CI_Model
     $resultset=$this->db->query($query);
     return $resultset->result();
   }
-
+  
+  function getall_center_name()
+   {
+     $query="SELECT id,center_name,status FROM edu_center_details WHERE status='Active'";
+      $resultset=$this->db->query($query);
+      return $resultset->result();
+   } 
 
   //CREATE BATCH NAME
 
-  function add_batch_details($batchname,$status,$user_id)
+  function add_batch_details($center_id,$batchname,$status,$user_id)
   { 
     $year_id=$this->getYear();
 
     $check_batch="SELECT * FROM edu_batch WHERE batch_name='$batchname'";
     $res=$this->db->query($check_batch);
     if($res->num_rows()==0){
-    $query="INSERT INTO edu_batch(year_id,batch_name,status,created_at,created_by) VALUES ('$year_id','$batchname','$status',NOW(),'$user_id')";
+    $query="INSERT INTO edu_batch(year_id,center_id,batch_name,status,created_at,created_by) VALUES ('$year_id','$center_id','$batchname','$status',NOW(),'$user_id')";
     $resultset=$this->db->query($query);
     $data= array("status" => "success");
     return $data;
@@ -62,12 +68,12 @@ Class Batchmodel extends CI_Model
 
 
   //UPDATE SECTION NAME
-  function save_batch($batch_name,$batch_id,$status,$user_id)
+  function save_batch($center_id,$batch_name,$batch_id,$status,$user_id)
   {
     // $check_class="SELECT * FROM edu_batch WHERE batch_name='$batch_name' AND status='$status'";
     // $res=$this->db->query($check_class);
     // if($res->num_rows()==0){
-    $query="UPDATE edu_batch SET batch_name='$batch_name',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$batch_id'";
+    $query="UPDATE edu_batch SET center_id='$center_id',batch_name='$batch_name',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$batch_id'";
     $resultset=$this->db->query($query);
     $data= array("status" => "success");
     return $data;

@@ -10,13 +10,27 @@
                   </div>
                   <div class="content">
                      <form action="<?php echo base_url(); ?>trade/create_trade" method="post" enctype="multipart/form-data" id="tradeform">
-                        <div class="row">
+
+                         <div class="row">
+                           <div class="col-md-5">
+                              <div class="form-group">
+                                 <label class="col-sm-4 control-label">Center Name</label>
+                               <select name="center_id"  class="selectpicker form-control">
+                                 <?php foreach ($cenert as $res) { ?>
+                                    <option value="<?php echo $res->id; ?>"><?php echo $res->center_name; ?></option>
+                                   <?php } ?>
+                                 </select>
+                              </div>
+                           </div>
                            <div class="col-md-5">
                               <div class="form-group">
                                  <label class="col-sm-4 control-label">Trade Name</label>
                                  <input type="text" class="form-control"  placeholder="Enter Trade Name" id="tradename" name="tradename">
                               </div>
                            </div>
+                        </div>
+
+                        <div class="row">
                            <div class="col-md-5">
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Status</label>
@@ -25,10 +39,19 @@
                                     <option value="Deactive">DeActive</option>
                                  </select>
                               </div>
+                             </div>
+
+                              <div class="col-md-5">
+                              <div class="form-group" style="margin-top: 22px;">
+                                 <label class="col-sm-4 control-label"></label>
+                                   <button type="submit" class="btn btn-info btn-fill pull-left">Add</button>
+                      
+                              </div>
                            </div>
+                           
+                          
                         </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-left">Add</button>
-                        <div class="clearfix"></div>
+                       
                      </form>
                   </div>
                </div>

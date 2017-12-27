@@ -2,7 +2,7 @@
    <div class="content">
       <div class="container-fluid">
          <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-10">
                <div class="card">
                   <div class="header">
                      <h4 class="title">Add Batch</h4>
@@ -10,12 +10,25 @@
                   <div class="content">
                      <form action="<?php echo base_url(); ?>batch/create_batch" method="post" enctype="multipart/form-data" id="batchform">
                         <div class="row">
+                          <div class="col-md-5">
+                              <div class="form-group">
+                                 <label class="col-sm-4 control-label">Center Name</label>
+                               <select name="center_id"  class="selectpicker form-control">
+                                 <?php foreach ($cenert as $res) { ?>
+                                    <option value="<?php echo $res->id; ?>"><?php echo $res->center_name; ?></option>
+                                   <?php } ?>
+                                 </select>
+                              </div>
+                           </div>
+
                            <div class="col-md-5">
                               <div class="form-group">
                                  <label>Batch Name</label>
                                  <input type="text" class="form-control"  placeholder="Enter Batch Name" name="batchname" id="batchname">
                               </div>
-                           </div>
+                           </div>                          
+                        </div>
+                        <div class="row">
                            <div class="col-md-5">
                               <div class="form-group">
                                  <label class="col-sm-2 control-label">Status</label>
@@ -24,10 +37,14 @@
                                     <option value="Deactive">DeActive</option>
                                  </select>
                               </div>
+                             </div>
+                              <div class="col-md-5">
+                              <div class="form-group" style="margin-top: 22px;">
+                                 <label class="col-sm-4 control-label"></label>
+                                   <button type="submit" class="btn btn-info btn-fill pull-left">Add</button>
+                              </div>
                            </div>
                         </div>
-                        <button type="submit" class="btn btn-info btn-fill pull-left">Save</button>
-                        <div class="clearfix"></div>
                      </form>
                   </div>
                </div>

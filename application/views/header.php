@@ -195,7 +195,7 @@
                     <li id="masters2"><a href="<?php echo base_url();  ?>time/home">Timing</a></li>
                    <li id="masters3"><a href="<?php echo base_url(); ?>trade/addtrade">Trade & Batch</a></li>
                    <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Trade & Batch Management </a></li>
-                    <li id="task"><a href="<?php echo base_url(); ?>task/home">Task </a></li>
+                    <li id="circular1"><a href="<?php echo base_url(); ?>task/create_circular_master">Task Master </a></li>
                   <li id="masters6"><a href="<?php echo base_url();  ?>scheme/home">Scheme</a></li>
                   <li id="masters7"><a href="<?php echo base_url();  ?>center/home">Center</a></li>
                      </ul>
@@ -215,19 +215,7 @@
                      </ul>
                   </div>
                </li>
-               <!--li id="activities">
-                  <a data-toggle="collapse" href="#curricular">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/extracurricular.png"/>
-                     <p>Extra-Co curricular</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="curricular">
-                     <ul class="nav">
-                        <li id="curricular1"><a href="<?php echo base_url(); ?>extracurricular/home">Extra-Co curricular  </a></li>
-                        <li id="curricular2"><a href="<?php echo base_url(); ?>groups/home">House Groups</a></li>
-                     </ul>
-                  </div>
-               </li-->
+            
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
@@ -238,6 +226,19 @@
                      <ul class="nav">
                         <li id="enroll1"><a href="<?php echo base_url(); ?>enrollment/home">Student Registration</a></li>
                         <li id="enroll2"><a href="<?php echo base_url(); ?>enrollment/view">List of Registration</a></li>
+                     </ul>
+                  </div>
+               </li>
+               <li id="tradematerial">
+                  <a data-toggle="collapse" href="#tradematerialmenu">
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
+                     <p>Trade Material	</p>
+                     <b class="caret"></b>
+                  </a>
+                  <div class="collapse" id="tradematerialmenu">
+                     <ul class="nav">
+                        <li id="trade1"><a href="<?php echo base_url(); ?>tradematerial/home">Create</a></li>
+                        <li id="trade2"><a href="<?php echo base_url(); ?>tradematerial/view">View</a></li>
                      </ul>
                   </div>
                </li>
@@ -267,23 +268,24 @@
                      <ul class="nav">
                         <li id="event2"><a href="<?php echo base_url(); ?>event/create">Add / View Event</a></li>
                         <li id="event1"><a href="<?php echo base_url(); ?>event/home">Event Calendar</a></li>
-                        <li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
-                        <!-- <li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->
+                        <!-- li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
+                        <<li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->
                      </ul>
                   </div>
                </li>
 
 
-               <li id="communication">
+              <li id="communication">
                   <a data-toggle="collapse" href="#communcicationmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
-                     <p>Circular</p>
+                     <p>Task</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="communcicationmenu">
                      <ul class="nav">
-                        <li id="communication1"><a href="<?php echo base_url(); ?>circular/add_circular">Add Circular </a></li>
-                        <li id="communication2"><a href="<?php echo base_url(); ?>circular/view_circular">View Circular </a></li>
+                        <li id="communication1"><a href="<?php echo base_url(); ?>task/add_circular">Add Task </a></li>
+                        <li id="communication2"><a href="<?php echo base_url(); ?>task/view_circular">View Task </a></li>
+                        <li id="communication3"><a href="<?php echo base_url(); ?>task/view_mobilizer_task">View Mobile User Task </a></li>
                      </ul>
                   </div>
                </li>
