@@ -1,17 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
-
-
-	function __construct() {
-		 parent::__construct();
-
-		  $this->load->helper('url');
-		  $this->load->library('session');
-
-
- }
+class Home extends CI_Controller 
+{
+	function __construct() 
+	{
+	   parent::__construct();
+		$this->load->helper('url');
+		$this->load->library('session');
+   }
 
 	/**
 	 * Index Page for this controller.
@@ -30,21 +27,17 @@ class Home extends CI_Controller {
 	 */
 	public function index()
 	{
-			$user_id=$this->session->userdata('user_id');
-			if($user_id){
-				redirect('adminlogin/dashboard');
-			}else{
-					 $this->load->view('login');
-			}
-
-
-
+		// $user_id=$this->session->userdata('user_id');
+		// if($user_id){
+		// 	redirect('adminlogin/dashboard');
+		// }else{
+		  $this->load->view('login');
+		// }
 	}
 
-
-
-	public function forgotpassword(){
-		 $this->load->view('forgotpassword');
+	public function forgotpassword()
+	{
+		$this->load->view('forgotpassword');
 	}
 
 
