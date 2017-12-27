@@ -137,7 +137,8 @@ Class Staffmodel extends CI_Model
     }
 
     function get_all_staff_details(){
-      $select="SELECT er.user_type_name,esd.* FROM edu_staff_details  AS esd LEFT JOIN edu_role AS er ON er.id=esd.role_type ORDER BY id DESC";
+      $select="SELECT er.user_type_name,esd.*,eu.name AS created_user,c.trade_name,s.batch_name FROM edu_staff_details  AS esd LEFT JOIN edu_role AS er ON er.id=esd.role_type LEFT JOIN edu_users AS eu ON esd.created_by=eu.user_id LEFT JOIN edu_trade_batch AS cm
+      ON esd.trade_batch_id=cm.id LEFT JOIN edu_trade AS c ON cm.trade_id=c.id LEFT JOIN edu_batch AS s ON cm.batch_id=s.id ORDER BY id DESC";
       $result=$this->db->query($select);
       return $result->result();
     }
@@ -147,6 +148,8 @@ Class Staffmodel extends CI_Model
       $result=$this->db->query($select);
       return $result->result();
     }
+
+
 
 
     function update_staff_details_to_id($select_role,$name,$address,$email,$class_tutor,$mobile,$sec_phone,$sex,$dob,$nationality,$religion,$community_class,$community,$qualification,$status,$staff_prof_pic,$user_id,$staff_id){
@@ -182,6 +185,74 @@ Class Staffmodel extends CI_Model
       return $result->result();
 
     }
+    function get_all_trade_batch(){
+      $acd_year=$this->get_cur_year();
+      $year_id= $acd_year['cur_year'];
+      $query="SELECT cm.id,c.trade_name,s.batch_name FROM edu_trade_batch AS cm LEFT JOIN edu_trade AS c ON cm.trade_id=c.id
+      LEFT JOIN edu_batch AS s ON cm.batch_id=s.id WHERE cm.year_id='$year_id' AND cm.status='Active'";
+      $result=$this->db->query($query);
+      return $result->result();
+    }
+
+
+    function trainer_handling_trade_form($trade_id,$staff_id,$status,$user_id){
+      $acd_year=$this->get_cur_year();
+      $year_id= $acd_year['cur_year'];
+     $check="SELECT * FROM edu_staff_handling_trade WHERE staff_id='$staff_id' AND trade_batch_id='$trade_id' AND year_id='$year_id'";
+      $result=$this->db->query($check);
+      if($result->num_rows()==0){
+        $insert="INSERT INTO edu_staff_handling_trade (year_id,staff_id,trade_batch_id,status,created_by,created_at) VALUES('$year_id','$staff_id','$trade_id','$status','$user_id',NOW())";
+        $result=$this->db->query($insert);
+        if($result){
+          echo "success";
+        }else{
+          echo "Something Went wrong";
+        }
+      }else{
+        echo "Already Exist";
+      }
+
+
+    }
+
+
+    function view_trainer_handling_trade(){
+      $acd_year=$this->get_cur_year();
+      $year_id= $acd_year['cur_year'];
+      $select="SELECT c.trade_name,s.batch_name,esd.name,esht.* FROM edu_staff_handling_trade  AS esht LEFT JOIN edu_trade_batch AS cm ON esht.trade_batch_id=cm.id LEFT JOIN edu_trade AS c ON cm.trade_id=c.id LEFT JOIN edu_batch AS s ON cm.batch_id=s.id
+      LEFT JOIN edu_staff_details AS esd ON esht.staff_id=esd.id WHERE  esht.year_id='$year_id'";
+      $result=$this->db->query($select);
+      return $result->result();
+
+      }
+
+      function get_trainer_handling_trade($id){
+        $acd_year=$this->get_cur_year();
+        $year_id= $acd_year['cur_year'];
+        $get_id=base64_decode($id);
+         $select="SELECT c.trade_name,s.batch_name,esd.name,esht.* FROM edu_staff_handling_trade  AS esht LEFT JOIN edu_trade_batch AS cm ON esht.trade_batch_id=cm.id LEFT JOIN edu_trade AS c ON cm.trade_id=c.id LEFT JOIN edu_batch AS s ON cm.batch_id=s.id
+        LEFT JOIN edu_staff_details AS esd ON esht.staff_id=esd.id WHERE  esht.year_id='$year_id' AND esht.id='$get_id'";
+        $result=$this->db->query($select);
+        return $result->result();
+      }
+
+      function update_trainer_handling_trade_form($trade_batch_id,$staff_id,$id,$status,$user_id){
+        $acd_year=$this->get_cur_year();
+        $year_id= $acd_year['cur_year'];
+       $check="SELECT * FROM edu_staff_handling_trade WHERE staff_id='$staff_id' AND trade_batch_id='$trade_batch_id' AND year_id='$year_id'";
+        $result=$this->db->query($check);
+        if($result->num_rows()==0){
+           $update="UPDATE edu_staff_handling_trade SET status='$status',trade_batch_id='$trade_batch_id',updated_by='$user_id',updated_at=NOW() WHERE id='$id' AND staff_id='$staff_id'";
+        $result=$this->db->query($update);
+          if($result){
+            echo "success";
+          }else{
+            echo "Something Went wrong";
+          }
+        }else{
+          echo "Already Exist";
+        }
+      }
 
 
 

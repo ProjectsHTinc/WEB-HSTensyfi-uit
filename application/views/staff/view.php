@@ -23,7 +23,7 @@
                                     <div class="content" id="content1">
                                         <div class="fresh-datatables">
                                             <!-- <h4 class="title" style="padding-bottom: 20px;">List of Teacher</h4> -->
-                                            <legend>List of Staff</legend>
+                                            <legend>List of Staff <a  href="<?php echo base_url(); ?>staff/view_handling" class="btn " style="float:right;margin-top:-10px;">Trainer Handling batch</a></legend>
 
 
                                             <div class="toolbar">
@@ -56,10 +56,16 @@
                                                           <td><?php echo $rows->user_type_name; ?></td>
 																													<td><?php echo $rows->email; ?></td>
 																													<td><?php echo $rows->phone; ?></td>
-																														<td><?php echo $rows->trade_batch_id;?></td>
-																														<td><?php echo $rows->created_by;?></td>
+																														<td><?php echo $rows->trade_name;?>-<?php echo $rows->batch_name;?></td>
+																														<td><?php echo $rows->created_user;?></td>
 																														<td><?php echo $rows->status;?></td>
-																														<td><a href="<?php echo base_url(); ?>staff/edit/<?php echo base64_encode($rows->id);?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a></td>
+																														<td><a href="<?php echo base_url(); ?>staff/edit/<?php echo base64_encode($rows->id);?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
+                                                              <?php if($rows->role_type=='2'){ ?>
+                                                                <a  href="#myModal" data-toggle="modal" data-target="#myModal" data-trainer_id="<?php echo $rows->id; ?>" class="open-AddBookDialog"><i class='fa fa-plus-square-o' aria-hidden='true'></i></a>
+                                                            <?php  }else{
+
+                                                              } ?>
+                                                            </td>
 
 																														</tr>
 
@@ -74,31 +80,25 @@
                                                     <div class="modal-content">
                                                         <div class="modal-header">
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                            <h4 class="modal-title">Add Subject To Teacher</h4>
+                                                            <h4 class="modal-title">Add Trainer to Trade& batch</h4>
                                                         </div>
                                                         <div class="modal-body">
-                                                            <form action="" method="post" class="form-horizontal" id="subject_handling_form">
+                                                            <form action="" method="post" class="form-horizontal" id="trainer_handling_trade_form">
                                                                 <fieldset>
                                                                     <div class="form-group">
-                                                                        <label class="col-sm-4 control-label">Select Subject</label>
+                                                                        <label class="col-sm-4 control-label">Select Trade & Batch</label>
                                                                         <div class="col-sm-6">
-                                                                            <select name="subject_id" id="subject_id" data-title="Select Subject" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue" onchange="getListClass()">
-                                                                                <?php foreach ($resubject as $rows) {  ?>
-                                                                                    <option value="<?php echo $rows->subject_id; ?>">
-                                                                                        <?php echo $rows->subject_name; ?>
+                                                                            <select name="trade_id" id="trade_id" data-title="Select Trade & Batch" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue" onchange="getListClass()">
+                                                                                <?php foreach ($result_all_trade_batch as $rows) {  ?>
+                                                                                    <option value="<?php echo $rows->id; ?>">
+                                                                                        <?php echo $rows->trade_name; ?>-<?php echo $rows->batch_name; ?>
                                                                                     </option>
                                                                                     <?php      } ?>
                                                                             </select>
-                                                                            <input type="hidden" name="teacher_id" id="teacher_id" class="form-control" value="">
+                                                                            <input type="hidden" name="trainer_id" id="trainer_id" class="form-control" value="">
                                                                         </div>
                                                                     </div>
-                                                                    <div class="form-group">
-                                                                        <label class="col-sm-4 control-label">Select Class</label>
-                                                                        <div class="col-sm-6">
-                                                                            <select name="class_master_id" id="class_master_id" class="form-control">
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
+
                                                                     <div class="form-group">
                                                                         <label class="col-sm-4 control-label">Select Status</label>
                                                                         <div class="col-sm-6">
@@ -138,7 +138,10 @@
     </div>
 </div>
 <script type="text/javascript">
-
+$(document).on("click", ".open-AddBookDialog", function () {
+      var eventId = $(this).data('trainer_id');
+      $(".modal-body #trainer_id").val( eventId );
+ });
 
     $('#teachermenu').addClass('collapse in');
     $('#teacher').addClass('active');
@@ -170,5 +173,61 @@
             search: "_INPUT_",
             searchPlaceholder: "Search records",
         }
+    });
+    $('#trainer_handling_trade_form').validate({ // initialize the plugin
+    rules: {
+      trade_id:{required:true },
+      status:{required:true },
+
+    },
+    messages: {
+      trade_id: "Select Trade & batch",
+      status:"Select status"
+    },
+    submitHandler: function(form)
+    {
+      //alert("hi");
+      swal({
+        title: "Are you sure?",
+        text: "You Want Confirm this form",
+        type: "success",
+        showCancelButton: true,
+        confirmButtonColor: '#DD6B55',
+        confirmButtonText: 'Yes, I am sure!',
+        cancelButtonText: "No, cancel it!",
+        closeOnConfirm: false,
+        closeOnCancel: false
+      },
+
+    function(isConfirm)
+    {
+      if (isConfirm)
+      {
+        $.ajax({
+          url: "<?php echo base_url(); ?>staff/trainer_handling_trade_form",
+          type:'POST',
+          data: $('#trainer_handling_trade_form').serialize(),
+          success: function(response) {
+
+          if(response=="success"){
+          //  swal("Success!", "Thanks for Your Note!", "success");
+          $('#trainer_handling_trade_form')[0].reset();
+          swal({
+          title: "Wow!",
+          text: response,
+          type: "success"
+          }, function() {
+          window.location = "<?php echo base_url(); ?>staff/view";
+          });
+          }else{
+          sweetAlert("Oops...", "Something went wrong!", "error");
+          }
+          }
+        });
+      }else{
+        swal("Cancelled", "Process Cancel :)", "error");
+      }
+    });
+    }
     });
 </script>

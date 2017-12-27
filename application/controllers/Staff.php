@@ -11,9 +11,32 @@ class Staff extends CI_Controller {
 		    $this->load->helper('url');
 		    $this->load->library('session');
 				$this->load->model('staffmodel');
+
+
+
+
  }
 
-	
+	/**
+	 * Index Page for this controller.
+	 *
+	 * Maps to the following URL
+	 * 		http://example.com/index.php/welcome
+	 *	- or -
+	 * 		http://example.com/index.php/welcome/index
+	 *	- or -
+	 * Since this controller is set as the default controller in
+	 * config/routes.php, it's displayed at http://example.com/
+	 *
+	 * So any other public methods not prefixed with an underscore will
+	 * map to /index.php/welcome/<method_name>
+	 * @see https://codeigniter.com/user_guide/general/urls.html
+	 */
+	 // Class section
+
+
+
+
 	 	public function home(){
 	 		 	$datas=$this->session->userdata();
   	 		$user_id=$this->session->userdata('user_id');
@@ -81,6 +104,7 @@ class Staff extends CI_Controller {
 				$user_type=$this->session->userdata('user_type');
 				if($user_type==1){
 				$datas['result']=$this->staffmodel->get_all_staff_details();
+				$datas['result_all_trade_batch']=$this->staffmodel->get_all_trade_batch();
 			 $this->load->view('header');
 			 $this->load->view('staff/view',$datas);
 			 $this->load->view('footer');
@@ -92,8 +116,7 @@ class Staff extends CI_Controller {
 
 
 
-		public function edit($id)
-		{
+		public function edit($id){
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
@@ -175,6 +198,71 @@ class Staff extends CI_Controller {
 				redirect('/');
 			}
 		}
+
+		public function trainer_handling_trade_form(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==1){
+				 	$trade_id=$this->input->post('trade_id');
+				 	$staff_id=$this->input->post('trainer_id');
+					$status=$this->input->post('status');
+					$datas['res']=$this->staffmodel->trainer_handling_trade_form($trade_id,$staff_id,$status,$user_id);
+			}else{
+				redirect('/');
+			}
+		}
+
+
+		public function view_handling(){
+			$datas=$this->session->userdata();
+			$user_id=$this->session->userdata('user_id');
+			$user_type=$this->session->userdata('user_type');
+			if($user_type==1){
+					$datas['res']=$this->staffmodel->view_trainer_handling_trade();
+					$this->load->view('header');
+					$this->load->view('staff/trainer_handling_trade_batch',$datas);
+					$this->load->view('footer');
+			}else{
+				redirect('/');
+			}
+		}
+
+
+
+				public function edit_handling($id){
+					$datas=$this->session->userdata();
+					$user_id=$this->session->userdata('user_id');
+					$user_type=$this->session->userdata('user_type');
+					if($user_type==1){
+							$datas['trade_enc_id']=base64_decode($id);
+							$datas['res']=$this->staffmodel->get_trainer_handling_trade($id);
+							$datas['result_all_trade_batch']=$this->staffmodel->get_all_trade_batch();
+							$this->load->view('header');
+							$this->load->view('staff/edit_handling_trade',$datas);
+							$this->load->view('footer');
+					}else{
+						redirect('/');
+					}
+				}
+
+			public function update_trainer_handling_trade_form(){
+				$datas=$this->session->userdata();
+				$user_id=$this->session->userdata('user_id');
+				$user_type=$this->session->userdata('user_type');
+				if($user_type==1){
+				 $trade_batch_id=$this->input->post('trade_batch_id');
+				$staff_id=$this->input->post('staff_id');
+				$id=$this->input->post('id');
+				$status=$this->input->post('status');
+
+				$datas['res']=$this->staffmodel->update_trainer_handling_trade_form($trade_batch_id,$staff_id,$id,$status,$user_id);
+
+
+				}else{
+					redirect('/');
+				}
+			}
 
 		public function checkmobile(){
 			$datas=$this->session->userdata();
