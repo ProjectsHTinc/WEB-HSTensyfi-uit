@@ -5,7 +5,6 @@
             <div class="header">
                <legend>Add Events</legend>
             </div>
-           
             <div class="content">
                <form method="post" action="<?php echo base_url(); ?>event/add" class="form-horizontal" enctype="multipart/form-data" id="eventform">
                   <fieldset>

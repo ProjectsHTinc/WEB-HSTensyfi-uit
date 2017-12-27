@@ -11,7 +11,7 @@
                         ×</button> <?php echo $this->session->flashdata('msg'); ?>
                      </div>
                      <?php endif; ?>
-                     <h4 class="title">Edit Profile</h4>
+                     <h4 class="title">Edit Profile Picture</h4>
                   </div>
                   <?php
                      // print_r($result);
@@ -24,7 +24,7 @@
                               <div class="form-group">
                                  <label>Profile Pic</label>
                                  <input type="file" name="user_pic" class="form-control" onchange="loadFile(event)" accept="image/*" >
-                                 <input type="hidden" class="form-control" readonly placeholder="" name="user_id" value="<?php echo $rows->teacher_id; ?>">
+                                 <input type="hidden" class="form-control" readonly placeholder="" name="user_id" value="<?php echo $rows->id; ?>">
                                  <input type="hidden" class="form-control" readonly placeholder="" name="user_pic_old" value="<?php echo $rows->user_pic; ?>">
                               </div>
                            </div>
@@ -40,8 +40,6 @@
                               <div class="form-group">
                                  <label>Gender</label>
                                  <input type="text" readonly name="sex" class="form-control" value="<?php echo $rows->sex; ?>">
-                                
-                                 <script language="JavaScript">document.teacherform.sex.value="<?php echo $rows->sex; ?>";</script>
                               </div>
                            </div>
                            <div class="col-md-7">
@@ -114,38 +112,24 @@
                                  <textarea name="address" class="form-control" readonly rows="4" cols="80"><?php echo $rows->address; ?></textarea>
                               </div>
                            </div>
-                           <div class="col-md-7">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail1">Subject</label>
-                                 <?php
-                                    $tea_name=$rows->subject;
-                                       $sQuery = "SELECT * FROM edu_subject WHERE subject_id='$tea_name'";
-                                       $objRs=$this->db->query($sQuery);
-                                       $row=$objRs->result();
-                                       foreach ($row as $rows1)
-                                    {
-                                      $sub=$rows1->subject_name;
-                                    }
-                                    ?>
-                                 <input type="text" readonly name="subject"  class="form-control" value="<?php echo $sub; ?>">
-                                 <label for="exampleInputEmail1"> Email</label>
-                                 <input type="text" name="email" disabled class="form-control " id="email" placeholder="Email Address" onblur="checkMailStatus()"  value="<?php echo $rows->email; ?>"/>
-                              </div>
-                           </div>
-                        </div>
-						
-						<div class="row">
+
                            <div class="col-md-5">
                               <div class="form-group">
                                  <label>Qualification</label>
                                  <input type="text" readonly value="<?php echo $rows->qualification; ?>" name="qualification" class="form-control">
-                         
                               </div>
                            </div>
-                        </div>
 
+                        </div>
+						
+						<div class="row">
+                           
+                      <div class="col-md-5">
+                              <div class="form-group">
                         <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile Picture</button>
                         <div class="clearfix"></div>
+                          </div>
+                       </div></div>
                      </form>
                   </div>
                </div>

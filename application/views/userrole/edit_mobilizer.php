@@ -11,12 +11,13 @@
                         ×</button> <?php echo $this->session->flashdata('msg'); ?>
                      </div>
                      <?php endif; ?>
-                     <h4 class="title">User Student</h4>
+                     <h4 class="title">User Profile</h4>
                   </div>
                   <?php
+                     //print_r($result);
                      foreach ($result as $rows) { }?>
                   <div class="content">
-                     <form action="<?php echo base_url(); ?>userrolemanage/save_students" method="post" enctype="multipart/form-data" name="save_form">
+                     <form action="<?php echo base_url(); ?>userrolemanage/update_mobilizer_details" method="post" enctype="multipart/form-data" name="save_form">
                         <div class="row">
                            <div class="col-md-5">
                               <div class="form-group">
@@ -28,7 +29,7 @@
                            <div class="col-md-7">
                               <div class="form-group">
                                  <label for="exampleInputEmail1"> Name</label>
-                                 <input type="text" class="form-control" readonly name="name" placeholder="Email" value="<?php echo $rows->name; ?>">
+                                 <input type="text" class="form-control" readonly name="name" placeholder="Enter Name" value="<?php echo $rows->name; ?>">
                               </div>
                            </div>
                         </div>
@@ -38,7 +39,7 @@
                                  <label>Status</label>
                                  <select name="status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                     <option value="Active">Active</option>
-                                    <option value="Deactive">DeActive</option>
+                                    <option value="Deactive">De-Active</option>
                                  </select>
                                  <script language="JavaScript">document.save_form.status.value="<?php echo $rows->status; ?>";</script>
                               </div>
@@ -63,6 +64,6 @@
 <script type="text/javascript">
    $('#usermanagement').addClass('collapse in');
    $('#user').addClass('active');
-   $('#user3').addClass('active');
+   $('#user2').addClass('active');
 </script>
 

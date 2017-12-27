@@ -79,13 +79,8 @@
                <span class="icon-bar"></span>
                </button>
 
-               <a class="navbar-brand title_ensyfi" href="#" style="color:white; margin-left:10px; margin-top:25px;
-    font-size:25px;">
-			   <?php $sql="SELECT name,user_id,user_type FROM edu_users WHERE user_id='1' AND user_type='1'";
-                              $res=$this->db->query($sql);
-                              $rows=$res->result();
-                              foreach ($rows as $rows3){} $uname=$rows3->name;
-							  echo $uname; ?></a>
+      <a class="navbar-brand title_ensyfi" href="#" style="color:white; margin-left:10px; margin-top:25px; font-size:25px;">
+			   </a>
             </div>
             <div class="collapse navbar-collapse"  style="float:right;padding-top: 18px;">
                <ul class="nav navbar-nav navbar-right">
@@ -97,9 +92,6 @@
 						 <li><a href="<?php echo base_url(); ?>teachercommunication/home">Apply Leaves </a></li>
                         <li><a href="<?php echo base_url(); ?>teacheronduty/special_class_details">Special Class </a></li>
                         <li><a href="<?php echo base_url(); ?>teacheronduty/view_substitution">Substitution </a></li>
-						
-                          <!--  <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li>
-                           <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> -->
                      </ul>
                   </li>
                   <li class="dropdown dropdown-with-icons">
@@ -148,9 +140,6 @@
          </div>
       </nav>
       <div class="sidebar sidemenu">
-         <!-- <div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
-            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:115px;"  />
-         </div> -->
          <div class="sidebar-wrapper" style="background-color:#323546;">
             <div class="user" style="margin-top:10px;padding-bottom:22px;">
                <div class="imgclass photo" style="margin-left:20px;">

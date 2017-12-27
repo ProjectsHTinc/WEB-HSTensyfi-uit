@@ -1,5 +1,3 @@
-
-
 <style>
    .fc-scroller{
    overflow-x: hidden;
@@ -35,24 +33,22 @@ font-weight: bold;}
    }
    .rem{color:white;font-size:18px;text-transform: capitalize;}
 </style>
+
 <div class="main-panel">
 <div class="content">
    <div class="container-fluid">
       <div class="card">
          <div class="row">
             <div class="col-md-12">
-               <?php  foreach ($user_details as $rows) {
-                  # code...
-                  } ?>
+               <?php foreach ($user_details as $rows) { } ?>
                <div class="tab-content">
                   <div class="tab-pane active" id="description-logo">
                      <div class="" style="border:none;box-shadow: none;">
-
-                           <div class="col-md-3" >
-                              <?php $pic= $rows->user_pic; if(empty($pic)){
-                                 } else{  ?>
-                              <img src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $rows->user_pic; ?>" class="img-responsive img-circle" style="width:125px;">
-							  <p class="name"> <?php echo $rows->name; }?> </p>
+                        <div class="col-md-3" >
+                           <?php $pic= $rows->user_pic; if(empty($pic)){
+                              } else{  ?>
+                           <img src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $rows->user_pic; ?>" class="img-responsive img-circle" style="width:125px;">
+							      <p class="name"> <?php echo $rows->name; }?> </p>
                            </div>
                            <div class="col-md-3" style="padding-top:20px;">
                               <div class="">
@@ -196,20 +192,18 @@ font-weight: bold;}
 
                   </div>
                   <div class="tab-pane" id="help-logo">
-
                         <div class="col-md-3" style="padding-bottom:25px; ">
                            <div class="header">
                               <h6 class="title">Class Teacher </h6>
-                              <p class="category"><a> <?php echo $rows->class_name; ?>-<?php echo $rows->sec_name; ?></a></p>
+                              <p class="category"><a> <?php echo $rows->trade_name; ?>-<?php echo $rows->batch_name; ?></a></p>
                            </div>
-						             </div>
-  						            <div class="col-md-3" style="padding-bottom:25px; ">
+						      </div>
+  						            <!--div class="col-md-3" style="padding-bottom:25px; ">
   						              <div class="header">
-                                <h6 class="title">Core Subject </h4>
+                                <h6 class="title">Core Subject </h6>
                                 <p class="category"><?php echo $rows->subject_name; ?></p>
                              </div>
-                          </div>
-
+                          </div-->
 
                         <div  class="textborder" style="height:77px;"></div>
 						<div class="col-md-5 test">
@@ -240,8 +234,8 @@ font-weight: bold;}
                      </li>
                   </ul>
 						   </div>
-
                   </div>
+
                </div>
                <!-- end tab content -->
             </div>

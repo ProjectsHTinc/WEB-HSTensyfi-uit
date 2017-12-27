@@ -312,8 +312,8 @@
                   </a>
                   <div class="collapse" id="usermanagement">
                      <ul class="nav">
-                        <li id="user1"><a href="<?php echo base_url(); ?>userrolemanage/teachers">Teachers</a></li>
-                        <li id="user2"><a href="<?php echo base_url(); ?>userrolemanage/parents">Parents</a></li>
+                        <li id="user1"><a href="<?php echo base_url(); ?>userrolemanage/teachers">Stafe</a></li>
+                        <li id="user2"><a href="<?php echo base_url(); ?>userrolemanage/mobilizer">Mobilizer</a></li>
                         <li id="user3"><a href="<?php echo base_url(); ?>userrolemanage/students">Students</a></li>
                      </ul>
                   </div>

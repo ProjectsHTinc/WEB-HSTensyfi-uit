@@ -4,19 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Teacherprofile extends CI_Controller {
 
 
-	function __construct() {
-		 parent::__construct();
-		 $this->load->model('teacherprofilemodel');
-		 $this->load->model('subjectmodel');
-		 $this->load->model('class_manage');
-		 $this->load->model('smsmodel');
-		 $this->load->model('mailmodel');
-		 $this->load->model('groupingmodel');
-		 $this->load->model('notificationmodel');
-		 $this->load->helper('url');
-		 $this->load->library('session');
-
- }
+	function __construct()
+	{
+	 parent::__construct();
+	 $this->load->helper('url');
+	 $this->load->library('session');
+	 $this->load->model('teacherprofilemodel');
+   }
 
 
 	public function profilepic()
@@ -24,13 +18,13 @@ class Teacherprofile extends CI_Controller {
 		 $datas=$this->session->userdata();
 		 $user_id=$this->session->userdata('user_id');
 		 $user_type=$this->session->userdata('user_type');
-		 $datas['result'] = $this->teacherprofilemodel->getuser($user_id);
-           //print_r($datas['result']);exit;
-		 $datas['resubject'] = $this->subjectmodel->getsubject();
-		 $datas['getall_class']=$this->class_manage->getall_class();
-		 $datas['groups']=$this->teacherprofilemodel->get_all_groups_details();
-		 $datas['activities']=$this->teacherprofilemodel->get_all_activities_details();
-		if($user_type==2){
+		 $datas['result'] = $this->teacherprofilemodel->getuser($user_id,$user_type);
+      // echo'<pre>';print_r($datas['result']);exit;
+		 //$datas['resubject'] = $this->subjectmodel->getsubject();
+		 //$datas['getall_class']=$this->class_manage->getall_class();
+		 //$datas['groups']=$this->teacherprofilemodel->get_all_groups_details();
+		 //$datas['activities']=$this->teacherprofilemodel->get_all_activities_details();
+		if($user_type==3){
 		$this->load->view('adminteacher/teacher_header',$datas);
 		$this->load->view('adminteacher/profile_update',$datas);
 		$this->load->view('adminteacher/teacher_footer');
@@ -40,123 +34,13 @@ class Teacherprofile extends CI_Controller {
 		}
 }
 
-
-	public function grouping(){
-		$datas=$this->session->userdata();
-		$user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		if($user_type==2){
-			$datas['list_of_grouping']=$this->teacherprofilemodel->get_groups_for_teacher($user_id);
-			$this->load->view('adminteacher/teacher_header',$datas);
-			$this->load->view('adminteacher/communication/send_msg',$datas);
-			$this->load->view('adminteacher/teacher_footer');
-		}else{
-			 redirect('/');
-		}
-	}
-
-
-	public function message_history(){
-		$datas=$this->session->userdata();
-		$user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		if($user_type==2){
-			$datas['list_of_message']=$this->teacherprofilemodel->get_message_history($user_id);
-			$this->load->view('adminteacher/teacher_header',$datas);
-			$this->load->view('adminteacher/communication/message_history',$datas);
-			$this->load->view('adminteacher/teacher_footer');
-		}else{
-			 redirect('/');
-		}
-	}
-	public function send_msg(){
-		$datas=$this->session->userdata();
-		$user_id=$this->session->userdata('user_id');
-		$user_type=$this->session->userdata('user_type');
-		if($user_type==2){
-			$group_id=$this->input->post('group_id');
-			 $notes=$this->input->post('notes');
-			$circular_type=$this->db->escape_str($this->input->post('circular_type'));
-			 $cir=implode(',',$circular_type);
-			 $cir_cnt=count($circular_type);
-				if($cir_cnt==1){
-				 $ct1=$circular_type[0];
-				 }
-				 if($cir_cnt==2){
-				 $ct1=$circular_type[0];
-				 $ct2=$circular_type[1];
-				 }
-				 if($cir_cnt==3){
-				 $ct0=$circular_type[0];
-				 $ct1=$circular_type[1];
-				 $ct2=$circular_type[2];
-					}
-					if($cir_cnt==3)
-				 {
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
-					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
-				 }
-			 if($cir_cnt==2)  {
-					$ct1=$circular_type[0];
-					$ct2=$circular_type[1];
-
-					if($ct1=='SMS' && $ct2=='Mail')
-					{
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
-					}
-					if($ct1=='SMS' && $ct2=='Notification')
-					{
-					 $data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
-					}
-					if($ct1=='Mail' && $ct2=='Notification')
-					{
-					 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
-					 $data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
-					}
-
-				}
-			 if($cir_cnt==1) {
-					$ct=$circular_type[0];
-					if($ct=='SMS')
-					{
-						$data=$this->smsmodel->send_msg($group_id,$notes,$user_id);
-
-					}
-					if($ct=='Notification')
-					{
-						 $data=$this->notificationmodel->send_notification($group_id,$notes,$user_id);
-					}
-					if($ct=='Mail')
-					{
-						$data=$this->mailmodel->send_mail($group_id,$notes,$user_id);
-					}
-				}
-				$data=$this->groupingmodel->save_group_history($group_id,$cir,$notes,$user_id);
-				if($data['status']=="success"){
-					echo "success";
-				}else if($data['status']=="Already"){
-					echo "Already Exist";
-				}else{
-					echo "Something Went Wrong";
-				}
-		}else{
-				redirect('/');
-		}
-	}
-
-
-
-
-
-
-	public function profileupdate(){
+	public function profileupdate()
+	{
 			$datas=$this->session->userdata();
 			$user_name=$this->session->userdata('user_name');
 			$user_type=$this->session->userdata('user_type');
-		 	if($user_type==2)
+		   $users_id=$this->session->userdata('user_id');
+		 	if($user_type==3)
 			{
 		      $user_id=$this->input->post('user_id');
 	         //echo $user_id;exit;
@@ -173,7 +57,7 @@ class Teacherprofile extends CI_Controller {
 			   {
 			    $userFileName=$user_pic_old;
 		       }
-			$res=$this->teacherprofilemodel->teacherprofileupdate($user_id,$userFileName);
+			$res=$this->teacherprofilemodel->teacherprofileupdate($user_id,$userFileName,$user_type,$users_id);
 				if($res['status']=="success"){
 					$this->session->set_flashdata('msg', 'Update Successfully');
 					 redirect('teacherprofile/profilepic');
@@ -192,7 +76,7 @@ class Teacherprofile extends CI_Controller {
 		 $datas['result'] = $this->teacherprofilemodel->get_teacheruser($user_id);
 		 $user_type=$this->session->userdata('user_type');
 			// echo $user_type;exit;
-			 if($user_type==2){
+			 if($user_type==3){
 				$this->load->view('adminteacher/teacher_header');
 		        $this->load->view('adminteacher/resetpassword',$datas);
 		        $this->load->view('adminteacher/teacher_footer');
@@ -209,7 +93,7 @@ class Teacherprofile extends CI_Controller {
 	    $datas=$this->session->userdata();
 		$user_name=$this->session->userdata('user_name');
 		$user_type=$this->session->userdata('user_type');
-	 	if($user_type==2)
+	 	if($user_type==3)
 		{
 		 		$user_id=$this->input->post('user_id');
 				//echo $user_id;exit;
