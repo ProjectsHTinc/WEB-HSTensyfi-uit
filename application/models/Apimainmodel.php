@@ -163,7 +163,6 @@ class Apimainmodel extends CI_Model {
 
 	public function Login($username,$password,$gcmkey,$mobiletype)
 	{
-		$year_id = $this->getYear();
 
  		$sql = "SELECT * FROM edu_users A, edu_role B  WHERE A.user_type = B.id AND A.user_name ='".$username."' and A.user_password = md5('".$password."') and A.status='Active'";
 		$user_result = $this->db->query($sql);
@@ -202,7 +201,7 @@ class Apimainmodel extends CI_Model {
 
 				  if ($user_type==1)  {
 
-				 	 	$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData, "year_id" => $year_id);
+				 	 	$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData);
 						return $response;
 				  }
 				  else if ($user_type==4) {
@@ -230,7 +229,7 @@ class Apimainmodel extends CI_Model {
 						        );
                         	}
 
-						$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData,"staffProfile" =>$staffData,"year_id" => $year_id);
+						$response = array("status" => "loggedIn", "msg" => "User loggedIn successfully", "userData" => $userData,"staffProfile" =>$staffData);
 						return $response;
 				  }
 
@@ -244,9 +243,9 @@ class Apimainmodel extends CI_Model {
 //#################### Main Login End ####################//
 
 //#################### Profile Pic Update ####################//
-	public function updateProfilepic($user_id,$user_type,$userFileName)
+	public function updateProfilepic($user_id,$userFileName)
 	{
-            $update_sql= "UPDATE edu_users SET user_pic='$userFileName', updated_date=NOW() WHERE user_id='$user_id' and user_type='$user_type'";
+            $update_sql= "UPDATE edu_users SET user_pic='$userFileName', updated_date=NOW() WHERE user_id='$user_id'";
 			$update_result = $this->db->query($update_sql);
 
 			$response = array("status" => "success", "msg" => "Profile Picture Updated","user_picture"=>$userFileName);
@@ -334,7 +333,6 @@ class Apimainmodel extends CI_Model {
 //#################### Add Student ####################//
 	public function addStudent ($have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$status,$created_by,$created_at)
 	{
-			$year_id = $this->getYear();
 
             $student_query = "INSERT INTO `edu_admission` (`have_aadhaar_card`, `aadhaar_card_number`, `name`, `sex`, `dob`, `age`, `nationality`, `religion`, `community_class`, `community`, `father_name`, `mother_name`, `mobile`, `sec_mobile`, `email`, `state`, `city`, `address`, `mother_tongue`, `disability`, `blood_group`, `admission_date`, `admission_location`, `admission_latitude`, `admission_longitude`, `preferred_trade`, `preferred_timing`, `last_institute`, `last_studied`, `qualified_promotion`, `transfer_certificate`, `status`, `created_by`, `created_at`) VALUES ('$have_aadhaar_card', '$aadhaar_card_number', '$name', '$sex', '$dob', '$age', '$nationality', '$religion', '$community_class', '$community', '$father_name', '$mother_name', '$mobile', '$sec_mobile', '$email', '$state', '$city', '$address', '$mother_tongue', '$disability', '$blood_group', '$admission_date', '$admission_location', '$admission_latitude', '$admission_longitude', '$preferred_trade', '$preferred_timing', '$last_institute', '$last_studied', '$qualified_promotion', '$transfer_certificate', '$status', '$created_by', '$created_at')";
 	        $student_res = $this->db->query($student_query);
@@ -353,7 +351,7 @@ class Apimainmodel extends CI_Model {
 //#################### Student Pic Update ####################//
 	public function studentPic($admission_id,$userFileName)
 	{
-            $update_sql= "UPDATE edu_users SET student_pic ='$userFileName', updated_at =NOW() WHERE id='$admission_id'";
+            $update_sql= "UPDATE edu_admission SET student_pic ='$userFileName', updated_at =NOW() WHERE id='$admission_id'";
 			$update_result = $this->db->query($update_sql);
 
 			$response = array("status" => "success", "msg" => "Student Picture Updated","student_picture"=>$userFileName);
@@ -364,8 +362,6 @@ class Apimainmodel extends CI_Model {
 //#################### List Students ####################//
 	public function listStudents($user_id)
 	{
-			$year_id = $this->getYear();
-
 		 	$student_query = "SELECT name,sex,mobile,email,enrollment,status FROM `edu_admission` WHERE created_by ='$user_id'";
 			$student_res = $this->db->query($student_query);
 			$student_result= $student_res->result();
@@ -384,8 +380,6 @@ class Apimainmodel extends CI_Model {
 //#################### View Student ####################//
 	public function viewStudent($admission_id)
 	{
-			$year_id = $this->getYear();
-
 		 	$student_query = "SELECT * FROM `edu_admission` WHERE id ='$admission_id'";
 			$student_res = $this->db->query($student_query);
 			$student_result= $student_res->result();
@@ -403,15 +397,13 @@ class Apimainmodel extends CI_Model {
 //#################### Update Student ####################//
 	public function updateStudent($admission_id,$have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$status,$updated_by,$updated_at)
 	{
-			$year_id = $this->getYear();
-
-		 	$student_query = "UPDATE `edu_admission` SET `have_aadhaar_card`=$have_aadhaar_card,`aadhaar_card_number`=$aadhaar_card_number,`name`=$name,`sex`=$sex,`dob`=$dob,`age`=$age,`nationality`=$nationality,`religion`=$religion,`community_class`=$community_class,`community`=$community,`father_name`=$father_name,`mother_name`=$mother_name,`mobile`=$mobile,`sec_mobile`=$sec_mobile,`email`=$email,`state`=$state,`city`=$city,`address`=$address,`mother_tongue`=$mother_tongue,`disability`=$disability,`blood_group`=$blood_group,`admission_date`=$admission_date,`admission_location`=$admission_location,`admission_latitude`=$admission_latitude,`admission_longitude`=$admission_longitude,`preferred_trade`=$preferred_trade,`preferred_timing`=$preferred_timing,`last_institute`=$last_institute,`last_studied`=$last_studied,`qualified_promotion`=$qualified_promotion,`transfer_certificate`=$transfer_certificate,`status`=$status,`updated_by`=$updated_by,`updated_at`=$updated_at WHERE id ='$admission_id'";
+		 	$student_query = "UPDATE `edu_admission` SET `have_aadhaar_card`='$have_aadhaar_card',`aadhaar_card_number`='$aadhaar_card_number',`name`='$name',`sex`='$sex',`dob`='$dob',`age`='$age',`nationality`='$nationality',`religion`='$religion',`community_class`='$community_class',`community`='$community',`father_name`='$father_name',`mother_name`='$mother_name',`mobile`='$mobile',`sec_mobile`='$sec_mobile',`email`='$email',`state`='$state',`city`='$city',`address`='$address',`mother_tongue`='$mother_tongue',`disability`='$disability',`blood_group`='$blood_group',`admission_date`='$admission_date',`admission_location`='$admission_location',`admission_latitude`='$admission_latitude',`admission_longitude`='$admission_longitude',`preferred_trade`='$preferred_trade',`preferred_timing`='$preferred_timing',`last_institute`='$last_institute',`last_studied`='$last_studied',`qualified_promotion`='$qualified_promotion',`transfer_certificate`='$transfer_certificate',`status`='$status',`updated_by`='$updated_by',`updated_at`='$updated_at' WHERE id ='$admission_id'";
 			$student_res = $this->db->query($student_query);
 			
 			if($student_res) {
 			    $response = array("status" => "success", "msg" => "Student Details Updated");
 			}else{
-				$response = array("status" => "success", "msg" => "View Events", "studentDetails"=>$student_result);
+				$response = array("status" => "error");
 			}
 
 			return $response;
@@ -419,11 +411,11 @@ class Apimainmodel extends CI_Model {
 //#################### Update Student End ####################//
 
 
+
+
 //#################### View Center ####################//
 	public function centerDetails($user_id)
 	{
-			$year_id = $this->getYear();
-
 		 	$center_query = "SELECT * FROM `edu_center_details`";
 			$center_res = $this->db->query($center_query);
 			$center_result= $center_res->result();
@@ -438,7 +430,8 @@ class Apimainmodel extends CI_Model {
     					"center_id" => $center_result[0]->id,
     					"center_name" => $center_result[0]->center_name,
     					"center_banner" => base_url().'assets/center/logo/'.$center_result[0]->center_banner,
-    					"center_info" => $center_result[0]->center_info ,
+    					"center_info" => $center_result[0]->center_info,
+    					//"center_info" => strip_tags($center_result[0]->center_info,"<b><strong><em>"),
     					"center_address" => $center_result[0]->center_address
     				);
 
@@ -525,86 +518,11 @@ class Apimainmodel extends CI_Model {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//#################### Events for Students and Parents ####################//
-	public function dispEvents($class_id)
-	{
-			$year_id = $this->getYear();
-
-		 	$event_query = "SELECT event_id,year_id,event_name,event_details,status,DATE_FORMAT(event_date,'%d-%m-%Y') as event_date,sub_event_status FROM `edu_events` WHERE year_id='$year_id' AND status='Active'";
-			$event_res = $this->db->query($event_query);
-			$event_result= $event_res->result();
-			$event_count = $event_res->num_rows();
-/*
-			foreach($event_result as $rows){
-				$event_id = $rows->event_id;
-
-					$gallery_query = "SELECT * FROM `edu_events_galllery` WHERE event_id ='$event_id'";
-					$gallery_res = $this->db->query($gallery_query);
-					$gallery_result= $gallery_res->result();
-
-					if($gallery_res->num_rows()!=0){
-						//echo $gallery_result;
-					}
-			}
-*/
-			 if($event_res->num_rows()==0){
-				 $response = array("status" => "error", "msg" => "Events Not Found");
-			}else{
-				$response = array("status" => "success", "msg" => "View Events", "count" => $event_count, "eventDetails"=>$event_result);
-			}
-
-			return $response;
-	}
-//#################### Events Details End ####################//
-
-
-//#################### Events for Students and Parents ####################//
-	public function dispsubEvents ($event_id)
-	{
-			$year_id = $this->getYear();
-
-			$subevent_query = "SELECT A.sub_event_name,B.name  from edu_event_coordinator A, edu_teachers B WHERE A.event_id = '$event_id' AND A.co_name_id = B.teacher_id AND A.status='Active'";
-
-			$subevent_res = $this->db->query($subevent_query);
-			$subevent_result= $subevent_res->result();
-
-			 if($subevent_res->num_rows()==0){
-				 $response = array("status" => "error", "msg" => "Sub Events Not Found");
-			}else{
-				$response = array("status" => "success", "msg" => "View Sub Events", "subeventDetails"=>$subevent_result);
-			}
-
-			return $response;
-	}
-//#################### Event Details End ####################//
-
-
 //#################### Circular for All ####################//
 	public function dispCircular($user_id)
 	{
-
 			$year_id = $this->getYear();
-
+			
 			 $circular_query = "SELECT
                                 A.circular_type,
                                 B.circular_title,
@@ -624,518 +542,113 @@ class Apimainmodel extends CI_Model {
 			}else{
 				$response = array("status" => "success", "msg" => "View Circular", "circularDetails"=>$circular_result);
 			}
-            //print_r($response);exit;
 			return $response;
 	}
 //#################### Circular End ####################//
 
-//#################### Add Onduty ####################//
-	public function addOnduty ($user_type,$user_id,$od_for,$from_date,$to_date,$notes,$status,$created_by,$created_at)
+
+
+
+
+//#################### Add Task ####################//
+	public function addTask ($user_id,$task_title,$task_description,$task_date,$status,$created_by,$created_at)
 	{
-			$year_id = $this->getYear();
 
-		    $onduty_query = "INSERT INTO `edu_on_duty`( `user_type`, `user_id`, `year_id`, `od_for`, `from_date`, `to_date`, `notes`, `status`, `created_by`, `created_at`) VALUES ('$user_type','$user_id','$year_id','$od_for','$from_date','$to_date','$notes','$status','$created_by','$created_at')";
-	        $onduty_res = $this->db->query($onduty_query);
-
-			if($onduty_res) {
-			    $response = array("status" => "success", "msg" => "Onduty Added");
+            $task_query = "INSERT INTO `edu_task` (`user_id`, `task_title`, `task_description`, `task_date`, `status`, `created_by`, `created_at`) VALUES ('$user_id', '$task_title', '$task_description', '$task_date', '$status', '$created_by', '$created_at')";
+	        $task_res = $this->db->query($task_query);
+            $task_id = $this->db->insert_id();
+            
+			if($task_res) {
+			    $response = array("status" => "success", "msg" => "Task Added", "task_id"=>$task_id);
 			} else {
 			    $response = array("status" => "error");
 			}
 			return $response;
 	}
-//#################### Onduty End ####################//
+//#################### Add Task End ####################//
 
-//#################### Onduty for All ####################//
-	public function dispOnduty ($user_type,$user_id)
+
+//#################### Student Pic Update ####################//
+	public function taskPic($task_id,$task_pic)
 	{
-			$year_id = $this->getYear();
+	    
+           $task_query = "INSERT INTO `edu_task_photos` (`task_id`, `task_image`) VALUES ('$task_id','$task_pic')";
+	        $task_res = $this->db->query($task_query);
+            $task_id = $this->db->insert_id();
 
-            if ($user_type=='2'){
-			     $Onduty_query = "SELECT
-                                    A.od_for,
-                                    A.from_date,
-                                    A.to_date,
-                                    A.notes,
-                                    A.status,
-                                    C.teacher_id,
-                                    D.name
-                                FROM
-                                    edu_on_duty A,
-                                    edu_users C,
-                                    edu_teachers D
-                                WHERE
-                                    A.user_id = C.user_id AND C.teacher_id = D.teacher_id AND A.user_type = '$user_type' AND A.user_id = '$user_id' AND A.year_id = '$year_id'";
-            }
+			$response = array("status" => "success", "msg" => "Task Picture Added","task_picture"=>$task_pic);
+			return $response;
+	}
+//#################### Student Pic Update End ####################//
 
-            if ($user_type=='3'){
-			     $Onduty_query = "SELECT
-                                    A.od_for,
-                                    A.from_date,
-                                    A.to_date,
-                                    A.notes,
-                                    A.status,
-                                    C.student_id,
-                                    D.name
-                                FROM
-                                    edu_on_duty A,
-                                    edu_users C,
-                                    edu_admission D
-                                WHERE
-                                    A.user_id = C.user_id AND C.student_id = D.admission_id AND A.user_type = '$user_type' AND A.user_id = '$user_id' AND A.year_id = '$year_id'";
-            }
+//#################### List Task ####################//
+	public function listTask ($user_id)
+	{
 
-            if ($user_type=='4')
-            {
-                $user_sql = "SELECT *  FROM `edu_users` WHERE student_id = '$user_id'";
-                $user_result = $this->db->query($user_sql);
-        		$user_ress = $user_result->result();
-
-        		if($user_result->num_rows()>0)
-        		{
-        			foreach ($user_result->result() as $rows)
-        			{
-        				  $user_id = $rows->user_id;
-        			}
-        		}
-        		  $user_type = '3';
-        		  $Onduty_query = "SELECT
-                                    A.od_for,
-                                    A.from_date,
-                                    A.to_date,
-                                    A.notes,
-                                    A.status,
-                                    C.student_id,
-                                    D.name
-                                FROM
-                                    edu_on_duty A,
-                                    edu_users C,
-                                    edu_admission D
-                                WHERE
-                                    A.user_id = C.user_id AND C.student_id = D.admission_id AND A.user_type = '$user_type' AND A.user_id = '$user_id' AND A.year_id = '$year_id'";
-                }
-
-
-			$Onduty_res = $this->db->query($Onduty_query);
-			$Onduty_result = $Onduty_res->result();
-
-			 if($Onduty_res->num_rows()==0){
-				 $response = array("status" => "error", "msg" => "Onduty Not Found");
+            	$task_query = "SELECT * FROM `edu_task` WHERE created_by  ='$user_id'";
+			$task_res = $this->db->query($task_query);
+			$task_result= $task_res->result();
+			
+			 if($task_res->num_rows()==0){
+				 $response = array("status" => "error", "msg" => "Task Not Found");
 			}else{
-				$response = array("status" => "success", "msg" => "View Onduty", "ondutyDetails"=>$Onduty_result);
+				$response = array("status" => "success", "msg" => "List Task", "taskDetails"=>$task_result);
 			}
 
 			return $response;
 	}
-//#################### Onduty End ####################//
+//#################### Add List End ####################//
 
-//#################### View Groups ####################//
-	public function dispGrouplist ($user_type,$user_id)
+//#################### List Task ####################//
+	public function viewTask ($task_id)
 	{
-			$year_id = $this->getYear();
 
-            if ($user_type=='1'){
-			     $Group_query = "SELECT id, group_title FROM `edu_grouping_master` WHERE year_id = '$year_id'";
-            } else {
-				 $Group_query = "SELECT id, group_title FROM `edu_grouping_master` WHERE year_id = '$year_id' AND group_lead_id = '$user_id'";
-			}
-
-			$Group_res = $this->db->query($Group_query);
-			$Group_result = $Group_res->result();
-
-			 if($Group_res->num_rows()==0){
-				 $response = array("status" => "error", "msg" => "Groups Not Found");
+            	$task_query = "SELECT * FROM `edu_task` WHERE id  ='$task_id'";
+			$task_res = $this->db->query($task_query);
+			$task_result= $task_res->result();
+			
+			 if($task_res->num_rows()==0){
+				 $response = array("status" => "error", "msg" => "Task Not Found");
 			}else{
-				$response = array("status" => "success", "msg" => "View Groups", "groupDetails"=>$Group_result);
+				$response = array("status" => "success", "msg" => "View Task", "taskDetails"=>$task_result);
 			}
 
 			return $response;
 	}
-//#################### View Groups End ####################//
+//#################### Add List End ####################//
 
-//#################### Send Group Message ####################//
-	public function sendGroupmessageold ($group_title_id,$message_type,$message_details,$created_by)
+//#################### Update Task ####################//
+	public function updateTask($task_id,$user_id,$task_title,$task_description,$task_date,$status,$updated_by,$updated_at)
 	{
-			$year_id = $this->getYear();
-
-			$m_type = explode(",", $message_type);
-			$m_type_cnt = count($m_type);
-
-			if($m_type_cnt==1){
-				 $m_type1=$m_type[0];
-			}
-
-			if($m_type_cnt==2){
-				 $m_type1=$m_type[0];
-				 $m_type2=$m_type[1];
-			}
-
-			if($m_type_cnt==3){
-				 $m_type1=$m_type[0];
-				 $m_type2=$m_type[1];
-				 $m_type3=$m_type[2];
-			}
-
-
-			if($m_type_cnt==3) {
-                $subject = 'Group Notification';
-				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-				$email_res = $this->db->query($email_query);
-			    $email_result = $email_res->result();
-
-    			 if($email_res->num_rows()!=0){
-    				foreach ($email_result as $rows)
-        			{
-        				  $sEmail = $rows->email;
-        				  $this->sendMail($sEmail,$subject,$message_details);
-        			}
-    			 }
-
-
-				$mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-				$mobile_res = $this->db->query($mobile_query);
-			    $mobile_result = $email_res->result();
-
-    			 if($mobile_res->num_rows()!=0){
-    				foreach ($mobile_result as $rows)
-        			{
-        				  $sMobile = $rows->mobile;
-        				  $this->sendSMS($sMobile,$message_details);
-        			}
-    			 }
-
-    			$gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
-				$gcm_res = $this->db->query($gcm_query);
-			    $gcm_result = $gcm_res->result();
-
-    			 if($gcm_res->num_rows()!=0){
-    				foreach ($gcm_result as $rows)
-        			{
-        				$sParent_id = $rows->parent_id;
-
-        				$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
-						$sgsm  = $this->db->query($sql);
-						$res = $sgsm->result();
-
-						foreach($res as $row){
-						    $sGcm_key = $row->gcm_key;
-						    $this->sendNotification($sGcm_key,$subject,$message_details);
-						}
-
-        			}
-    		    }
-
-			 }
-
-
-			if($m_type_cnt==2) {
-			     if($m_type1=='SMS' && $m_type2=='Mail')
-		 		  {
-					    $subject = 'Group Notification';
-        				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-        				$email_res = $this->db->query($email_query);
-        			    $email_result = $email_res->result();
-
-            			 if($email_res->num_rows()!=0){
-            				foreach ($email_result as $rows)
-                			{
-                				  $sEmail = $rows->email;
-                				  $this->sendMail($sEmail,$subject,$message_details);
-                			}
-            			 }
-
-
-        				$mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-        				$mobile_res = $this->db->query($mobile_query);
-        			    $mobile_result = $email_res->result();
-
-            			 if($mobile_res->num_rows()!=0){
-            				foreach ($mobile_result as $rows)
-                			{
-                				  $sMobile = $rows->mobile;
-                				  $this->sendSMS($sMobile,$message_details);
-                			}
-    			         }
-		 		  }
-		 		  if($m_type1=='SMS' && $m_type2=='Notification')
-		 		  {
-					    $subject = 'Group Notification';
-        				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-        				$email_res = $this->db->query($email_query);
-        			    $email_result = $email_res->result();
-
-            			 if($email_res->num_rows()!=0){
-            				foreach ($email_result as $rows)
-                			{
-                				  $sEmail = $rows->email;
-                				  $this->sendMail($sEmail,$subject,$message_details);
-                			}
-            			 }
-
-        			 	$gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
-        				$gcm_res = $this->db->query($gcm_query);
-        			    $gcm_result = $gcm_res->result();
-
-            			 if($gcm_res->num_rows()!=0){
-            				foreach ($gcm_result as $rows)
-                			{
-                				$sParent_id = $rows->parent_id;
-
-                				$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
-        						$sgsm  = $this->db->query($sql);
-        						$res = $sgsm->result();
-
-        						foreach($res as $row){
-        						    $sGcm_key = $row->gcm_key;
-        						    $this->sendNotification($sGcm_key,$subject,$message_details);
-        						}
-
-                			}
-		 		        }
-		 		  }
-		 		  if($m_type1=='Mail' && $m_type2=='Notification')
-		 		  {
-		 		        $subject = 'Group Notification';
-        				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-        				$email_res = $this->db->query($email_query);
-        			    $email_result = $email_res->result();
-
-            			 if($email_res->num_rows()!=0){
-            				foreach ($email_result as $rows)
-                			{
-                				  $sEmail = $rows->email;
-                				  $this->sendMail($sEmail,$subject,$message_details);
-                			}
-            			 }
-
- 					    $gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
-        				$gcm_res = $this->db->query($gcm_query);
-        			    $gcm_result = $gcm_res->result();
-
-            			 if($gcm_res->num_rows()!=0){
-            				foreach ($gcm_result as $rows)
-                			{
-                				$sParent_id = $rows->parent_id;
-
-                				$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
-        						$sgsm  = $this->db->query($sql);
-        						$res = $sgsm->result();
-
-        						foreach($res as $row){
-        						    $sGcm_key = $row->gcm_key;
-        						    $this->sendNotification($sGcm_key,$subject,$message_details);
-        						}
-
-                			}
-            			 }
-		 		   }
-			    }
-
-
-			if($m_type_cnt==1) {
-                if($m_type1=='Mail'){
-                    $subject = 'Group Notification';
-    				$email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-    				$email_res = $this->db->query($email_query);
-    			    $email_result = $email_res->result();
-
-        			 if($email_res->num_rows()!=0){
-        				foreach ($email_result as $rows)
-            			{
-            				  $sEmail = $rows->email;
-            				  $this->sendMail($sEmail,$subject,$message_details);
-            			}
-        			 }
-				  }
-
-                if($m_type1=='SMS') {
-				    $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'";
-    				$mobile_res = $this->db->query($mobile_query);
-    			    $mobile_result = $email_res->result();
-
-        			 if($mobile_res->num_rows()!=0){
-        				foreach ($mobile_result as $rows)
-            			{
-            				  $sMobile = $rows->mobile;
-            				  $this->sendSMS($sMobile,$message_details);
-            			}
-			         }
-				}
-
-				if($m_type1=='Notification') {
-                    $gcm_query = "SELECT egm.group_member_id,ep.parent_id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'";
-                    $gcm_res = $this->db->query($gcm_query);
-                    $gcm_result = $gcm_res->result();
-
-                    if($gcm_res->num_rows()!=0){
-                    foreach ($gcm_result as $rows)
-                        {
-                        	$sParent_id = $rows->parent_id;
-
-                        	$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
-                        	$sgsm  = $this->db->query($sql);
-                        	$res = $sgsm->result();
-
-                        	foreach($res as $row){
-                        	    $sGcm_key = $row->gcm_key;
-                        	    $this->sendNotification($sGcm_key,$subject,$message_details);
-                        	}
-
-                        }
-                    }
-				}
-
-			 }
-
-		    $grouphistory_query = "INSERT INTO `edu_grouping_history`(`group_title_id`, `notes`, `notification_type`, `status`, `created_by`, `created_at`) VALUES ('$group_title_id','$message_details','$message_type','Active','$created_by',NOW())";
-			$grouphistory_res = $this->db->query($grouphistory_query);
-			$last_historyid = $this->db->insert_id();
-
-			if($grouphistory_res) {
-				$response = array("status" => "success", "msg" => "Group Message Added", "last_group_history_id"=>$last_historyid);
-			} else {
+		 	$task_query = "UPDATE `edu_task` SET `task_title`='$task_description',`task_description`='$task_description',`task_date`='$task_date',`status`='$status',`updated_by`='$updated_by',`updated_at`='$updated_at' WHERE id ='$task_id'";
+			$task_res = $this->db->query($task_query);
+			
+			if($task_res) {
+			    $response = array("status" => "success", "msg" => "Task Details Updated");
+			}else{
 				$response = array("status" => "error");
 			}
 
 			return $response;
 	}
-//#################### Group Message End ####################//
+//#################### Update Task End ####################//
 
-//#################### Send Group Message ####################//
-	public function sendGroupmessage ($group_title_id,$messagetype_sms,$messagetype_mail,$messagetype_notification,$message_details,$created_by)
+//#################### Add Mobilizer Location ####################//
+	public function addMobilocation($user_id,$latitude,$longitude,$location_datetime)
 	{
-			$year_id = $this->getYear();
-            $message_type ='';
+            $location_query = "INSERT INTO `edu_tracking_details` (`user_id`,`user_lat`,`user_long`,`created_at`) VALUES ('$user_id','$latitude','$longitude','$location_datetime')";
+	        $location_res = $this->db->query($location_query);
+            $location_id = $this->db->insert_id();
 
-                if($messagetype_sms=="1"){
-                     $message_type = "SMS";
-                }
-
-                if ($messagetype_mail=="1"){
-                        if ($message_type=='') {
-                             $message_type = "Mail";
-                         } else {
-                             $message_type = $message_type.",Mail";
-                        }
-                }
-                if ($messagetype_notification=="1"){
-                        if ($message_type=='') {
-                             $message_type = "Notification";
-                        } else {
-                             $message_type = $message_type.",Notification";
-                        }
-                }
-
-
-                if($messagetype_sms != 0){
-/*
-					//$number1='9789108819,9865905230,9942297930';
-					$number1='9840111100,9841401896,9841401877,9444008809,9841322331,9444124618,9841460166,98940159304,9840091224,9841460161,9841401855';
-					$textmsg = urlencode($message_details);
-					$smsGatewayUrl = 'http://173.45.76.227/send.aspx?';
-					$api_element = 'username=kvmhss&pass=kvmhss123&route=trans1&senderid=KVMHSS';
-					$api_params = $api_element.'&numbers='.$number1.'&message='.$textmsg;
-					$smsgatewaydata = $smsGatewayUrl.$api_params;
-					$url1 = $smsgatewaydata;
-					$ch = curl_init();
-					curl_setopt($ch, CURLOPT_POST, false);
-					curl_setopt($ch, CURLOPT_URL, $url1);
-					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-					$output = curl_exec($ch);
-					curl_close($ch);
-*/
-                    $mobile_query = "SELECT egm.group_member_id, ep.mobile FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id' AND ep.primary_flag = 'Yes'";
-                	$mobile_res = $this->db->query($mobile_query);
-                    $mobile_result = $mobile_res->result();
-
-                	 if($mobile_res->num_rows()!=0){
-                		foreach ($mobile_result as $rows)
-                		{
-                			  $sMobile = $rows->mobile;
-                			  $this->sendSMS($sMobile,$message_details);
-                		}
-                     }
-                }
-
-            if($messagetype_mail != 0){
-                $subject = 'Group Notification';
-                $email_query = "SELECT egm.group_member_id, ep.email FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET( ea.admission_id,ep.admission_id)WHERE egm.group_title_id = '$group_title_id'  AND ep.primary_flag = 'Yes'";
-                $email_res = $this->db->query($email_query);
-                $email_result = $email_res->result();
-
-                 if($email_res->num_rows()!=0){
-                	foreach ($email_result as $rows)
-                	{
-                		  $sEmail = $rows->email;
-                		  $this->sendMail($sEmail,$subject,$message_details);
-                	}
-                 }
-
-            }
-
-            if($messagetype_notification != 0){
-                $subject = 'Group Notification';
-
-                $gcm_query = "SELECT egm.group_member_id,ep.id,en.gcm_key FROM edu_grouping_members AS egm LEFT JOIN edu_users AS eu ON eu.user_id = egm.group_member_id LEFT JOIN edu_admission AS ea ON ea.admission_id = eu.user_master_id LEFT JOIN edu_parents AS ep ON FIND_IN_SET(ea.admission_id,ep.admission_id) LEFT JOIN edu_notification AS en ON en.user_id = eu.user_id WHERE egm.group_title_id = '$group_title_id'  AND ep.primary_flag = 'yes'";
-                $gcm_res = $this->db->query($gcm_query);
-                $gcm_result = $gcm_res->result();
-
-                if($gcm_res->num_rows()!=0){
-                	foreach ($gcm_result as $rows)
-                    {
-                    	$sParent_id = $rows->id;
-
-                    	$sql = "SELECT eu.user_id,en.gcm_key FROM edu_users as eu left join edu_notification as en on eu.user_id=en.user_id WHERE user_type='4' and user_master_id='$sParent_id'";
-                    	$sgsm  = $this->db->query($sql);
-                    	$res = $sgsm->result();
-
-                    	foreach($res as $row){
-                    	    $sGcm_key = $row->gcm_key;
-                    	    $this->sendNotification($sGcm_key,$subject,$message_details);
-                    	}
-
-                    }
-                }
-            }
-
-		    $grouphistory_query = "INSERT INTO `edu_grouping_history`(`group_title_id`, `notes`, `notification_type`, `status`, `created_by`, `created_at`) VALUES ('$group_title_id','$message_details','$message_type','Active','$created_by',NOW())";
-			$grouphistory_res = $this->db->query($grouphistory_query);
-			$last_historyid = $this->db->insert_id();
-
-			if($grouphistory_res) {
-				$response = array("status" => "success", "msg" => "Group Message Added", "last_group_history_id"=>$last_historyid);
+			if($location_res) {
+			    $response = array("status" => "success", "msg" => "Location Added", "location_id"=>$location_id);
 			} else {
-				$response = array("status" => "error");
+			    $response = array("status" => "error");
 			}
-
 			return $response;
 	}
-//#################### Group Message End ####################//
+//#################### Student Pic Update End ####################//
 
-//#################### View Group Messages ####################//
-	public function dispGroupmessage ($user_type,$user_id)
-	{
-			$year_id = $this->getYear();
-
-            if ($user_type=='1'){
-			     $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` ORDER BY B.id DESC";
-            } else {
-				 $Group_query = "SELECT B.id, A.id AS group_title_id, A.group_title, B.notes FROM `edu_grouping_master` A, `edu_grouping_history` B WHERE A.year_id = '$year_id' AND A.id = B.`group_title_id` AND group_lead_id = '$user_id' ORDER BY B.id DESC";
-			}
-
-			$Group_res = $this->db->query($Group_query);
-			$Group_result = $Group_res->result();
-
-			 if($Group_res->num_rows()==0){
-				 $response = array("status" => "error", "msg" => "Group Message Not Found");
-			}else{
-				$response = array("status" => "success", "msg" => "View Group Messages", "groupmsgDetails"=>$Group_result);
-			}
-
-			return $response;
-	}
-//#################### View Group Messages End ####################//
 
 }
-
 ?>

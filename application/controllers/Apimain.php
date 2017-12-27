@@ -86,26 +86,22 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function user_profilepic($user_id)
+	public function user_profilepic()
 	{
-	    //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+        //$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
-		$user_id = $user_id;
+		$user_id = $this->uri->segment(3);		
 		$profile = $_FILES["user_pic"]["name"];
 		$userFileName = time().'-'.$profile;
+
+		$uploadPicdir = 'assets/staff/profile/';
 		
-	    if($user_type==1) {
-		    $uploadPicdir = 'assets/admin/profile/';
-		} else if ($user_type==4) {
-		     $uploadPicdir = 'assets/mobilizer/profile/';
-		} 
 		$profilepic = $uploadPicdir.$userFileName;
 		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-		
-		$data['result']=$this->apimainmodel->updateProfilepic($user_id,$user_type,$userFileName);
+
+		$data['result']=$this->apimainmodel->updateProfilepic($user_id,$userFileName);
 		$response = $data['result'];
 		echo json_encode($response);
-		
 	}
 
 //-----------------------------------------------//
@@ -325,9 +321,7 @@ class Apimain extends CI_Controller {
 		$created_by = $this->input->post("created_by");
 		$created_at = $this->input->post("created_at");
 
-
-        
-		$data['result']=$this->apimainmodel->addStudent($have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$enrollment,$status,$created_by,$created_at);
+		$data['result']=$this->apimainmodel->addStudent($have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$status,$created_by,$created_at);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -335,18 +329,18 @@ class Apimain extends CI_Controller {
 	
 //-----------------------------------------------//
 
-	public function student_picupload($admission_id)
+	public function student_picupload()
 	{
 	    //$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
-		$user_id = $user_id;
+		$admission_id = $this->uri->segment(3);		
 		$profile = $_FILES["student_pic"]["name"];
 		$userFileName = time().'-'.$profile;
 
-		$uploadPicdir = 'assets/students/';
+		$uploadPicdir = './assets/students/';
 		$profilepic = $uploadPicdir.$userFileName;
-		move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
-		
+		move_uploaded_file($_FILES['student_pic']['tmp_name'], $profilepic);
+
 		$data['result']=$this->apimainmodel->studentPic($admission_id,$userFileName);
 		$response = $data['result'];
 		echo json_encode($response);
@@ -356,8 +350,9 @@ class Apimain extends CI_Controller {
 	
 //-----------------------------------------------//
 
-	public function list_students($user_id)
+	public function list_students()
 	{
+	   
 	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
@@ -389,7 +384,7 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function view_student($admission_id)
+	public function view_student()
 	{
 	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
@@ -422,7 +417,7 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function update_student($admission_id)
+	public function update_student()
 	{
 	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
@@ -442,6 +437,7 @@ class Apimain extends CI_Controller {
 			return;
 		}
 
+        $admission_id = '';
         $have_aadhaar_card = '';
 		$aadhaar_card_number = '';
 		$name = '';
@@ -477,6 +473,8 @@ class Apimain extends CI_Controller {
 		$updated_by = '';
 		$updated_at = '';
 
+
+        $admission_id = $this->input->post("admission_id");
         $have_aadhaar_card = $this->input->post("have_aadhaar_card");
 		$aadhaar_card_number = $this->input->post("aadhaar_card_number");
 		$name = $this->input->post("name");
@@ -562,87 +560,11 @@ class Apimain extends CI_Controller {
 
 
 
-
-
-
-
-
-
-
-
-
-
 //-----------------------------------------------//
 
-	public function disp_Events()
+	public function disp_circular()
 	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		if($_POST == FALSE)
-		{
-			$res = array();
-			$res["opn"] = "Events View";
-			$res["scode"] = 204;
-			$res["message"] = "Input error";
-
-			echo json_encode($res);
-			return;
-		}
-
-		$class_id= '';
-	 	$class_id = $this->input->post("class_id");
-
-
-		$data['result']=$this->apimainmodel->dispEvents($class_id);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
-
-//-----------------------------------------------//
-
-	public function disp_subEvents()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		if($_POST == FALSE)
-		{
-			$res = array();
-			$res["opn"] = "Events View";
-			$res["scode"] = 204;
-			$res["message"] = "Input error";
-
-			echo json_encode($res);
-			return;
-		}
-
-		$event_id= '';
-	 	$event_id = $this->input->post("event_id");
-
-		$data['result']=$this->apimainmodel->dispsubEvents($event_id);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	public function disp_Circular()
-	{
-	   	$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   	//$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -662,7 +584,6 @@ class Apimain extends CI_Controller {
 
 	    $user_id = '';
 	    $user_id = $this->input->post("user_id");
-	
 
 
 		$data['result']=$this->apimainmodel->dispCircular($user_id);
@@ -674,9 +595,9 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function add_Onduty()
+	public function add_task()
 	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -685,47 +606,66 @@ class Apimain extends CI_Controller {
 
 		if($_POST == FALSE)
 		{
+		    
 			$res = array();
-			$res["opn"] = "Onduty Add";
+			$res["opn"] = "Add Task";
 			$res["scode"] = 204;
 			$res["message"] = "Input error";
 
 			echo json_encode($res);
 			return;
 		}
-		
-		$user_type = '';
-		$user_id = '';
-		$od_for = '';
-		$from_date = '';
-        $to_date = '';
-        $notes = '';
-        $status = '';
-        $created_by = '';
-        $created_at = '';
 
-        $user_type = $this->input->post("user_type");
+		$user_id = '';
+		$task_title  = '';
+		$task_description = '';
+		$task_date  = '';
+		$status  = '';
+		$created_by = '';
+		$created_at  = '';
+		
 		$user_id = $this->input->post("user_id");
-        $od_for = $this->input->post("od_for"); 
-        $from_date = $this->input->post("from_date");
-        $to_date = $this->input->post("to_date");
-        $notes = $this->input->post("notes");
-        $status = $this->input->post("status");
-        $created_by = $this->input->post("created_by");
-        $created_at = $this->input->post("created_at");
-        
-        
-		$data['result']=$this->apimainmodel->addOnduty($user_type,$user_id,$od_for,$from_date,$to_date,$notes,$status,$created_by,$created_at);
+		$task_title  = $this->input->post("task_title");
+		$task_description = $this->input->post("task_description");
+		$task_date  = $this->input->post("task_date");
+		$status  = $this->input->post("status");
+		$created_by = $this->input->post("user_id");
+		$created_at  = date("Y-m-d H:i:s");
+
+
+		$data['result']=$this->apimainmodel->addTask($user_id,$task_title,$task_description,$task_date,$status,$created_by,$created_at);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
-//-----------------------------------------------//
 
 //-----------------------------------------------//
 
-	public function disp_Onduty()
+
+//-----------------------------------------------//
+
+	public function task_picupload()
 	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	    //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		$task_id = $this->uri->segment(3);		
+		$profile = $_FILES["task_pic"]["name"];
+		$taskFileName = time().'-'.$task_id.'-'.$profile;
+
+		$uploadPicdir = './assets/task/';
+		$taskpic = $uploadPicdir.$taskFileName;
+		move_uploaded_file($_FILES['task_pic']['tmp_name'], $taskpic);
+
+		$data['result']=$this->apimainmodel->taskPic($task_id,$taskFileName);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//	
+//-----------------------------------------------//
+
+	public function list_task()
+	{
+	   	//$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -735,7 +675,124 @@ class Apimain extends CI_Controller {
 		if($_POST == FALSE)
 		{
 			$res = array();
-			$res["opn"] = "View Onduty";
+			$res["opn"] = "View Task";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+	    $user_id = '';
+	    $user_id = $this->input->post("user_id");
+
+
+		$data['result']=$this->apimainmodel->listTask($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function view_task()
+	{
+	   	//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "View Task";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+	    $task = '';
+	    $task_id = $this->input->post("task_id");
+
+
+		$data['result']=$this->apimainmodel->viewTask($task_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function update_task()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+		    
+			$res = array();
+			$res["opn"] = "Update Task";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+        $task_id = '';
+		$user_id = '';
+		$task_title  = '';
+		$task_description = '';
+		$task_date  = '';
+		$status  = '';
+		$updated_by = '';
+		$updated_at  = '';
+		
+		$task_id = $this->input->post("task_id");
+		$user_id = $this->input->post("user_id");
+		$task_title  = $this->input->post("task_title");
+		$task_description = $this->input->post("task_description");
+		$task_date  = $this->input->post("task_date");
+		$status  = $this->input->post("status");
+		$updated_by = $this->input->post("user_id");
+		$updated_at  = date("Y-m-d H:i:s");
+
+
+		$data['result']=$this->apimainmodel->updateTask($task_id,$user_id,$task_title,$task_description,$task_date,$status,$updated_by,$updated_at);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+
+//-----------------------------------------------//
+
+	public function add_mobilocation()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+		    
+			$res = array();
+			$res["opn"] = "Add Mobilizer Location";
 			$res["scode"] = 204;
 			$res["message"] = "Input error";
 
@@ -744,167 +801,20 @@ class Apimain extends CI_Controller {
 		}
 
 		$user_id = '';
-		$user_type = '';
-	 	$user_type = $this->input->post("user_type");
-	 	$user_id = $this->input->post("user_id");
+		$latitude  = '';
+		$longitude = '';
+		$location_datetime  = '';
 
-		$data['result']=$this->apimainmodel->dispOnduty($user_type,$user_id);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
+		$user_id = $this->input->post("user_id");
+		$latitude = $this->input->post("latitude");
+		$longitude  = $this->input->post("longitude");
+		$location_datetime = $this->input->post("location_datetime");
 
-//-----------------------------------------------//
- 
-//-----------------------------------------------//
-
-	public function disp_Grouplist()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		if($_POST == FALSE)
-		{
-			$res = array();
-			$res["opn"] = "View Grouplist";
-			$res["scode"] = 204;
-			$res["message"] = "Input error";
-
-			echo json_encode($res);
-			return;
-		}
-
-		$user_id = '';
-		$user_type = '';
-	 	$user_type = $this->input->post("user_type");
-	 	$user_id = $this->input->post("user_id");
-
-		$data['result']=$this->apimainmodel->dispGrouplist($user_type,$user_id);
+		$data['result']=$this->apimainmodel->addMobilocation($user_id,$latitude,$longitude,$location_datetime);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
 
 //-----------------------------------------------//
 
-
-//-----------------------------------------------//
-
-	public function send_Groupmessageold()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		if($_POST == FALSE)
-		{
-			$res = array();
-			$res["opn"] = "Send Group Message";
-			$res["scode"] = 204;
-			$res["message"] = "Input error";
-
-			echo json_encode($res);
-			return;
-		}
-
-		$group_title_id = '';
-		$message_type = '';
-		$message_details = '';
-		$created_by = '';
-		
-	 	$group_title_id = $this->input->post("group_title_id");
-	 	$message_type = $this->input->post("message_type");
-		$message_details = $this->input->post("message_details");
-		$created_by = $this->input->post("created_by");
-		
-
-		$data['result']=$this->apimainmodel->sendGroupmessage($group_title_id,$message_type,$message_details,$created_by);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	public function send_Groupmessage()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		if($_POST == FALSE)
-		{
-			$res = array();
-			$res["opn"] = "Send Group Message";
-			$res["scode"] = 204;
-			$res["message"] = "Input error";
-
-			echo json_encode($res);
-			return;
-		}
-
-		$group_title_id = '';
-		$messagetype_sms = '';
-		$messagetype_mail = '';
-		$messagetype_notification = '';
-		$message_details = '';
-		$created_by = '';
-		
-	 	$group_title_id = $this->input->post("group_title_id");
-	 	$messagetype_sms = $this->input->post("messagetype_sms");
-		$messagetype_mail = $this->input->post("messagetype_mail");
-		$messagetype_notification = $this->input->post("messagetype_notification");
-		$message_details = $this->input->post("message_details");
-		$created_by = $this->input->post("created_by");
-		
-
-		$data['result']=$this->apimainmodel->sendGroupmessage($group_title_id,$messagetype_sms,$messagetype_mail,$messagetype_notification,$message_details,$created_by);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
-
-//-----------------------------------------------//
-
-	public function disp_Groupmessage()
-	{
-		$_POST = json_decode(file_get_contents("php://input"), TRUE);
-
-		if(!$this->checkMethod())
-		{
-			return FALSE;
-		}
-
-		if($_POST == FALSE)
-		{
-			$res = array();
-			$res["opn"] = "View Group Message";
-			$res["scode"] = 204;
-			$res["message"] = "Input error";
-
-			echo json_encode($res);
-			return;
-		}
-
-		$user_id = '';
-		$user_type = '';
-	 	$user_type = $this->input->post("user_type");
-	 	$user_id = $this->input->post("user_id");
-
-		$data['result']=$this->apimainmodel->dispGroupmessage($user_type,$user_id);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//
 }
