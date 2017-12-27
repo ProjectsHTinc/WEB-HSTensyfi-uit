@@ -81,7 +81,7 @@ Class Staffmodel extends CI_Model
   		$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
   		$md5pwd=md5($OTP);
       if($select_role=='2'){
-          $user_name='ensyfi'.$insert_id.'';
+          $user_name='admin_'.$insert_id.'';
       }else if($select_role=='3'){
         $user_name=$insert_id+800000;
       }else if($select_role=='4'){
