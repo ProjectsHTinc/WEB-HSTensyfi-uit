@@ -215,7 +215,7 @@
                      </ul>
                   </div>
                </li>
-            
+
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
@@ -245,14 +245,14 @@
                <li id="teacher">
                   <a data-toggle="collapse" href="#teachermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
-                     <p>Teachers	</p>
+                     <p>Staff	</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="teachermenu">
                      <ul class="nav">
-                        <li id="teacher1"><a href="<?php echo base_url(); ?>teacher/home">Add Teachers</a></li>
-                        <li id="teacher2"><a href="<?php echo base_url(); ?>teacher/view">Teachers Search</a></li>
-                        <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
+                        <li id="teacher1"><a href="<?php echo base_url(); ?>staff/home">Create staff</a></li>
+                        <li id="teacher2"><a href="<?php echo base_url(); ?>staff/view">View Staff list</a></li>
+                        <!-- <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li> -->
                      </ul>
                   </div>
                </li>
