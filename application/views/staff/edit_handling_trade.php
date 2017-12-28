@@ -18,7 +18,7 @@
           <div class="col-sm-6">
             <input type="hidden" name="id" id="id" class="form-control" value="<?php echo $rows1->id; ?>" readonly="">
              <input type="text" name="teacher_name" id="teacher_name" class="form-control" value="<?php echo $rows1->name; ?>" readonly="">
-              <input type="text" name="staff_id" id="staff_id" class="form-control" value="<?php echo $rows1->staff_id; ?>" readonly="">
+              <input type="hidden" name="staff_id" id="staff_id" class="form-control" value="<?php echo $rows1->staff_id; ?>" readonly="">
           </div>
        </div>
         <div class="form-group">
