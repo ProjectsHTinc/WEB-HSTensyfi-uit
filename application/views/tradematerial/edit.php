@@ -1,4 +1,3 @@
-<script src="http://cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script>
 <div class="main-panel">
     <div class="content">
         <div class="col-md-12">
@@ -47,9 +46,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Description</label>
                                         <div class="col-sm-7">
-                                            <textarea cols="80" id="editor1" name="editor1" rows="10">
-                                            <?php echo $rows->trade_info; ?>
-                                          </textarea>
+                                            <textarea cols="40" name="description" class="form-control" rows="10"><?php echo $rows->trade_info; ?></textarea>
 
                                         </div>
 
@@ -93,7 +90,7 @@
                                         <div class="col-sm-4">
                                             <select name="status" id="status" class="selectpicker form-control" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                                 <option value="Active">Active</option>
-                                                <option value="DeActive">DeActive</option>
+                                                <option value="Deactive">DeActive</option>
 
                                             </select>
                                             <script language="JavaScript">document.materialform.status.value="<?php echo $rows->status; ?>";</script>
@@ -134,14 +131,8 @@
                     trade_title: {
                         required: true
                     },
-
-                    editor1: {
-                    required: function()
-                    {
-                    CKEDITOR.instances.editor1.updateElement();
-                    }
-
-                },
+                    description: {
+                    required: true },
                     trade_id: {
                         required: true
                     },
@@ -151,19 +142,11 @@
                 },
                 messages: {
                     trade_title: "Enter Title",
-                    editor1: "Enter trade info",
+                    description: "Enter trade info",
                     trade_id: "Select Trade",
                     status: "Select Status"
                 },
-                errorPlacement: function(error, element)
-              {
-                  if (element.attr("name") == "editor1")
-                 {
-                  error.insertBefore("textarea#editor1");
-                  } else {
-                  error.insertBefore(element);
-                  }
-              }
+                
             });
-                CKEDITOR.replace('editor1');
+               
     </script>

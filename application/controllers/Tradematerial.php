@@ -37,7 +37,7 @@ class Tradematerial extends CI_Controller {
 				$check_title=$this->tradematerialmodel->checking_title($trade_title);
 				if($check_title['status']=='success'){
 					$trade_id=$this->input->post('trade_id');
-					$trade_info= $this->db->escape_str($this->input->post('editor1'));
+					$trade_info= $this->db->escape_str($this->input->post('description'));
 					$trade_video_link=$this->input->post('trade_video');
 					$status=$this->input->post('status');
 					$profilepic = $_FILES['trade_file']['name'];
@@ -75,6 +75,7 @@ class Tradematerial extends CI_Controller {
 				$user_type=$this->session->userdata('user_type');
 				if($user_type==1){
 				$datas['result']=$this->tradematerialmodel->get_all_trade_material();
+				//echo '<pre>';print_r($datas['result']);exit;
 			 $this->load->view('header');
 			 $this->load->view('tradematerial/view',$datas);
 			 $this->load->view('footer');
@@ -126,10 +127,10 @@ class Tradematerial extends CI_Controller {
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 			$trade_title=$this->input->post('trade_title');
-
+        
 				$trade_material_id=$this->input->post('trade_material_id');
 				$trade_id=$this->input->post('trade_id');
-				$trade_info= $this->db->escape_str($this->input->post('editor1'));
+				$trade_info= $this->db->escape_str($this->input->post('description'));
 				$trade_video_link=$this->input->post('trade_video');
 				$trade_old_file=$this->input->post('trade_old_file');
 				$status=$this->input->post('status');
@@ -206,6 +207,19 @@ class Tradematerial extends CI_Controller {
 			}
 		}
 
+  public function check_title_function()
+   {
+	    $m_title= $this->input->post('ctitle');
+	    $trade_id = $this->input->post('tradeid');
+	    $numrows = $this->tradematerialmodel->getData($m_title,$trade_id);
+		 if ($numrows>0)
+	     {
+			echo "AE";
+		 }else
+		 {
+			echo "success";
+		 }
+  }
 
 
 
@@ -213,4 +227,5 @@ class Tradematerial extends CI_Controller {
 
 
 
-}
+
+} ?>

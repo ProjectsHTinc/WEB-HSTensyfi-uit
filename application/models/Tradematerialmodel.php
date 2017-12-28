@@ -56,14 +56,23 @@ Class Tradematerialmodel extends CI_Model
          }
        }
 
+      function getData($m_title,$trade_id){
+       $acd_year=$this->get_cur_year();
+        $year_id= $acd_year['cur_year'];
+        
+        $query="SELECT * FROM edu_trade_materials  WHERE trade_title='$m_title' AND trade_id='$trade_id' AND year_id='$year_id'";
+         $resultset = $this->db->query($query);
+         return count($resultset->result());
+       }
 
 
 
-
-       function get_all_trade_material(){
+       function get_all_trade_material()
+       {
         $acd_year=$this->get_cur_year();
         $year_id= $acd_year['cur_year'];
-        $get_alltrade="SELECT et.trade_name,etm.* FROM edu_trade_materials AS etm LEFT JOIN edu_trade AS et ON et.id=etm.trade_id WHERE  etm.year_id='$year_id' ORDER BY etm.id DESC";
+
+        $get_alltrade="SELECT et.trade_name,etm.*,u.user_id,u.user_type FROM edu_trade_materials AS etm LEFT JOIN edu_trade AS et ON et.id=etm.trade_id LEFT JOIN edu_users AS u ON etm.created_by=u.user_id WHERE etm.year_id='$year_id' ORDER BY etm.id DESC";
         $res=$this->db->query($get_alltrade);
         return $res->result();
        }
@@ -87,12 +96,12 @@ Class Tradematerialmodel extends CI_Model
         }
 
         function update_trade_material($trade_material_id,$trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id){
+         //echo $status;exit;
           $acd_year=$this->get_cur_year();
           $year_id= $acd_year['cur_year'];
-           $get_alltrade="SELECT * FROM edu_trade_materials  WHERE trade_title='$trade_title' AND year_id='$year_id'";
-
-           $res=$this->db->query($get_alltrade);
-             if($res->num_rows()==0){
+           // $get_alltrade="SELECT * FROM edu_trade_materials  WHERE trade_title='$trade_title' AND year_id='$year_id'";
+           // $res=$this->db->query($get_alltrade);
+           //   if($res->num_rows()==0){
              $update="UPDATE edu_trade_materials SET trade_title='$trade_title',trade_info='$trade_info',trade_file='$trade_file',trade_video='$trade_video_link',status='$status',updated_by='$user_id',updated_at=NOW() WHERE id='$trade_material_id'";
              $res=$this->db->query($update);
             if ($res) {
@@ -106,12 +115,12 @@ Class Tradematerialmodel extends CI_Model
                 );
                 return $data;
             }
-           }else{
-             $data = array(
-                 "status" => "already exist"
-             );
-             return $data;
-           }
+           // }else{
+           //   $data = array(
+           //       "status" => "already exist"
+           //   );
+           //   return $data;
+           // }
 
         }
 
