@@ -60,7 +60,7 @@
 																														<td><?php echo $rows->created_user;?></td>
 																														<td><?php echo $rows->status;?></td>
 																														<td><a href="<?php echo base_url(); ?>staff/edit/<?php echo base64_encode($rows->id);?>"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></a>
-                                                              <?php if($rows->role_type=='2'){ ?>
+                                                              <?php if($rows->role_type=='3'){ ?>
                                                                 <a  href="#myModal" data-toggle="modal" data-target="#myModal" data-trainer_id="<?php echo $rows->id; ?>" class="open-AddBookDialog"><i class='fa fa-plus-square-o' aria-hidden='true'></i></a>
                                                             <?php  }else{
 
