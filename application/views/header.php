@@ -252,7 +252,6 @@
                      <ul class="nav">
                         <li id="teacher1"><a href="<?php echo base_url(); ?>staff/home">Create staff</a></li>
                         <li id="teacher2"><a href="<?php echo base_url(); ?>staff/view">View Staff list</a></li>
-                        <!-- <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li> -->
                      </ul>
                   </div>
                </li>
@@ -268,8 +267,6 @@
                      <ul class="nav">
                         <li id="event2"><a href="<?php echo base_url(); ?>event/create">Add / View Event</a></li>
                         <li id="event1"><a href="<?php echo base_url(); ?>event/home">Event Calendar</a></li>
-                        <!-- li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
-                        <<li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->
                      </ul>
                   </div>
                </li>
