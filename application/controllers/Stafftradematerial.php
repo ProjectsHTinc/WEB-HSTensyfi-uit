@@ -20,6 +20,8 @@ class Stafftradematerial extends CI_Controller {
 		if($user_type==3)
 		{
 	    $datas['get_all_active_trade']=$this->stafftradematerialmodel->get_all_active_trade($user_id,$user_type);
+        // echo'<pre>';print_r($datas['get_all_active_trade']);exit;
+
 		 $this->load->view('adminteacher/teacher_header');
  		 $this->load->view('adminteacher/tradematerial/add',$datas);
  		 $this->load->view('adminteacher/teacher_footer');
@@ -37,7 +39,7 @@ class Stafftradematerial extends CI_Controller {
 				{
 				$trade_id=$this->input->post('trade_id');
 			 	$trade_title=$this->input->post('trade_title');
-
+               echo $trade_id; exit;
 				$check_title=$this->stafftradematerialmodel->checking_title($trade_title,$trade_id);
 
 				if($check_title['status']=='success')

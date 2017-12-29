@@ -82,7 +82,8 @@ Class Stafftradematerialmodel extends CI_Model
         return $res->result();
        }
 
-        function create_trade_material($trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id){
+        function create_trade_material($trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id)
+        { 
             $acd_year=$this->get_cur_year();
             $year_id= $acd_year['cur_year'];
              $insert="INSERT INTO edu_trade_materials (year_id,trade_id,trade_title,trade_info,trade_file,trade_video,status,created_by,created_at) VALUES('$year_id','$trade_id','$trade_title','$trade_info','$trade_file','$trade_video_link','$status','$user_id',NOW())";
@@ -104,7 +105,7 @@ Class Stafftradematerialmodel extends CI_Model
          //echo $status; exit;
           $acd_year=$this->get_cur_year();
           $year_id= $acd_year['cur_year'];
-           $get_alltrade="SELECT * FROM edu_trade_materials  WHERE trade_title='$trade_title' AND year_id='$year_id'";
+           $get_alltrade="SELECT * FROM edu_trade_materials  WHERE trade_title='$trade_title' AND year_id='$year_id' AND status='$status'";
 
            $res=$this->db->query($get_alltrade);
              if($res->num_rows()==0){

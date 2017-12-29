@@ -20,7 +20,7 @@
                      <div class="col-sm-4">
                         <select name="trade_id" id="trade_id" class="selectpicker form-control" data-title="Select Trade" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                            <?php foreach($get_all_active_trade as $rows){ ?>
-                           <option value="<?php echo $rows->id; ?>"><?php echo $rows->trade_name; ?></option>
+                           <option value="<?php echo $rows->trade_id; ?>"><?php echo $rows->trade_name; ?></option>
                            <?php    } ?>
                         </select>
                      </div>
@@ -92,6 +92,7 @@
    function check_title(val)
    { 
       var tid=document.getElementById("trade_id").value;
+      alert(tid);
       $.ajax({
       type:'post',
       url:'<?php echo base_url(); ?>/stafftradematerial/check_title_function',
