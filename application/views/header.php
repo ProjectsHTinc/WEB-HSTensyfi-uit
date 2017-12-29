@@ -289,13 +289,13 @@
                <li id="grouping">
                   <a data-toggle="collapse" href="#groupingmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/grp.png"/>
-                     <p>Grouping</p>
+                     <p>Tracking</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="groupingmenu">
                      <ul class="nav">
-                        <li id="group1"><a href="<?php echo base_url(); ?>grouping/home">Create/ View Groups</a></li>
-                        <li id="group2"><a href="<?php echo base_url(); ?>grouping/send">Send Message </a></li>
+                        <li id="group1"><a href="<?php echo base_url(); ?>tracking/home">Track</a></li>
+                        <!-- <li id="group2"><a href="<?php echo base_url(); ?>grouping/send">Send Message </a></li> -->
                      </ul>
                   </div>
                </li>
