@@ -82,7 +82,7 @@
 	   textColor: 'black'
 	   },
 	   {
-	   url: '<?php echo base_url() ?>teacherevent/view_all_reminder',
+	   url: '<?php echo base_url() ?>staffevent/view_all_reminder',
 	   color: 'red',
 	   textColor: 'white'
 	   }
@@ -137,7 +137,7 @@
    function(isConfirm) {
    if (isConfirm) {
    $.ajax({
-   url: "<?php echo base_url(); ?>teacherevent/todolist",
+   url: "<?php echo base_url(); ?>staffevent/todolist",
    type:'POST',
    data: $('#to_do_form').serialize(),
    success: function(response) {
@@ -149,7 +149,7 @@
    text: "Message!",
    type: "success"
    }, function() {
-   window.location = "<?php echo base_url(); ?>teacherevent/calender";
+   window.location = "<?php echo base_url(); ?>staffevent/calender";
    });
    }else{
    sweetAlert("Oops...", "Something went wrong!", "error");

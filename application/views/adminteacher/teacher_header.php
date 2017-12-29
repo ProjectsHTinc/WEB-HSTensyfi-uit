@@ -207,8 +207,8 @@
                   </a>
                   <div class="collapse" id="calendermenu">
                      <ul class="nav">
-                        <li id="calendar1"><a href="<?php echo base_url(); ?>teacherevent/calender">Calendar</a></li>
-                        <li id="calendar2"><a href="<?php echo base_url(); ?>teacherevent/home">List of Event</a></li>
+                        <li id="calendar1"><a href="<?php echo base_url(); ?>staffevent/calender">Calendar</a></li>
+                        <li id="calendar2"><a href="<?php echo base_url(); ?>staffevent/home">List of Event</a></li>
                      </ul>
                   </div>
                </li>

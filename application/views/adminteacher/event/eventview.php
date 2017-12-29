@@ -23,7 +23,7 @@
                      </time>
                      <!-- <img alt="Independence Day" src="https://farm4.staticflickr.com/3100/2693171833_3545fb852c_q.jpg" /> -->
                      <div class="info">
-                        <a href="<?php echo base_url(); ?>teacherevent/view_event/<?php echo $rows->id; ?>">
+                        <a href="<?php echo base_url(); ?>staffevent/view_event/<?php echo $rows->id; ?>">
                            <h2 class="title"><?php echo $rows->event_name;  ?></h2>
                         </a>
                      </div>
