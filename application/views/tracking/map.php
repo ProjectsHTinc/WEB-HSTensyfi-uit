@@ -10,7 +10,7 @@
             <div class="row">
                 <div class="" style="">
                     <div class="col-md-8" style="padding-top:20px;padding-bottom:20px;">
-                        <div id="map-canvas" style="width: 800px; height: 500px;">
+                        <div id="map-canvas" style="width: 100%; height: 500px;">
                         </div>
                     </div>
                     <div class="col-md-3">

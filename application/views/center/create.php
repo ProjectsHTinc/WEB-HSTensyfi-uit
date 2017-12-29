@@ -162,7 +162,7 @@
                             </form>
                         </div>
                         <div class="content" id="center">
-                            <div class="container">
+                            <div class="">
                               <table id="example" class="table">
                                   <thead>
 
@@ -238,7 +238,7 @@
                             </form>
                         </div>
                         <div class="content" id="center">
-                            <div class="container">
+                            <div class="row">
                                 <?php if(empty($res_img)){
                                   echo "No Gallery Found";
                               }else{
