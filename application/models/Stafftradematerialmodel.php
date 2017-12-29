@@ -72,34 +72,30 @@ Class Stafftradematerialmodel extends CI_Model
        }
 
 
-       function get_all_trade_material($user_id,$user_type)
-       {
+      function get_all_trade_material($user_id,$user_type)
+      {
         $acd_year=$this->get_cur_year();
         $year_id= $acd_year['cur_year'];
 
         $get_alltrade="SELECT et.trade_name,etm.* FROM edu_trade_materials AS etm LEFT JOIN edu_trade AS et ON et.id=etm.trade_id WHERE etm.created_by='$user_id' AND etm.year_id='$year_id' ORDER BY etm.id DESC";
         $res=$this->db->query($get_alltrade);
         return $res->result();
-       }
+      }
 
-        function create_trade_material($trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id)
-        { 
+      function create_trade_material($trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id)
+      { 
             $acd_year=$this->get_cur_year();
             $year_id= $acd_year['cur_year'];
              $insert="INSERT INTO edu_trade_materials (year_id,trade_id,trade_title,trade_info,trade_file,trade_video,status,created_by,created_at) VALUES('$year_id','$trade_id','$trade_title','$trade_info','$trade_file','$trade_video_link','$status','$user_id',NOW())";
              $res=$this->db->query($insert);
             if ($res) {
-                $data = array(
-                    "status" => "success"
-                );
+                $data = array("status" => "success");
                 return $data;
             } else {
-                $data = array(
-                    "status" => "failed"
-                );
+                $data = array("status" => "failed");
                 return $data;
             }
-        }
+      }
 
         function update_trade_material($trade_material_id,$trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id){
          //echo $status; exit;

@@ -108,7 +108,7 @@
                                $pic=$rows1->user_pic;
                                if($pic!='')
                                {?>
-                           <img src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/>
+                           <img src="<?php echo base_url(); ?>assets/staff/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/>
                            <?php }else{
                               ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
                            <?php }} ?>
@@ -154,7 +154,7 @@
                       $pic=$rows1->user_pic;
                       if($pic!='')
                       {?>
-                  <img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $pic; ?>" >
+                  <img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/staff/profile/<?php echo $pic; ?>" >
                   <?php }else{
                      ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
                   <?php }} ?>

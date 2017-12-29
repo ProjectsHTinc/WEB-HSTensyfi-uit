@@ -142,7 +142,7 @@
                   <div class="content">
                      <div class="author">
                         <a href="#">
-                           <img class="avatar border-gray" id="output" src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $rows->user_pic; ?>" alt="..."/>
+                           <img class="avatar border-gray" id="output" src="<?php echo base_url(); ?>assets/staff/profile/<?php echo $rows->user_pic; ?>" alt="..."/>
                            <h4 class="title"><?php echo $rows->name;  ?><br />
                            </h4>
                         </a>

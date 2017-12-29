@@ -50,7 +50,7 @@ class Teacherprofile extends CI_Controller {
 		      $temp = pathinfo($teacher_pic, PATHINFO_EXTENSION);
 		      $userFileName = round(microtime(true)) . '.' . $temp;
 		      //$userFileName =time();
-		      $uploaddir = 'assets/teachers/profile/';
+		      $uploaddir = 'assets/staff/profile/';
 			   $profilepic = $uploaddir.$userFileName;
 			   move_uploaded_file($_FILES['user_pic']['tmp_name'], $profilepic);
 			   if(empty($teacher_pic))
