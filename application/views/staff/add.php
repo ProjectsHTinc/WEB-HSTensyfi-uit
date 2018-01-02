@@ -32,7 +32,7 @@
                                             <div class="col-sm-4">
                                                 <select name="class_tutor" id="class_tutor" data-title="Select Class" class="selectpicker" data-style=" btn-block" data-menu-style="dropdown-blue">
                                                     <?php foreach ($get_non_exist_class_for_trainer as $row) {  ?>
-                                                        <option value="<?php echo $rows->id; ?>">
+                                                        <option value="<?php echo $row->trade_batch_id; ?>">
                                                             <?php echo $row->trade_name; ?>&nbsp; - &nbsp;
                                                                 <?php echo $row->batch_name; ?>
                                                         </option>

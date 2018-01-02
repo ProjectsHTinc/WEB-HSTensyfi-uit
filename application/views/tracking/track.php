@@ -10,104 +10,107 @@
 <div class="col-md-8" style="padding:40px;">
   <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
   <script type="text/javascript">
-      // var markers = [
-      //         {
-      //             "title": 'Alibaug',
-      //             "lat": '18.641400',
-      //             "lng": '72.872200',
-      //             "description": 'Alibaug is a coastal town and a municipal council in Raigad District in the Konkan region of Maharashtra, India.'
-      //         }
-      //     ,
-      //         {
-      //             "title": 'Mumbai',
-      //             "lat": '18.964700',
-      //             "lng": '72.825800',
-      //             "description": 'Mumbai formerly Bombay, is the capital city of the Indian state of Maharashtra.'
-      //         }
-      //     ,
-      //         {
-      //             "title": 'Pune',
-      //             "lat": '18.523600',
-      //             "lng": '73.847800',
-      //             "description": 'Pune is the seventh largest metropolis in India, the second largest in the state of Maharashtra after Mumbai.'
-      //         }
-      // ];
-      var markers='<?php echo base_url(); ?>tracking/tracking_details/';
-      window.onload = function () {
-          var mapOptions = {
-              center: new google.maps.LatLng(markers[0].lat, markers[0].lng),
-              zoom: 13,
-              mapTypeId: google.maps.MapTypeId.ROADMAP
-          };
-          var map = new google.maps.Map(document.getElementById("dvMap"), mapOptions);
-          var infoWindow = new google.maps.InfoWindow();
-          var lat_lng = new Array();
-          var latlngbounds = new google.maps.LatLngBounds();
-          for (i = 0; i < markers.length; i++) {
-              var data = markers[i]
-              var myLatlng = new google.maps.LatLng(data.lat, data.lng);
-              lat_lng.push(myLatlng);
-        //       for (var x = 0; x < myLatlng.length; x++) {
-        //     var latlng = new google.maps.LatLng(myLatlng[x].lat, myLatlng[x].lng);
-        //     var marker = new google.maps.Marker({
-        //         position: myLatlng,
-        //         map: map
-        //     });
-        //     markers.push(marker);
-        // }
-              var marker = new google.maps.Marker({
-                  position: myLatlng,
-                  map: map,
-                  title: data.title
+  var MapPoints = '[{"address":{"address":"plac Grzybowski, Warszawa, Polska","lat":"11.016587","lng":"76.954261"},"title":"Warszawa"},{"address":{"address":"Jana Paw\u0142a II, Warszawa, Polska","lat":"11.019725","lng":"76.952029"},"title":"Wroc\u0142aw"},{"address":{"address":"Wawelska, Warszawa, Polska","lat":"11.016608","lng":"76.940399"},"title":"O\u015bwi\u0119cim"}]';
+
+  var MY_MAPTYPE_ID = 'custom_style';
+  var directionsDisplay;
+  var directionsService = new google.maps.DirectionsService();
+  var map;
+
+  function initialize() {
+      directionsDisplay = new google.maps.DirectionsRenderer({suppressMarkers:true});
+
+      if (jQuery('#map').length > 0) {
+
+          var locations = jQuery.parseJSON(MapPoints);
+
+          map = new google.maps.Map(document.getElementById('map'), {
+              mapTypeId: google.maps.MapTypeId.ROADMAP,
+              scrollwheel: true
+          });
+          directionsDisplay.setMap(map);
+
+          var infowindow = new google.maps.InfoWindow();
+          var flightPlanCoordinates = [];
+          var bounds = new google.maps.LatLngBounds();
+
+          for (i = 0; i < locations.length; i++) {
+            alert(i);
+              marker = new google.maps.Marker({
+                  position: new google.maps.LatLng(locations[i].address.lat, locations[i].address.lng),
+                  map: map
               });
-              latlngbounds.extend(marker.position);
-              (function (marker, data) {
-                  google.maps.event.addListener(marker, "click", function (e) {
-                      infoWindow.setContent(data.description);
-                      infoWindow.open(map, marker);
-                  });
-              })(marker, data);
+              flightPlanCoordinates.push(marker.getPosition());
+              bounds.extend(marker.position);
+
+              google.maps.event.addListener(marker, 'click', (function (marker, i) {
+                  return function () {
+                      infowindow.setContent(locations[i]['title']);
+                      infowindow.open(map, marker);
+                  }
+              })(marker, i));
           }
-          map.setCenter(latlngbounds.getCenter());
-          map.fitBounds(latlngbounds);
 
-          //***********ROUTING****************//
+          map.fitBounds(bounds);
+          /* polyline
+              var flightPath = new google.maps.Polyline({
+                  map: map,
+                  path: flightPlanCoordinates,
+                  strokeColor: "#FF0000",
+                  strokeOpacity: 1.0,
+                  strokeWeight: 2
+              });
+  */
+          // directions service
+          var start = flightPlanCoordinates[0];
+          var end = flightPlanCoordinates[flightPlanCoordinates.length - 1];
+          var waypts = [];
+          for (var i = 1; i < flightPlanCoordinates.length - 1; i++) {
+              waypts.push({
+                  location: flightPlanCoordinates[i],
+                  stopover: true
+              });
+          }
+          calcRoute(start, end, waypts);
+      }
+  }
 
-          //Initialize the Path Array
-          var path = new google.maps.MVCArray();
+  function calcRoute(start, end, waypts) {
+      var request = {
+          origin: start,
+          destination: end,
+          waypoints: waypts,
+          optimizeWaypoints: true,
+          travelMode: google.maps.TravelMode.DRIVING
+      };
+      directionsService.route(request, function (response, status) {
+          if (status == google.maps.DirectionsStatus.OK) {
+              directionsDisplay.setDirections(response);
+              var route = response.routes[0];
+              var summaryPanel = document.getElementById('directions_panel');
+              summaryPanel.innerHTML = '';
+              // For each route, display summary information.
+              for (var i = 0; i < route.legs.length; i++) {
 
-          //Initialize the Direction Service
-          var service = new google.maps.DirectionsService();
-
-          //Set the Path Stroke Color
-          var poly = new google.maps.Polyline({ map: map, strokeColor: '#4986E7' });
-
-          //Loop and Draw Path Route between the Points on MAP
-          for (var i = 0; i < lat_lng.length; i++) {
-              if ((i + 1) < lat_lng.length) {
-                  var src = lat_lng[i];
-                  var des = lat_lng[i + 1];
-                  path.push(src);
-                  poly.setPath(path);
-                  service.route({
-                      origin: src,
-                      destination: des,
-                      travelMode: google.maps.DirectionsTravelMode.DRIVING
-                  }, function (result, status) {
-                      if (status == google.maps.DirectionsStatus.OK) {
-                          for (var i = 0, len = result.routes[0].overview_path.length; i < len; i++) {
-                              path.push(result.routes[0].overview_path[i]);
-                          }
-                      }
-                  });
+                  var routeSegment = i + 1;
+                  summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
+                  summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
+                  summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
+                  summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
               }
           }
-      }
+      });
+  }
+  google.maps.event.addDomListener(window, 'load', initialize);
   </script>
-  <div id="dvMap" style="width: 500px; height: 500px">
+  <div id="map" style="border: 2px solid #3872ac;height:500px;"></div>
+
+
+
+
   </div>
-
-
+  <div class="col-md-4">
+    <div id="directions_panel"></div>
   </div>
   </div>
   </div>

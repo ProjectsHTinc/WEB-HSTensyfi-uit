@@ -1,4 +1,4 @@
-<script src="http://cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script>
+<!-- <script src="http://cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script> -->
 <div class="main-panel">
     <div class="content">
         <div class="col-md-12">
@@ -83,23 +83,13 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Center Details</label>
                                             <div class="col-sm-8">
-                                                <textarea cols="80" id="editor1" name="center_info" rows="10" required>
-                                                    <?php echo $res->center_info;  ?>
-                                                </textarea>
+                                                <textarea cols="80" id="editor1" name="center_info" rows="10" required><?php echo $res->center_info;  ?></textarea>
 
                                             </div>
 
                                         </div>
                                     </fieldset>
-                                    <fieldset>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">Center Video link</label>
-                                            <div class="col-sm-4">
-                                                <input type="text" name="center_video_link" id="center_video_link" class="form-control" value="" required>
-                                            </div>
 
-                                        </div>
-                                    </fieldset>
 
                                     <fieldset>
                                         <div class="form-group">

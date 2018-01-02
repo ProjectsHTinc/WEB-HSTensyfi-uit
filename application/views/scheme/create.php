@@ -1,4 +1,4 @@
-<script src="http://cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script>
+<!-- <script src="http://cdn.ckeditor.com/4.4.4/standard/ckeditor.js"></script> -->
 <div class="main-panel">
     <div class="content">
         <div class="col-md-12">
@@ -34,9 +34,7 @@
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">Scheme Details</label>
                                             <div class="col-sm-8">
-                                                <textarea cols="80" id="editor1" name="scheme_info" rows="10" required>
-                                                    <?php echo $res->scheme_info;  ?>
-                                                </textarea>
+                                                <textarea cols="80" id="editor1" name="scheme_info" rows="10" required><?php echo $res->scheme_info;  ?></textarea>
 
                                             </div>
 

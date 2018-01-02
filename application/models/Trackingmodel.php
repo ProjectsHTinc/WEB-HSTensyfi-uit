@@ -31,10 +31,20 @@ Class Trackingmodel extends CI_Model
         function get_lat_and_long_id($user_id,$selected_date){
           $select="SELECT (@cnt := @cnt + 1) AS DisplayText,user_location AS ADDRESS, CONCAT(user_lat,',',user_long) AS LatitudeLongitude,created_at FROM edu_tracking_details CROSS JOIN (SELECT @cnt := 0) AS dummy
           WHERE user_id='$user_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$selected_date'  ORDER BY created_at ASC";
-
           $get_result=$this->db->query($select);
           return $get_result->result();
 
+        }
+
+        function testing_track(){
+          $select="SELECT etd.user_location AS address,etd.user_lat AS lat ,etd.user_long AS lng FROM edu_users AS eu LEFT JOIN edu_tracking_details AS etd ON eu.user_id=etd.user_id  WHERE eu.user_id=4  AND DATE_FORMAT(created_at, '%Y-%m-%d')='2017-12-28' ORDER BY created_at ASC";
+          $get_result=$this->db->query($select);
+          $get_res=$get_result->result();
+          // $data= array("address" =>$get_res);
+          foreach(){}
+          $address = array ("address"  => array("address" => "orange", "lat" => "banana", "lng" => "apple"), "title" => "title");
+          // $response = array("address" => $get_res, "title" => "title");
+          return $address;
         }
 
         function get_lat_and_long_id_table_view($user_id,$selected_date){

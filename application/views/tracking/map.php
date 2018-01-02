@@ -9,8 +9,8 @@
         <div class="card">
             <div class="row">
                 <div class="" style="">
-                    <div class="col-md-8" style="padding-top:20px;padding-bottom:20px;">
-                        <div id="map-canvas" style="width: 100%; height: 500px;">
+                    <div class="col-md-8" id="maps" style="padding-top:20px;padding-bottom:20px;">
+                        <div id="map-canvas" style="width: 100%; height: 500px;border:2px solid red;">
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -145,32 +145,9 @@
     }
 
     $('#example').DataTable({
-        fixedHeader: true,
-        dom: 'lBfrtip',
-        buttons: [{
-                extend: 'excelHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            }, {
-                extend: 'pdfHtml5',
-                exportOptions: {
-                    columns: ':visible'
-                }
-            },
-            'colvis'
-        ],
-        "pagingType": "full_numbers",
-        "lengthMenu": [
-            [10, 25, 50, -1],
-            [10, 25, 50, "All"]
-        ],
-        responsive: true,
-        language: {
-            search: "_INPUT_",
-            searchPlaceholder: "Search records",
-        }
+
     });
+
     $('#groupingmenu').addClass('collapse in');
     $('#grouping').addClass('active');
     $('#group1').addClass('active');

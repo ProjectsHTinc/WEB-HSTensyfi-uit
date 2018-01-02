@@ -27,10 +27,10 @@ Class Centermodel extends CI_Model
           }
 
         }
-       function update_center($center_name,$center_info,$center_video_link,$center_logo,$user_id){
+       function update_center($center_name,$center_info,$user_id){
           $acd_year=$this->get_cur_year();
           $year_id= $acd_year['cur_year'];
-          $update="UPDATE edu_center_details SET center_name='$center_name',center_banner='$center_logo',center_info='$center_info',status='Active',updated_by='$user_id',updated_at=NOW() WHERE id='1'";
+          $update="UPDATE edu_center_details SET center_name='$center_name',center_info='$center_info',status='Active',updated_by='$user_id',updated_at=NOW() WHERE id='1'";
           $result=$this->db->query($update);
           if($result){
             $data= array("status" => "success");

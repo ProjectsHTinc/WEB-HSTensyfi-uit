@@ -63,8 +63,8 @@ class Center extends CI_Controller {
 				if($user_type==1){
 			 	$center_name=$this->input->post('center_name');
 				$center_info= $this->db->escape_str($this->input->post('center_info'));
-				$center_banner=$this->input->post('center_banner');
-				$datas=$this->centermodel->update_center($center_name,$center_info,$center_logo,$user_id);
+
+				$datas=$this->centermodel->update_center($center_name,$center_info,$user_id);
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Updated Successfully');
 					redirect('center/home');

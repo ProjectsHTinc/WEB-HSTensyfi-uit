@@ -154,8 +154,9 @@ Class Staffmodel extends CI_Model
 
     function update_staff_details_to_id($select_role,$name,$address,$email,$class_tutor,$mobile,$sec_phone,$sex,$dob,$nationality,$religion,$community_class,$community,$qualification,$status,$staff_prof_pic,$user_id,$staff_id){
 
-      $update="UPDATE edu_staff_details SET name='$name',sex='$sex',address='$address',email='$email',trade_batch_id='$class_tutor',phone='$mobile',sec_phone='$sec_phone',dob='$dob',nationality='$nationality',religion='$religion',community_class='$community',community='$community',
+       $update="UPDATE edu_staff_details SET name='$name',sex='$sex',address='$address',email='$email',trade_batch_id='$class_tutor',phone='$mobile',sec_phone='$sec_phone',dob='$dob',nationality='$nationality',religion='$religion',community_class='$community',community='$community',
       qualification='$qualification',status='$status',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
+      
       $result=$this->db->query($update);
 
       $update_user="UPDATE edu_users SET name='$name' WHERE user_type='$select_role' AND user_master_id='$staff_id'";
@@ -178,7 +179,7 @@ Class Staffmodel extends CI_Model
     function get_non_exist_class_for_trainer(){
       $acd_year=$this->get_cur_year();
       $year_id= $acd_year['cur_year'];
-      $select="SELECT  e.id,c.trade_name,s.batch_name FROM  edu_trade_batch  AS e INNER JOIN edu_trade_batch  AS cm ON e.id=cm.id
+      $select="SELECT  e.id as trade_batch_id,c.trade_name,s.batch_name FROM  edu_trade_batch  AS e INNER JOIN edu_trade_batch  AS cm ON e.id=cm.id
       INNER JOIN edu_trade AS c ON cm.trade_id=c.id INNER JOIN edu_batch AS s ON cm.batch_id=s.id WHERE
       NOT EXISTS (SELECT  NULL FROM edu_staff_details AS  sd WHERE   sd.trade_batch_id = e.id) AND e.year_id='$year_id'";
       $result=$this->db->query($select);
