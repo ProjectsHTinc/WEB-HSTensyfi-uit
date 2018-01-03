@@ -215,7 +215,7 @@
                      </ul>
                   </div>
                </li>
-            
+
                <li id="enroll">
                   <a data-toggle="collapse" href="#enrollmentmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
@@ -245,14 +245,13 @@
                <li id="teacher">
                   <a data-toggle="collapse" href="#teachermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
-                     <p>Teachers	</p>
+                     <p>Staff	</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="teachermenu">
                      <ul class="nav">
-                        <li id="teacher1"><a href="<?php echo base_url(); ?>teacher/home">Add Teachers</a></li>
-                        <li id="teacher2"><a href="<?php echo base_url(); ?>teacher/view">Teachers Search</a></li>
-                        <li id="teacher3"><a href="<?php echo base_url(); ?>communication/view_user_leaves">Teachers Leaves </a></li>
+                        <li id="teacher1"><a href="<?php echo base_url(); ?>staff/home">Create staff</a></li>
+                        <li id="teacher2"><a href="<?php echo base_url(); ?>staff/view">View Staff list</a></li>
                      </ul>
                   </div>
                </li>
@@ -268,8 +267,6 @@
                      <ul class="nav">
                         <li id="event2"><a href="<?php echo base_url(); ?>event/create">Add / View Event</a></li>
                         <li id="event1"><a href="<?php echo base_url(); ?>event/home">Event Calendar</a></li>
-                        <!-- li id="leave1"><a href="<?php echo base_url(); ?>leavemanage/home">Add/ View Leave </a></li>
-                        <<li><a href="<?php echo base_url(); ?>event/view">View Event</a></li> -->
                      </ul>
                   </div>
                </li>
@@ -292,13 +289,13 @@
                <li id="grouping">
                   <a data-toggle="collapse" href="#groupingmenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/grp.png"/>
-                     <p>Grouping</p>
+                     <p>Tracking</p>
                      <b class="caret"></b>
                   </a>
                   <div class="collapse" id="groupingmenu">
                      <ul class="nav">
-                        <li id="group1"><a href="<?php echo base_url(); ?>grouping/home">Create/ View Groups</a></li>
-                        <li id="group2"><a href="<?php echo base_url(); ?>grouping/send">Send Message </a></li>
+                        <li id="group1"><a href="<?php echo base_url(); ?>tracking/home">Track</a></li>
+                        <!-- <li id="group2"><a href="<?php echo base_url(); ?>grouping/send">Send Message </a></li> -->
                      </ul>
                   </div>
                </li>
@@ -312,8 +309,8 @@
                   </a>
                   <div class="collapse" id="usermanagement">
                      <ul class="nav">
-                        <li id="user1"><a href="<?php echo base_url(); ?>userrolemanage/teachers">Teachers</a></li>
-                        <li id="user2"><a href="<?php echo base_url(); ?>userrolemanage/parents">Parents</a></li>
+                        <li id="user1"><a href="<?php echo base_url(); ?>userrolemanage/teachers">Stafe</a></li>
+                        <li id="user2"><a href="<?php echo base_url(); ?>userrolemanage/mobilizer">Mobilizer</a></li>
                         <li id="user3"><a href="<?php echo base_url(); ?>userrolemanage/students">Students</a></li>
                      </ul>
                   </div>

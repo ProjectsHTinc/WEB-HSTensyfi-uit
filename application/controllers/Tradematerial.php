@@ -4,54 +4,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Tradematerial extends CI_Controller {
 
 
-	function __construct() {
-		 parent::__construct();
-
-
-		    $this->load->helper('url');
-		    $this->load->library('session');
-				$this->load->model('tradematerialmodel');
-
-
-
-
+	function __construct() 
+	{
+		parent::__construct();
+	   $this->load->helper('url');
+	   $this->load->library('session');
+	   $this->load->model('tradematerialmodel');
  }
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
-	 // Class section
-
-
-
-
-	 	public function home(){
-	 		 	$datas=$this->session->userdata();
-  	 		$user_id=$this->session->userdata('user_id');
-  			$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
-					$datas['get_all_active_trade']=$this->tradematerialmodel->get_all_active_trade();
-			 $this->load->view('header');
-	 		 $this->load->view('tradematerial/add',$datas);
-	 		 $this->load->view('footer');
+	public function home()
+	{
+	 	$datas=$this->session->userdata();
+  	 	$user_id=$this->session->userdata('user_id');
+  		$user_type=$this->session->userdata('user_type');
+		if($user_type==1)
+		{
+		 $datas['get_all_active_trade']=$this->tradematerialmodel->get_all_active_trade();
+		 $this->load->view('header');
+ 		 $this->load->view('tradematerial/add',$datas);
+ 		 $this->load->view('footer');
+	 	}else{
+	 		redirect('/');
 	 		 }
-	 		 else{
-	 				redirect('/');
-	 		 }
-	 	}
-
+	}
 
     public function create(){
         $datas=$this->session->userdata();
@@ -62,7 +37,7 @@ class Tradematerial extends CI_Controller {
 				$check_title=$this->tradematerialmodel->checking_title($trade_title);
 				if($check_title['status']=='success'){
 					$trade_id=$this->input->post('trade_id');
-					$trade_info= $this->db->escape_str($this->input->post('editor1'));
+					$trade_info= $this->db->escape_str($this->input->post('description'));
 					$trade_video_link=$this->input->post('trade_video');
 					$status=$this->input->post('status');
 					$profilepic = $_FILES['trade_file']['name'];
@@ -100,6 +75,7 @@ class Tradematerial extends CI_Controller {
 				$user_type=$this->session->userdata('user_type');
 				if($user_type==1){
 				$datas['result']=$this->tradematerialmodel->get_all_trade_material();
+				//echo '<pre>';print_r($datas['result']);exit;
 			 $this->load->view('header');
 			 $this->load->view('tradematerial/view',$datas);
 			 $this->load->view('footer');
@@ -151,10 +127,10 @@ class Tradematerial extends CI_Controller {
 			$user_type=$this->session->userdata('user_type');
 			if($user_type==1){
 			$trade_title=$this->input->post('trade_title');
-
+        
 				$trade_material_id=$this->input->post('trade_material_id');
 				$trade_id=$this->input->post('trade_id');
-				$trade_info= $this->db->escape_str($this->input->post('editor1'));
+				$trade_info= $this->db->escape_str($this->input->post('description'));
 				$trade_video_link=$this->input->post('trade_video');
 				$trade_old_file=$this->input->post('trade_old_file');
 				$status=$this->input->post('status');
@@ -231,6 +207,19 @@ class Tradematerial extends CI_Controller {
 			}
 		}
 
+  public function check_title_function()
+   {
+	    $m_title= $this->input->post('ctitle');
+	    $trade_id = $this->input->post('tradeid');
+	    $numrows = $this->tradematerialmodel->getData($m_title,$trade_id);
+		 if ($numrows>0)
+	     {
+			echo "AE";
+		 }else
+		 {
+			echo "success";
+		 }
+  }
 
 
 
@@ -238,4 +227,5 @@ class Tradematerial extends CI_Controller {
 
 
 
-}
+
+} ?>

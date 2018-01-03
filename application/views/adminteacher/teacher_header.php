@@ -79,13 +79,8 @@
                <span class="icon-bar"></span>
                </button>
 
-               <a class="navbar-brand title_ensyfi" href="#" style="color:white; margin-left:10px; margin-top:25px;
-    font-size:25px;">
-			   <?php $sql="SELECT name,user_id,user_type FROM edu_users WHERE user_id='1' AND user_type='1'";
-                              $res=$this->db->query($sql);
-                              $rows=$res->result();
-                              foreach ($rows as $rows3){} $uname=$rows3->name;
-							  echo $uname; ?></a>
+      <a class="navbar-brand title_ensyfi" href="#" style="color:white; margin-left:10px; margin-top:25px; font-size:25px;">
+			   </a>
             </div>
             <div class="collapse navbar-collapse"  style="float:right;padding-top: 18px;">
                <ul class="nav navbar-nav navbar-right">
@@ -97,9 +92,6 @@
 						 <li><a href="<?php echo base_url(); ?>teachercommunication/home">Apply Leaves </a></li>
                         <li><a href="<?php echo base_url(); ?>teacheronduty/special_class_details">Special Class </a></li>
                         <li><a href="<?php echo base_url(); ?>teacheronduty/view_substitution">Substitution </a></li>
-						
-                          <!--  <li><a href="<?php echo base_url(); ?>extracurricular/home">Extra curricular  </a></li>
-                           <li><a href="<?php echo base_url(); ?>specialclass/home">Special Class</a></li> -->
                      </ul>
                   </li>
                   <li class="dropdown dropdown-with-icons">
@@ -116,7 +108,7 @@
                                $pic=$rows1->user_pic;
                                if($pic!='')
                                {?>
-                           <img src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/>
+                           <img src="<?php echo base_url(); ?>assets/staff/profile/<?php echo $pic; ?>" class="img-circle img-responsive imgstyle1"/>
                            <?php }else{
                               ?> <img src="<?php echo base_url(); ?>assets/noimg.png" class="img-circle img-responsive imgstyle1" />
                            <?php }} ?>
@@ -148,9 +140,6 @@
          </div>
       </nav>
       <div class="sidebar sidemenu">
-         <!-- <div class="logo sidemenubcolor"  style="padding:0px 70px;height:115px">
-            <img class="img-responsive" src="<?php echo base_url(); ?>assets/ensyfi.png" style="height:115px;"  />
-         </div> -->
          <div class="sidebar-wrapper" style="background-color:#323546;">
             <div class="user" style="margin-top:10px;padding-bottom:22px;">
                <div class="imgclass photo" style="margin-left:20px;">
@@ -165,7 +154,7 @@
                       $pic=$rows1->user_pic;
                       if($pic!='')
                       {?>
-                  <img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/teachers/profile/<?php echo $pic; ?>" >
+                  <img class="img-responsive" style="width:80px;height:80px;" src="<?php echo base_url(); ?>assets/staff/profile/<?php echo $pic; ?>" >
                   <?php }else{
                      ?> <img class="img-responsive" src="<?php echo base_url(); ?>assets/noimg.png"  />
                   <?php }} ?>
@@ -191,62 +180,25 @@
                   </a>
                </li>
                <li id="classhandling">
-                  <a href="<?php echo base_url(); ?>teachertimetable/classhandling_subject">
-                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/>
-                     <p>Class Handling 	</p>
+                  <a href="<?php echo base_url(); ?>teacherprofile/profilepic">
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/>
+                     <p>Profile</p>
                   </a>
-
                </li>
-
-               <li id="grouping">
-                  <a href="<?php echo base_url(); ?>teacherprofile/grouping">
-                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/>
-                     <p>Group Message 	</p>
-                  </a>
-
-               </li>
-               <li id="atten">
-                  <a data-toggle="collapse" href="#attendmenu">
-				   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Attendance.png"/>
-                    <!-- <i class="pe-7s-note2"></i>-->
-                     <p>Attendance	</p>
+                <li id="tradematerial">
+                  <a data-toggle="collapse" href="#tradematerialmenu">
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
+                     <p>Trade Material </p>
                      <b class="caret"></b>
                   </a>
-                  <div class="collapse" id="attendmenu">
+                  <div class="collapse" id="tradematerialmenu">
                      <ul class="nav">
-                        <li id="atten1"><a href="<?php echo base_url();  ?>teacherattendence/home">Update Attendance</a></li>
-                        <li id="atten2"><a href="<?php echo base_url();  ?>teacherattendence/view">View Attendance</a></li>
-                        <li id="atten3"><a href="<?php echo base_url();  ?>teacherattendence/monthview">Month view</a></li>
+                        <li id="trade1"><a href="<?php echo base_url(); ?>stafftradematerial/home">Create</a></li>
+                        <li id="trade2"><a href="<?php echo base_url(); ?>stafftradematerial/view">View</a></li>
                      </ul>
                   </div>
                </li>
-               <li id="home">
-                  <a href="<?php echo base_url(); ?>homework/home">
-                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/homework&classtest.png"/>
-                     <p>Home Work / Class Test	</p>
-                  </a>
-               </li>
-               <li id="exam">
-                  <a data-toggle="collapse" href="#examinationmenu">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/Results.png"/>
-                     <p>Examination Result</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="examinationmenu">
-                     <ul class="nav">
-                        <li id="exam3"><a href="<?php echo base_url(); ?>examinationresult/exam_namefor_duty"> Exam Duty</a></li>
-						<li id="exam4"><a href="<?php echo base_url(); ?>examinationresult/exname"> Add & View Exam Marks</a></li>
-                        <!-- <li id="exam1"><a href="<?php echo base_url(); ?>examinationresult/home">Add Exam Marks</a></li> -->
-                        <li id="exam2"><a href="<?php echo base_url(); ?>examinationresult/view_exam_name_marks">Edit Exam Marks</a></li>
-                     </ul>
-                  </div>
-               </li>
-			   <li id="stuonduty">
-                  <a href="<?php echo base_url(); ?>teacheronduty/view_class">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/on duty.png"/>
-                     <p>Student Onduty </p>
-                  </a>
-				  </li>
+              
                <li id="calendar">
                   <a data-toggle="collapse" href="#calendermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
@@ -255,8 +207,8 @@
                   </a>
                   <div class="collapse" id="calendermenu">
                      <ul class="nav">
-                        <li id="calendar1"><a href="<?php echo base_url(); ?>teacherevent/calender">Calendar</a></li>
-                        <li id="calendar2"><a href="<?php echo base_url(); ?>teacherevent/home">List of Event</a></li>
+                        <li id="calendar1"><a href="<?php echo base_url(); ?>staffevent/calender">Calendar</a></li>
+                        <li id="calendar2"><a href="<?php echo base_url(); ?>staffevent/home">List of Event</a></li>
                      </ul>
                   </div>
                </li>
@@ -273,20 +225,7 @@
                      </ul>
                   </div>
                </li>
-               <li id="timetable">
-                  <a data-toggle="collapse" href="#timetablemenu">
-                   <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/timetable.png"/>
-                     <p>Time Table	</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="timetablemenu">
-                     <ul class="nav">
-                        <li id="timetable1"><a href="<?php echo base_url(); ?>teachertimetable/teachertimetable">Teacher Time Table</a></li>
-                        <li id="timetable2"><a href="<?php echo base_url(); ?>teachertimetable/home">Time Table</a></li>
-                        <li id="timetable2"><a href="<?php echo base_url(); ?>teachertimetable/reviewview">Reviews</a></li>
-                     </ul>
-                  </div>
-               </li>
+             
             </ul>
          </div>
       </div>
