@@ -50,7 +50,7 @@ class Apimain extends CI_Controller {
 
 	public function login()
 	{
-	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -165,6 +165,38 @@ class Apimain extends CI_Controller {
 		$user_id = $this->input->post("user_id");
 
 		$data['result']=$this->apimainmodel->Selecttrade($user_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function select_batch()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Select Trade";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$trade_id = '';
+		$trade_id = $this->input->post("trade_id");
+
+		$data['result']=$this->apimainmodel->Selectbatch($trade_id);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
@@ -548,11 +580,134 @@ class Apimain extends CI_Controller {
 	}
 
 //-----------------------------------------------//
+//-----------------------------------------------//
+
+	public function view_centerimages()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Center Images";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$center_id = '';
+		$center_id = $this->input->post("center_id");
+
+		$data['result']=$this->apimainmodel->centerImages($center_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function view_centervideos()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Center Images";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$center_id = '';
+		$center_id = $this->input->post("center_id");
+
+		$data['result']=$this->apimainmodel->centerVideos($center_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
 
 
+//-----------------------------------------------//
 
+	public function view_trainers()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
 
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Trainner Details";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$center_id = '';
+		$center_id = $this->input->post("center_id");
+
+		$data['result']=$this->apimainmodel->viewTrainers($center_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function view_sucess_story()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+			$res = array();
+			$res["opn"] = "Sucess Story Details";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+		$center_id = '';
+		$center_id = $this->input->post("center_id");
+
+		$data['result']=$this->apimainmodel->viewSucessstory($center_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
 
 
 
@@ -803,14 +958,16 @@ class Apimain extends CI_Controller {
 		$user_id = '';
 		$latitude  = '';
 		$longitude = '';
+		$location = '';
 		$location_datetime  = '';
 
 		$user_id = $this->input->post("user_id");
 		$latitude = $this->input->post("latitude");
 		$longitude  = $this->input->post("longitude");
+		$location = $this->input->post("location");
 		$location_datetime = $this->input->post("location_datetime");
 
-		$data['result']=$this->apimainmodel->addMobilocation($user_id,$latitude,$longitude,$location_datetime);
+		$data['result']=$this->apimainmodel->addMobilocation($user_id,$latitude,$longitude,$location,$location_datetime);
 		$response = $data['result'];
 		echo json_encode($response);
 	}
