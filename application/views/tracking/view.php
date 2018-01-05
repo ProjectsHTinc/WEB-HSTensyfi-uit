@@ -11,7 +11,7 @@
       <div class="row">
     <div class="container">
 
-  <form action="<?php echo base_url(); ?>tracking/map" method="post" class="form-horizontal" id="tracking_form" name="edit_trade_handling_form">
+  <form action="<?php echo base_url(); ?>tracking/track" method="post" class="form-horizontal" id="tracking_form" name="edit_trade_handling_form">
      <fieldset>
        <div class="form-group">
           <label class="col-sm-2 control-label">Pick the Date</label>

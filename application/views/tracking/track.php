@@ -1,3 +1,11 @@
+<style>
+th{
+  width:50px;
+}
+.kms-btn{
+  margin-top: 200px;
+}
+</style>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAWXc9pFwkDuvbgJryTIHlOg-oIByT_nxY"></script>
 
 <div class="main-panel">
@@ -6,11 +14,13 @@
     <div class="row">
       <div class="container">
 
-
+<?php if($res[0]['status']=="nofound"){
+  echo "No Result Found";
+}?>
 <div class="col-md-8" style="padding:40px;">
   <!-- <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script> -->
   <script type="text/javascript">
-  var MapPoints = '[{"address":{"address":"plac Grzybowski, Warszawa, Polska","lat":"11.016587","lng":"76.954261"},"title":"Warszawa"},{"address":{"address":"Jana Paw\u0142a II, Warszawa, Polska","lat":"11.019725","lng":"76.952029"},"title":"Wroc\u0142aw"},{"address":{"address":"Wawelska, Warszawa, Polska","lat":"11.016608","lng":"76.940399"},"title":"O\u015bwi\u0119cim"}]';
+  var MapPoints = '<?php echo json_encode($res); ?>';
 
   var MY_MAPTYPE_ID = 'custom_style';
   var directionsDisplay;
@@ -35,7 +45,7 @@
           var bounds = new google.maps.LatLngBounds();
 
           for (i = 0; i < locations.length; i++) {
-            alert(i);
+
               marker = new google.maps.Marker({
                   position: new google.maps.LatLng(locations[i].address.lat, locations[i].address.lng),
                   map: map
@@ -87,17 +97,20 @@
           if (status == google.maps.DirectionsStatus.OK) {
               directionsDisplay.setDirections(response);
               var route = response.routes[0];
-              var summaryPanel = document.getElementById('directions_panel');
+
+              var summaryPanel = document.getElementById('example');
               summaryPanel.innerHTML = '';
               // For each route, display summary information.
+              summaryPanel.innerHTML += '   <thead><th>S.no</th><th>From </th><th>To</th><th>Kms</th><th>Mts</th></thead>';
               for (var i = 0; i < route.legs.length; i++) {
 
                   var routeSegment = i + 1;
-                  summaryPanel.innerHTML += '<b>Route Segment: ' + routeSegment + '</b><br>';
-                  summaryPanel.innerHTML += route.legs[i].start_address + ' to ';
-                  summaryPanel.innerHTML += route.legs[i].end_address + '<br>';
-                  summaryPanel.innerHTML += route.legs[i].distance.text + '<br><br>';
+                  summaryPanel.innerHTML += '  <tbody>  <tr><td>'+ i +'</td><td>' + route.legs[i].start_address + '</td><td>' + route.legs[i].end_address + '</td><td>' + route.legs[i].distance.text + '</td><td id="kms"> <input type="hidden"  name="kms" value="' + route.legs[i].distance.value + '" /> ' + route.legs[i].distance.value + '</td></tr> </tbody>';
+
+
               }
+
+
           }
       });
   }
@@ -110,10 +123,46 @@
 
   </div>
   <div class="col-md-4">
-    <div id="directions_panel"></div>
+    <div class="kms-btn">
+<button id="click" class="btn btn-primary">Show the KM</button>
+</div>
+  </div>
+  <div class="col-md-10">
+  <div id="directions_panel">
+    <table id="example" class="table table-striped table-no-bordered table-hover" cellspacing="0" >
+
+    </table>
+
+
+  </div>
+</div>
+
+<div id="totals">
+</div>
   </div>
   </div>
   </div>
   </div>
   </div>
-  </div>
+  <script type="text/javascript">
+  $('#example').dataTable( {
+              bSort: false,
+              aoColumns: [ { sWidth: "45%" }, { sWidth: "45%" }, { sWidth: "10%", bSearchable: false, bSortable: false } ],
+          "scrollY":        "200px",
+          "scrollCollapse": true,
+          "info":           true,
+          "paging":         true
+      } );
+
+    $("#click").click(function(){
+      var tot=0;
+      $("input[name=kms]").each (function() {
+        tot=tot + parseInt($(this).val())/1000;
+      })
+
+
+       swal('Total '+ tot + ' in kms ');
+
+
+});
+  </script>
