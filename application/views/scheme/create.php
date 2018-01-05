@@ -8,6 +8,7 @@
                     <legend>Scheme Details</legend>
 
                 </div>
+
                 <?php if($this->session->flashdata('msg')): ?>
                     <div class="alert alert-success">
                         <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
@@ -35,7 +36,6 @@
                                             <label class="col-sm-2 control-label">Scheme Details</label>
                                             <div class="col-sm-8">
                                                 <textarea cols="80" id="editor1" name="scheme_info" rows="10" required><?php echo $res->scheme_info;  ?></textarea>
-
                                             </div>
 
                                         </div>
@@ -198,10 +198,9 @@
     }
     $(document).ready(function() {
 
-        CKEDITOR.replace('editor1');
-        $('#mastersmenu').addClass('collapse in');
-        $('#master').addClass('active');
-        $('#masters6').addClass('active');
+      $('#mastersmenu').addClass('collapse in');
+      $('#master').addClass('active');
+      $('#masters6').addClass('active');
         $('#eventform').validate({ // initialize the plugin
             rules: {
                 event_date: {

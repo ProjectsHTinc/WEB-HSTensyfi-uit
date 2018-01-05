@@ -1,6 +1,6 @@
 <script src="<?php echo base_url(); ?>assets/js/timepicki.js"></script>
 <link href="<?php echo base_url(); ?>assets/css/timepicki.css" rel="stylesheet" type="text/css">
-  
+
 <div class="main-panel">
    <div class="content">
       <div class="col-md-12">
@@ -21,15 +21,18 @@
                      <div class="form-group">
                       <label class="col-sm-2 control-label">Had Aadhar Card</label>
                         <div class="col-sm-4">
-                           <select name="had_aadhar_card" class="selectpicker form-control" data-title="Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                           <select name="had_aadhar_card"  id="aadhar_card" class="selectpicker form-control" data-title="Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <option value="1">Yes</option>
                               <option value="0">No</option>
                            </select>
                         </div>
+                        <div id="aadhar_card_num">
                         <label class="col-sm-2 control-label">Aadhar Card Number</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Enter Aadhar Card Number" name="aadhar_card_num" class="form-control" >
+                            <label for="phonenum">Aadhar Card Number (format: xxxx-xxx-xxxx):</label><br/>
+                           <input type="text" placeholder="Enter Aadhar Card Number" name="aadhar_card_num" pattern="^\d{4}-\d{4}-\d{4}$" class="form-control" >
                         </div>
+                      </div>
                      </div>
                   </fieldset>
 
@@ -74,7 +77,7 @@
                         </div>
                      </div>
                   </fieldset>
-                 
+
                   <fieldset>
                      <div class="form-group">
                        <label class="col-sm-2 control-label">Disability</label>
@@ -90,10 +93,10 @@
                            <p id="msg" style="color:red;"></p>
                            <p id="msg1" style="color:green;"></p>
                         </div>
-                        
+
                      </div>
                   </fieldset>
-                  
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Date of birth</label>
@@ -140,7 +143,7 @@
                   </fieldset>
 
 
-                   
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Student Picture</label>
@@ -155,10 +158,10 @@
                               <?php } ?>
                            </select>
                         </div>
-                       
+
                      </div>
                   </fieldset>
-                  
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">City</label>
@@ -262,7 +265,7 @@
                         </div>
                      </div>
                   </fieldset>
-                 
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">&nbsp;</label>
@@ -287,8 +290,8 @@
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
    };
-   
-   $(document).ready(function () 
+
+   $(document).ready(function ()
    {
    jQuery('#admissionmenu').addClass('collapse in');
    $('#admission').addClass('active');
@@ -347,7 +350,7 @@
         mother_tongue:"Enter Mother Tongue",
         mobile:"Enter The Mobile Number"
     }
-    }); 
+    });
    });
 
 function checkmobilefun(val)
@@ -371,7 +374,7 @@ function checkmobilefun(val)
    }
    });
    }
-     
+
    $().ready(function(){
      $('.datepicker').datetimepicker({
        format: 'DD-MM-YYYY',
@@ -387,7 +390,7 @@ function checkmobilefun(val)
            close: 'fa fa-remove'
        }
     });
-  
+
    });
 
    function checkemailfun(val)
@@ -411,6 +414,10 @@ function checkmobilefun(val)
      }
        });
    }
-   
-</script>
 
+
+   $('#aadhar_card').on('change', function() {
+     $("#aadhar_card_num").css('display', (this.value == '1') ? 'block' : 'none');
+  });
+
+</script>

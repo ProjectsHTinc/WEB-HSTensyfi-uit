@@ -1,13 +1,13 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Userrolemanage extends CI_Controller 
+class Userrolemanage extends CI_Controller
 {
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->model('usermodel');
-		$this->load->model('smsmodel');
+	
 		$this->load->helper('url');
 		$this->load->library('session');
 		$this->load->helper('menu');

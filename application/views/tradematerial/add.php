@@ -25,7 +25,7 @@
                         <div class="col-sm-4">
                             <select name="trade_id" id="trade_id" class="selectpicker form-control" data-title="Select Trade" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <?php foreach($get_all_active_trade as $rows){ ?>
-                               <option value="<?php echo $rows->trade_id; ?>"><?php echo $rows->trade_name; ?></option>
+                               <option value="<?php echo $rows->id; ?>"><?php echo $rows->trade_name; ?></option>
                           <?php    } ?>
                             </select>
                         </div>
@@ -36,7 +36,7 @@
                         <label class="col-sm-2 control-label">Title</label>
                         <div class="col-sm-4">
                            <input type="text" name="trade_title" id="trade_title" class="form-control"onkeyup="check_title(this.value)">
-                            <div id="msg"></div> 
+                            <div id="msg"></div>
                         </div>
                     </div>
                 </fieldset>
@@ -108,14 +108,14 @@ application/vnd.openxmlformats-officedocument.wordprocessingml.document">
 <script type="text/javascript">
 
     function check_title(val)
-   { 
+   {
       var tid=document.getElementById("trade_id").value;
       $.ajax({
       type:'post',
       url:'<?php echo base_url(); ?>/tradematerial/check_title_function',
       data:'ctitle=' + val + '&tradeid=' + tid,
       success:function(test)
-      {   
+      {
         if(test=="AE")
         {
           $("#msg").html("<span style=color:red;>Title Already Exit For This Trade</span>");
@@ -127,7 +127,7 @@ application/vnd.openxmlformats-officedocument.wordprocessingml.document">
         }
       }
       });
-   } 
+   }
 
 
 $('#tradematerialmenu').addClass('collapse in');
