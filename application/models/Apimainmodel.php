@@ -293,6 +293,24 @@ class Apimainmodel extends CI_Model {
 	}
 //#################### Select Trade End ####################//
 
+//#################### Select Batch ####################//
+	public function Selectbatch($trade_id)
+	{
+	        $batch_query = "SELECT A.id,B.batch_name from edu_trade_batch A, edu_batch B WHERE A.trade_id = '$trade_id' AND A.batch_id = B.id AND A.status = 'Active'";
+			$batch_res = $this->db->query($batch_query);
+
+			 if($batch_res->num_rows()>0){
+			     	$batch_result= $batch_res->result();
+			     	$response = array("status" => "success", "msg" => "View Batches","Batches"=>$batch_result);
+				 
+			}else{
+			        $response = array("status" => "error", "msg" => "Batches not found");
+			}  
+
+			return $response;
+	}
+//#################### Select Trade End ####################//
+
 //#################### Select Timing ####################//
 	public function Selecttimings($user_id)
 	{
@@ -411,8 +429,6 @@ class Apimainmodel extends CI_Model {
 //#################### Update Student End ####################//
 
 
-
-
 //#################### View Center ####################//
 	public function centerDetails($user_id)
 	{
@@ -435,7 +451,6 @@ class Apimainmodel extends CI_Model {
     					"center_address" => $center_result[0]->center_address
     				);
 
-
             		$photo_query = "SELECT center_photos FROM edu_center_photos WHERE center_id = '$center_id'  AND status  ='Active' ORDER BY id DESC LIMIT 4 ";
         			$photo_res = $this->db->query($photo_query);
         				if($photo_res->num_rows()>0){
@@ -456,14 +471,14 @@ class Apimainmodel extends CI_Model {
         			        {
         				        $video_result[]  = array(
         						   "video_title" => $rows->video_title,
-        						   "center_videos" => $rows->center_videos
+        						   "video_url" => $rows->center_videos
         				        );
         			         }
         				} else {
         				    $video_result = array();
         				}
         			
-        			$staff_query = "SELECT name,profile_pic FROM edu_staff_details WHERE role_type ='4'  AND status  ='Active' ORDER BY id DESC LIMIT 4 ";
+        			$staff_query = "SELECT name,profile_pic FROM edu_staff_details WHERE role_type ='3'  AND status  ='Active' ORDER BY id DESC LIMIT 4 ";
         			$staff_res = $this->db->query($staff_query);
         				if($staff_res->num_rows()>0){
             			    foreach ($staff_res->result() as $rows)
@@ -515,6 +530,103 @@ class Apimainmodel extends CI_Model {
 //#################### View Center Details End ####################//
 
 
+//#################### View Center Images ####################//
+	public function centerImages($center_id)
+	{
+            $photo_query = "SELECT center_photos FROM edu_center_photos WHERE center_id = '$center_id'  AND status  ='Active' ORDER BY id DESC";
+            $photo_res = $this->db->query($photo_query);
+            	if($photo_res->num_rows()>0){
+            	    foreach ($photo_res->result() as $rows)
+                    {
+            	        $photo_result[]  = array(
+            			   "center_photos" => base_url().'assets/center/'.$rows->center_photos
+            	        );
+                     }
+                     $response = array("status" => "Sucess", "msg" => "Center Details", "Photo" => $photo_result);
+            	} else {
+            	   $response = array("status" => "error", "msg" => "Center not found.");
+            	}
+
+			return $response;
+	}
+//#################### View Center Images End ####################//
+
+
+//#################### View Center Videos ####################//
+	public function centerVideos($center_id)
+	{
+			$video_query = "SELECT video_title,center_videos FROM edu_center_videos WHERE center_id = '$center_id'  AND status  ='Active' ORDER BY id DESC";
+			$video_res = $this->db->query($video_query);
+				if($video_res->num_rows()>0){
+    			    foreach ($video_res->result() as $rows)
+			        {
+				        $video_result[]  = array(
+						   "video_title" => $rows->video_title,
+						   "video_url" => $rows->center_videos
+				        );
+			         }
+			         $response = array("status" => "Sucess", "msg" => "Center Videos", "Videos" => $video_result);
+				} else {
+				    $response = array("status" => "error", "msg" => "Videos not found.");
+				}
+
+			return $response;
+	}
+//#################### View Center Videos End ####################//
+
+//#################### View Trainers ####################//
+	public function viewTrainers($center_id)
+	{
+            $staff_query = "SELECT name,sex,dob,nationality,religion,community_class,address,email,sec_email,phone,profile_pic,trade_batch_id,qualification FROM edu_staff_details WHERE role_type ='3'  AND status  ='Active' ORDER BY id";
+    		$staff_res = $this->db->query($staff_query);
+    			if($staff_res->num_rows()>0){
+    			    foreach ($staff_res->result() as $rows)
+    		        {
+    			        $staff_result[]  = array(
+    					   "name" => $rows->name,
+    					   "sex" => $rows->sex,
+    					   "dob" => $rows->dob,
+    					   "nationality" => $rows->nationality,
+    					   "religion" => $rows->religion,
+    					   "community_class" => $rows->community_class,
+    					   "address" => $rows->address,
+    					   "email" => $rows->email,
+    					   "sec_email" => $rows->sec_email,
+    					   "phone" => $rows->phone,
+    					   "trade_batch_id" => $rows->trade_batch_id,
+    					   "qualification" => $rows->qualification,
+    					   "profile_pic" => base_url().'assets/staff/'.$rows->profile_pic
+    			        );
+    		         }
+    		          $response = array("status" => "Sucess", "msg" => "Trainer Details", "Trainerdetails" => $staff_result);
+    			} else {
+    			    $response = array("status" => "error", "msg" => "Trainers not found.");
+    			}
+
+			return $response;
+	}
+//#################### View Trainers End ####################//
+                    
+//#################### View Sucess Strories ####################//
+	public function viewSucessstory($center_id)
+	{
+            $sstory_query = "SELECT details,story_video FROM edu_success_stories WHERE center_id = '$center_id' AND status  ='Active' ORDER BY id DESC";
+            $sstory_res = $this->db->query($sstory_query);
+            	    if($sstory_res->num_rows()>0){
+            		    foreach ($sstory_res->result() as $rows)
+            	        {
+            		        $sstory_result[]  = array(
+            				   "storydetails" => $rows->details,
+            				    "storyvideo" => $rows->story_video
+            		        );
+            	         }
+            	        $response = array("status" => "Sucess", "msg" => "Sucess Story Details", "Storydetails" => $sstory_result);
+            		} else {
+            		     $response = array("status" => "error", "msg" => "Sucess Story not found.");
+            		}
+            return $response;
+	}
+//#################### View Sucess Strories End ####################//
 
 
 
@@ -545,9 +657,6 @@ class Apimainmodel extends CI_Model {
 			return $response;
 	}
 //#################### Circular End ####################//
-
-
-
 
 
 //#################### Add Task ####################//
@@ -633,10 +742,11 @@ class Apimainmodel extends CI_Model {
 	}
 //#################### Update Task End ####################//
 
+
 //#################### Add Mobilizer Location ####################//
-	public function addMobilocation($user_id,$latitude,$longitude,$location_datetime)
+	public function addMobilocation($user_id,$latitude,$longitude,$location,$location_datetime)
 	{
-            $location_query = "INSERT INTO `edu_tracking_details` (`user_id`,`user_lat`,`user_long`,`created_at`) VALUES ('$user_id','$latitude','$longitude','$location_datetime')";
+            $location_query = "INSERT INTO `edu_tracking_details` (`user_id`,`user_lat`,`user_long`,`user_location`,`created_at`) VALUES ('$user_id','$latitude','$longitude','$location',$location_datetime')";
 	        $location_res = $this->db->query($location_query);
             $location_id = $this->db->insert_id();
 
