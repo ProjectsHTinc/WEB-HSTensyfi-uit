@@ -88,7 +88,11 @@ class Staff extends CI_Controller {
 					if($datas['status']=="success"){
 						$this->session->set_flashdata('msg', 'Staff Created Successfully');
 						redirect('staff/view');
-					}else{
+					}else if($datas['status']=="already"){
+						$this->session->set_flashdata('msg', 'User Already Exists');
+						redirect('staff/view');
+					}
+					else{
 						$this->session->set_flashdata('msg', 'Failed to Add');
 						redirect('staff/view');
 					}

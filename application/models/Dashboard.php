@@ -33,8 +33,23 @@ Class Dashboard extends CI_Model
 
 
 
+  function total_trainer(){
+    $total_query=" SELECT COUNT(*) as total_trainer FROM edu_staff_details WHERE  role_type=3 AND STATUS='Active'";
+    $result=$this->db->query($total_query);
+    return  $result->result();
+  }
 
+  function total_mobilizer(){
+    $total_query=" SELECT COUNT(*) as total_mobilizer FROM edu_staff_details WHERE  role_type=4 AND STATUS='Active'";
+    $result=$this->db->query($total_query);
+    return  $result->result();
+  }
 
+  function total_students(){
+    $total_query=" SELECT COUNT(*) as total_students FROM edu_staff_details WHERE  role_type=5 AND STATUS='Active'";
+    $result=$this->db->query($total_query);
+    return  $result->result();
+  }
 
 
 

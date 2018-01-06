@@ -1,14 +1,14 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Admission extends CI_Controller 
+class Admission extends CI_Controller
 {
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('url');
 		$this->load->library('session');
-		$this->load->model('admissionmodel');		
+		$this->load->model('admissionmodel');
 	}
 
 	public function home()
@@ -72,12 +72,15 @@ class Admission extends CI_Controller
 			$sec_mobile=$this->input->post('sec_mobile');
 
 			$student_pic = $_FILES["student_pic"]["name"];
+			if(empty($student_pic)){
+				$profilepic=' ';
+			}else{
 		   $temp = pathinfo($student_pic, PATHINFO_EXTENSION);
 		   $userFileName = round(microtime(true)) . '.' . $temp;
 			$uploaddir = 'assets/students/';
 			$profilepic = $uploaddir.$userFileName;
 			move_uploaded_file($_FILES['student_pic']['tmp_name'], $profilepic);
-
+}
 			$institute_name=$this->input->post('institute_name');
 			$last_studied=$this->input->post('last_studied');
 			$qual=$this->input->post('qual');
@@ -91,6 +94,9 @@ class Admission extends CI_Controller
 			if($datas['status']=="success"){
 				$this->session->set_flashdata('msg', 'Added Successfully');
 					redirect('admission/view');
+			}else if($datas['status']=="already"){
+				$this->session->set_flashdata('msg', 'Failed to Add');
+				redirect('admission/view');
 			}else{
 				$this->session->set_flashdata('msg', 'Failed to Add');
 				redirect('admission/view');
@@ -109,7 +115,7 @@ class Admission extends CI_Controller
 		$user_type=$this->session->userdata('user_type');
 		$datas['result'] = $this->admissionmodel->get_all_admission();
 		//echo "<pre>";print_r($datas['result']);exit;
-	
+
 		if($user_type==1){
 			$this->load->view('header');
 			$this->load->view('admission/view',$datas);
@@ -174,7 +180,7 @@ class Admission extends CI_Controller
 
 			$dateTime1 = new DateTime($admit_date);
 			$admission_date=date_format($dateTime1,'Y-m-d' );
-         
+
          $admission_id=$this->input->post('admission_id');
 			$name=$this->input->post('name');
 			$fname=$this->input->post('fname');
@@ -202,7 +208,7 @@ class Admission extends CI_Controller
 			$mobile=$this->input->post('mobile');
 			$sec_mobile=$this->input->post('sec_mobile');
 
-			
+
 			$institute_name=$this->input->post('institute_name');
 			$last_studied=$this->input->post('last_studied');
 			$qual=$this->input->post('qual');
@@ -263,7 +269,7 @@ class Admission extends CI_Controller
 	{
 		$cell = $this->input->post('cell');
 		$numrows2 = $this->admissionmodel->checkcellnum($cell);
-		if($numrows2 > 0) 
+		if($numrows2 > 0)
 		{
 			echo "Mobile Number Not Found";
 		}else{

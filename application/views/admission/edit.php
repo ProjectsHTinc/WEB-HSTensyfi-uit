@@ -18,7 +18,7 @@
             <div class="content">
             <form method="post" action="<?php echo base_url(); ?>admission/save_ad" class="form-horizontal" enctype="multipart/form-data" id="admissionform"  name="admissionform">
                 <fieldset>
-                 
+
                      <div class="form-group">
                       <label class="col-sm-2 control-label">Had Aadhar Card</label>
                         <div class="col-sm-4">
@@ -61,7 +61,7 @@
                               <option value="Male">Male</option>
                               <option value="Female">Female</option>
                            </select>
-                         <script language="JavaScript">document.admissionform.sex.value="<?php echo $rows->sex; ?>";</script>  
+                         <script language="JavaScript">document.admissionform.sex.value="<?php echo $rows->sex; ?>";</script>
                         </div>
                      </div>
                   </fieldset>
@@ -78,7 +78,7 @@
                         </div>
                      </div>
                   </fieldset>
-                 
+
                   <fieldset>
                      <div class="form-group">
                        <label class="col-sm-2 control-label">Disability</label>
@@ -87,7 +87,7 @@
                               <option value="1">Yes</option>
                               <option value="0">No</option>
                            </select>
-                           <script language="JavaScript">document.admissionform.disability.value="<?php echo $rows->disability; ?>";</script> 
+                           <script language="JavaScript">document.admissionform.disability.value="<?php echo $rows->disability; ?>";</script>
                         </div>
                         <label class="col-sm-2 control-label">Email</label>
                         <div class="col-sm-4">
@@ -95,20 +95,17 @@
                            <p id="msg" style="color:red;"></p>
                            <p id="msg1" style="color:green;"></p>
                         </div>
-                        
+
                      </div>
                   </fieldset>
-                  
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Date of birth</label>
                         <div class="col-sm-4">
                            <input type="text" name="dob" class="form-control datepicker" placeholder="Date of Birth " value="<?php $date=date_create($rows->dob);echo date_format($date,"d-m-Y");  ?>" />
                         </div>
-                        <label class="col-sm-2 control-label">Age</label>
-                        <div class="col-sm-4">
-                           <input type="text" placeholder="Age" name="age" value="<?php echo $rows->age;?>" class="form-control">
-                        </div>
+
                      </div>
                   </fieldset>
 
@@ -146,7 +143,7 @@
                   </fieldset>
 
 
-                   
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Student Picture</label>
@@ -160,11 +157,11 @@
                               <option value="<?php echo $res->id;?>"><?php echo $res->blood_group_name;?></option>
                               <?php } ?>
                            </select>
-                            <script language="JavaScript">document.admissionform.blood_group.value="<?php echo $rows->blood_group; ?>";</script> 
+                            <script language="JavaScript">document.admissionform.blood_group.value="<?php echo $rows->blood_group; ?>";</script>
                         </div>
                      </div>
                   </fieldset>
-                  
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">City</label>
@@ -182,7 +179,13 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Nationality</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Nationality" value="<?php echo $rows->nationality;?>" name="nationality" class="form-control">
+                           <!-- <input type="text" placeholder="Nationality" value="<?php echo $rows->nationality;?>" name="nationality" class="form-control"> -->
+                           <select name="nationality" class="selectpicker form-control" data-title="Select Gender" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                               <option value="Indian">Indian</option>
+                               <option value="Others">Others</option>
+                           </select>
+                           <script language="JavaScript">document.admissionform.nationality.value="<?php echo $rows->nationality; ?>";</script>
+
                         </div>
                         <label class="col-sm-2 control-label">Religion</label>
                         <div class="col-sm-4">
@@ -203,7 +206,7 @@
                             <option value="DC">Denotified Communities-DC</option>
                             <option value="FC">Forward Class-FC</option>
                           </select>
-                           <script language="JavaScript">document.admissionform.community_class.value="<?php echo $rows->community_class; ?>";</script> 
+                           <script language="JavaScript">document.admissionform.community_class.value="<?php echo $rows->community_class; ?>";</script>
                         </div>
                         <label class="col-sm-2 control-label">Community</label>
                         <div class="col-sm-4">
@@ -215,7 +218,17 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Mother Tongue</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mother Tongue" value="<?php echo $rows->mother_tongue;?>" name="mother_tongue" class="form-control">
+                           <!-- <input type="text" placeholder="Mother Tongue" value="<?php echo $rows->mother_tongue;?>" name="mother_tongue" class="form-control"> -->
+                           <select name="mother_tongue" class="selectpicker"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                             <option value="Tamil">Tamil</option>
+                              <option value="English">Telegu</option>
+                               <option value="Hindi">Hindi</option>
+                                <option value="Kannada">Kannada</option>
+                                  <option value="Kanada">English</option>
+
+                           </select>
+                           <script language="JavaScript">document.admissionform.mother_tongue.value="<?php echo $rows->mother_tongue; ?>";</script>
+
                         </div>
                         <label class="col-sm-2 control-label">Preferred Course</label>
                         <div class="col-sm-4">
@@ -224,7 +237,7 @@
                               <option value="<?php echo $res->id;?>"><?php echo $res->trade_name;?></option>
                               <?php } ?>
                            </select>
-                            <script language="JavaScript">document.admissionform.course.value="<?php echo $rows->preferred_trade; ?>";</script> 
+                            <script language="JavaScript">document.admissionform.course.value="<?php echo $rows->preferred_trade; ?>";</script>
                         </div>
                      </div>
                   </fieldset>
@@ -246,7 +259,7 @@
                                     <option value="fail">Fail</option>
                                     <option value="drop">Drop Out</option>
                                  </select>
-                                  <script language="JavaScript">document.admissionform.qual.value="<?php echo $rows->qualified_promotion; ?>";</script> 
+                                  <script language="JavaScript">document.admissionform.qual.value="<?php echo $rows->qualified_promotion; ?>";</script>
                               </div>
                            </div>
                         </div>
@@ -272,11 +285,11 @@
                               <option value="Active">Active</option>
                               <option value="Deactive">DeActive</option>
                            </select>
-                           <script language="JavaScript">document.admissionform.status.value="<?php echo $rows->status; ?>";</script> 
+                           <script language="JavaScript">document.admissionform.status.value="<?php echo $rows->status; ?>";</script>
                         </div>
                      </div>
                   </fieldset>
-                 
+
                   <fieldset>
                      <div class="form-group">
                         <label class="col-sm-2 control-label">&nbsp;</label>
@@ -312,7 +325,7 @@
     var output = document.getElementById('output');
     output.src = URL.createObjectURL(event.target.files[0]);
    };
-   
+
    $(document).ready(function () {
    jQuery('#admissionmenu').addClass('collapse in');
    $('#admission').addClass('active');
@@ -326,12 +339,12 @@
         admission_date:{required:true },
         name:{required:true },
         fname:{required:true},
-        mname:{required:true},
+        // mname:{required:true},
         sex:{required:true },
         dob:{required:true },
         email:{required:true },
         disability:{required:true },
-        age:{required:true,number:true,maxlength:2 },
+        // age:{required:true,number:true,maxlength:2 },
         nationality:{required:true },
         religion:{required:true },
         community_class:{required:true },
@@ -371,9 +384,9 @@
         mother_tongue:"Enter Mother Tongue",
         mobile:"Enter The Mobile Number"
     }
-    }); 
+    });
    });
-   
+
 function checkmobilefun(val)
    { //alert('hi');exit;
       $.ajax({
@@ -395,7 +408,7 @@ function checkmobilefun(val)
    }
    });
    }
-     
+
    $().ready(function(){
      $('.datepicker').datetimepicker({
        format: 'DD-MM-YYYY',
@@ -411,7 +424,7 @@ function checkmobilefun(val)
            close: 'fa fa-remove'
        }
     });
-  
+
    });
 
    function checkemailfun(val)
@@ -435,6 +448,5 @@ function checkmobilefun(val)
      }
        });
    }
-   
-</script>
 
+</script>
