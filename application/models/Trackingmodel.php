@@ -36,14 +36,21 @@ Class Trackingmodel extends CI_Model
 
         }
 
-        function testing_track(){
-          $select="SELECT etd.user_location AS address,etd.user_lat AS lat ,etd.user_long AS lng FROM edu_users AS eu LEFT JOIN edu_tracking_details AS etd ON eu.user_id=etd.user_id  WHERE eu.user_id=4  AND DATE_FORMAT(created_at, '%Y-%m-%d')='2017-12-28' ORDER BY created_at ASC";
+        function testing_track($user_id,$selected_date){
+          $select="SELECT etd.user_location AS address,etd.user_lat AS lat ,etd.user_long AS lng FROM edu_users AS eu LEFT JOIN edu_tracking_details AS etd ON eu.user_id=etd.user_id  WHERE eu.user_id='$user_id'  AND DATE_FORMAT(created_at, '%Y-%m-%d')='$selected_date' ORDER BY created_at ASC";
           $get_result=$this->db->query($select);
           $get_res=$get_result->result();
           // $data= array("address" =>$get_res);
-          foreach(){}
-          $address = array ("address"  => array("address" => "orange", "lat" => "banana", "lng" => "apple"), "title" => "title");
-          // $response = array("address" => $get_res, "title" => "title");
+        if($get_result->num_rows()==0){
+          $address[]= array ("address"  => array("address" => "nofound", "lat" => "nofound", "lng" => "nofound"), "title" => "nofound","status" =>"nofound");
+        }else{
+          foreach($get_res as $rows){
+          $lat=$rows->lat;
+          $lng=$rows->lng;
+          $loca=$rows->address;
+            $address[] = array ("address"  => array("address" => $loca, "lat" => $lat, "lng" => $lng), "title" => "title","status" =>"found");
+             }
+        }
           return $address;
         }
 

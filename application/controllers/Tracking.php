@@ -79,8 +79,10 @@ class Tracking extends CI_Controller {
 				if($user_type==1){
 				$user_id=$this->input->post('user_id');
 				$selected_date=$this->input->post('selected_date');
-			 $datas['res']=$this->trackingmodel->get_lat_and_long_id($user_id,$selected_date);
-			 $datas['result']=$this->trackingmodel->get_lat_and_long_id_table_view($user_id,$selected_date);
+
+			 // $datas['res']=$this->trackingmodel->get_lat_and_long_id($user_id,$selected_date);
+			 $datas['res']=$this->trackingmodel->testing_track($user_id,$selected_date);
+				 // $datas['result']=$this->trackingmodel->get_lat_and_long_id_table_view($user_id,$selected_date);
 			 $this->load->view('header');
 			 $this->load->view('tracking/track',$datas);
 			 $this->load->view('footer');

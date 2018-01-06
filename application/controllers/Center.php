@@ -112,10 +112,10 @@ class Center extends CI_Controller {
 				move_uploaded_file($_FILES['center_banner']['tmp_name'], $profilepic);
 				$datas=$this->centermodel->update_center_logo($center_logo,$user_id);
 				if($datas['status']=="success"){
-					$this->session->set_flashdata('msg', 'Updated Successfully');
+					$this->session->set_flashdata('logo', 'Updated Successfully');
 					redirect('center/home');
 				}else{
-					$this->session->set_flashdata('msg', 'Failed to Add');
+					$this->session->set_flashdata('logo', 'Failed to Add');
 					redirect('center/home');
 				}
 			}else{

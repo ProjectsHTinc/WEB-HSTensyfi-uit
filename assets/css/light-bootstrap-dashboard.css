@@ -6673,7 +6673,7 @@ star {
 }
 
 .navbar-default {
-  
+
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 }
 .navbar-default .navbar-nav > li > a:not(.btn) {
@@ -7641,7 +7641,7 @@ star {
   padding-left: 23px !important;
 }
 .card .alert {
-  border-radius: 4px;
+
   position: relative;
 }
 .card .alert.alert-with-icon {
@@ -8127,7 +8127,7 @@ star {
 .wrapper {
   position: relative;
   top: 0;
- 
+
 }
 .wrapper:after {
   display: table;
