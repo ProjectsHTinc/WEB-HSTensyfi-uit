@@ -20,18 +20,18 @@
                 <fieldset>
 
                      <div class="form-group">
-                      <label class="col-sm-2 control-label">Had Aadhar Card</label>
-                        <div class="col-sm-4">
-                            <input type="hidden" class="form-control" name="admission_id" value="<?php echo $rows->id; ?>" readonly>
-                           <select name="had_aadhar_card" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                      <!-- <label class="col-sm-2 control-label">Had Aadhar Card</label> -->
+                        <!-- <div class="col-sm-4"> -->
+                            <input type="hidden" class="form-control" name="admission_id" value="<?php $admission_id=$rows->id; echo $admission_id; ?>" readonly>
+                           <!-- <select name="had_aadhar_card" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <option value="1">Yes</option>
                               <option value="0">No</option>
-                           </select>
-                      <script language="JavaScript">document.admissionform.had_aadhar_card.value="<?php echo $rows->have_aadhaar_card; ?>";</script>
-                        </div>
-                        <label class="col-sm-2 control-label">Aadhar Card Number</label>
+                           </select> -->
+                      <!-- <script language="JavaScript">document.admissionform.had_aadhar_card.value="<?php echo $rows->have_aadhaar_card; ?>";</script> -->
+                        <!-- </div> -->
+                        <label class="col-sm-2 control-label">Aadhaar Card Number</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Enter Aadhar Card Number" name="aadhar_card_num" class="form-control" value="<?php echo $rows->aadhaar_card_number;?>">
+                           <input type="text" placeholder="Enter Aadhaar Card Number" name="aadhar_card_num" class="form-control" value="<?php echo $rows->aadhaar_card_number;?>">
                         </div>
                      </div>
                   </fieldset>
@@ -120,7 +120,7 @@
                             <!--input  type="text" class="form-control" value="<?php echo $rows->preferred_timing;?>" id="stime" name="prefer_time"-->
                          <select name="prefer_time" class="selectpicker" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                             <?php foreach($time as $times){ ?>
-                              <option value="<?php echo $times->id;?>"><?php echo $times->from_time;?> ( To ) <?php echo $times->to_time;?></option>
+                              <option value="<?php echo $times->id;?>"><?php echo $times->session_name; ?> - <?php echo $times->from_time;?> ( To ) <?php echo $times->to_time;?></option>
                               <?php } ?>
                         </select>
                         <script language="JavaScript">document.admissionform.prefer_time.value="<?php echo $rows->preferred_timing; ?>";</script>
@@ -180,7 +180,7 @@
                         <label class="col-sm-2 control-label">Nationality</label>
                         <div class="col-sm-4">
                            <!-- <input type="text" placeholder="Nationality" value="<?php echo $rows->nationality;?>" name="nationality" class="form-control"> -->
-                           <select name="nationality" class="selectpicker form-control" data-title="Select Gender" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                           <select name="nationality" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                                <option value="Indian">Indian</option>
                                <option value="Others">Others</option>
                            </select>
@@ -333,8 +333,16 @@
 
      $('#admissionform').validate({ // initialize the plugin
       rules: {
-        had_aadhar_card:{required:true },
-        aadhar_card_num:{required:true },
+        // had_aadhar_card:{required:true },
+        aadhar_card_num:{
+          maxlength: 12,
+          minlength:12,
+          number:true,
+          remote: {
+                 url: "<?php echo base_url(); ?>admission/check_aadhar_num_exist_edit/<?php echo $admission_id; ?>",
+                 type: "post"
+              }
+            },
         admission_location:{required:true },
         admission_date:{required:true },
         name:{required:true },
@@ -355,12 +363,20 @@
         state:{required:true },
         course:{required:true },
         mother_tongue:{required:true},
-        prefer_time:{required:true},
+        // prefer_time:{required:true},
         mobile:{required:true}
         },
     messages: {
-        had_aadhar_card: "Select Yes Or No ",
+        // had_aadhar_card: "Select Yes Or No ",
         aadhar_card_num:"Enter The Aadhar Card Number",
+        aadhar_card_num: {
+             required: "Enter The Aadhar Card Number",
+              remote: "Aadhaar Card number Already exist",
+             maxlength:"Maximum 12 digits",
+             minlength:"Minimum 12 digits",
+             number:"Only Numbers"
+
+         },
         admission_location: "Enter Admission Location",
         admission_date: "Select Admission Date",
         name: "Enter Full Name",

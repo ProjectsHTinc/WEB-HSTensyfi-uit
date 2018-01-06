@@ -381,7 +381,7 @@
 
         swal({
                 title: "Are you sure?",
-                text: "You Want to Delete the this Timetable",
+                text: "You Want to Do this",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
