@@ -1,3 +1,8 @@
+<style>
+input[type="text"] {
+border: none;
+}
+</style>
 <div class="main-panel">
    <div class="content">
       <div class="container-fluid">
@@ -18,7 +23,7 @@
                       foreach ($result as $rows) { }
                        ?>
                   <div class="content">
-                     <form action="<?php echo base_url(); ?>teacherprofile/profileupdate" method="post" enctype="multipart/form-data" name="teacherform">
+                     <form action="<?php echo base_url(); ?>trainerprofile/profileupdate" method="post" enctype="multipart/form-data" name="teacherform">
                         <div class="row">
                            <div class="col-md-5">
                               <div class="form-group">
@@ -29,18 +34,19 @@
                               </div>
                            </div>
                            <div class="col-md-7">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail1"> Name</label>
-                                 <input type="text" class="form-control" name="name" readonly placeholder="Email" value="<?php echo $rows->name; ?>">
-                              </div>
+                             <div class="form-group">
+                               <button type="submit" class="btn btn-info btn-fill pull-right" style="margin-top:22px;">Update Profile Picture</button>
+                               <div class="clearfix"></div>
+                             </div>
                            </div>
                         </div>
                         <div class="row">
                            <div class="col-md-5">
-                              <div class="form-group">
-                                 <label>Gender</label>
-                                 <input type="text" readonly name="sex" class="form-control" value="<?php echo $rows->sex; ?>">
-                              </div>
+                             <div class="form-group">
+                                <label for="exampleInputEmail1"> Name</label>
+                                <input type="text" class="form-control" name="name" readonly placeholder="Email" value="<?php echo $rows->name; ?>">
+                             </div>
+
                            </div>
                            <div class="col-md-7">
                               <div class="form-group">
@@ -65,10 +71,10 @@
                         </div>
                         <div class="row">
                            <div class="col-md-5">
-                              <div class="form-group">
-                                 <label>Age</label>
-                                 <input type="text" placeholder="Age" name="age" id="age" readonly class="form-control"  value="<?php echo $rows->age; ?>">
-                              </div>
+                             <div class="form-group">
+                                <label>Gender</label>
+                                <input type="text" readonly name="sex" class="form-control" value="<?php echo $rows->sex; ?>">
+                             </div>
                            </div>
                            <div class="col-md-7">
                               <div class="form-group">
@@ -91,20 +97,7 @@
                               </div>
                            </div>
                         </div>
-                        <div class="row">
-                           <div class="col-md-5">
-                              <div class="form-group">
-                                 <label>Secondary Email</label>
-                                 <input type="text" name="sec_email" placeholder="Email Address" readonly class="form-control" value="<?php echo $rows->sec_email;?>">
-                              </div>
-                           </div>
-                           <div class="col-md-7">
-                              <div class="form-group">
-                                 <label for="exampleInputEmail1"> Secondary Mobile</label>
-                                 <input type="text" name="sec_phone" readonly value="<?php echo $rows->sec_phone;?> " class="form-control" placeholder="Mobile Number" />
-                              </div>
-                           </div>
-                        </div>
+                  
                         <div class="row">
                            <div class="col-md-5">
                               <div class="form-group">
@@ -121,14 +114,11 @@
                            </div>
 
                         </div>
-						
+
 						<div class="row">
-                           
+
                       <div class="col-md-5">
-                              <div class="form-group">
-                        <button type="submit" class="btn btn-info btn-fill pull-right">Update Profile Picture</button>
-                        <div class="clearfix"></div>
-                          </div>
+
                        </div></div>
                      </form>
                   </div>
@@ -160,4 +150,3 @@
     output.src = URL.createObjectURL(event.target.files[0]);
    };
 </script>
-

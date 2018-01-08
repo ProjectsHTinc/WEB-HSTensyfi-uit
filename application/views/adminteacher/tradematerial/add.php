@@ -90,15 +90,15 @@
 <script type="text/javascript">
 
    function check_title(val)
-   { 
+   {
       var tid=document.getElementById("trade_id").value;
-      alert(tid);
+      
       $.ajax({
       type:'post',
       url:'<?php echo base_url(); ?>/stafftradematerial/check_title_function',
       data:'ctitle=' + val + '&tradeid=' + tid,
       success:function(test)
-      {   
+      {
         if(test=="AE")
         {
           $("#msg").html("<span style=color:red;>Title Already Exit For This Trade</span>");
@@ -110,19 +110,19 @@
         }
       }
       });
-   } 
+   }
 
   $(document).ready(function (){
    $('#tradematerialmenu').addClass('collapse in');
    $('#tradematerial').addClass('active');
    $('#trade1').addClass('active');
   });
- 
 
 
 
 
-   
+
+
    $('#materialform').validate({ // initialize the plugin
    ignore: [],
    rules: {
@@ -157,4 +157,3 @@
    });
   // CKEDITOR.replace('editor1');
 </script>
-

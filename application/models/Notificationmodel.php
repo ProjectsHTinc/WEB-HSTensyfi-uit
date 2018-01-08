@@ -41,11 +41,10 @@ Class Notificationmodel extends CI_Model
 				 {
 					 $userid=$musers_id[$i];
 					$sql="SELECT * FROM edu_notification WHERE user_id='$userid'";
-					
 					$tgsm=$this->db->query($sql);
-				    	$res=$tgsm->result();
+				  $res=$tgsm->result();
 					foreach($res as $row){ }
-          				$device_token=array($row->gcm_key);
+          $device_token=array($row->gcm_key);
 
 				  // $device_token = explode(",",$gsmkey);
            // $device_token="fnpVvsdnJhA:APA91bH7n5d5KKzYPjuhFiMda-Nk2-o-hdXTlGcezY-s4TZdxYCrbez88PRgTPhrj4mS4-cZElKsbJH6AKHwVaUMvFs87iq4TFtge9yToBXiPcm8w_sb6a1kTZ8zUkb9dg-3pYSqESY5";

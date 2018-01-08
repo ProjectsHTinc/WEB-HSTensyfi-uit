@@ -32,11 +32,12 @@
                <?php endif; ?>
                <div class="card">
                   <div class="header">
-                     <legend> Task Details  <a href="<?php echo base_url(); ?>task/view_circular" class="btn btn-wd btn-default pull-right" style="margin-top:-10px;">View Task</a></legend>
+                     <legend> Task Details   <a href="<?php echo base_url(); ?>task/create_circular_master" class="pull-right btn" style="margin-top:-10px;">Task Master </a>
+                        </legend>
                   </div>
                   <div class="content">
                      <form method="post" action="" class="form-horizontal" enctype="multipart/form-data" onsubmit="return validates()" name="form" id="myformsection">
-                        
+
                         <fieldset>
                         <div class="form-group">
                             <p id="erid" style="color:red;"> </p>
@@ -64,7 +65,7 @@
                                     <option value="Notification">Notification</option>
                                  </select>
                               </div>
-                              
+
                            </div>
                         </fieldset-->
                         <fieldset>
@@ -112,7 +113,7 @@
                      <img alt="" src="<?php echo base_url(); ?>assets/loader.gif" />
                   </div>
                </div>
-            
+
             </div>
          </div>
       </div>
@@ -120,12 +121,12 @@
 </div>
 <script type="text/javascript">
    //$("#loading").hide();
-   $(document).ready(function () 
+   $(document).ready(function ()
    {
    $('#communcicationmenu').addClass('collapse in');
    $('#communication').addClass('active');
    $('#communication1').addClass('active');
-   
+
    $('#myformsection').validate({ // initialize the plugin
     rules: {
    title:{required:true },
@@ -143,7 +144,7 @@
    citrcular_type:"Select Circular Type",
    status:"Select Status"
           },
-          
+
    submitHandler: function(form) {
       //alert("hi");
    swal({
@@ -160,11 +161,11 @@
      function(isConfirm) {
         if (isConfirm) {
      $.ajax({
-        beforeSend: function() 
+        beforeSend: function()
           {
             $(".modal").show();
           },
-       complete: function() 
+       complete: function()
           {
             $(".modal").hide();
           },
@@ -174,11 +175,11 @@
          success: function(response) {
             //alert(response);
         if(response=="success")
-        {      
+        {
            $('#myformsection')[0].reset();
              swal({
                      title: "Wow!",
-                     text: "Message!",
+                     text: "Successfully Sent!",
                      type: "success"
                   },
       function(){
@@ -193,27 +194,27 @@
        swal("Cancelled", "Process Cancel :)", "error");
    }
    });
-   } 
-  }); 
+   }
+  });
 });
 
    function validates()
    {
       var mobile = document.getElementById("multiple-mobileuser").value;
-   
+
     if(mobile=="")
         {
        $("#erid").html("Please Select Mobilizer");
        //document.form.teacher.focus() ;
        return false;
         }
-   } 
-   
-   function circulardescription(cde1) 
+   }
+
+   function circulardescription(cde1)
    {
       var cde=document.getElementById('cititle').value;
-      //var ctype=document.getElementById('citrcular_type').value;   
-      //alert(cde); 
+      //var ctype=document.getElementById('citrcular_type').value;
+      //alert(cde);
    $.ajax({
     url:'<?php echo base_url(); ?>task/get_description_list',
     type:'post',
@@ -245,7 +246,7 @@
   }
 
    $().ready(function(){
-   
+
      $('.datepicker').datetimepicker({
        format: 'DD-MM-YYYY',
        icons: {
@@ -262,4 +263,3 @@
     });
    });
 </script>
-

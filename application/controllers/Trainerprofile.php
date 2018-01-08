@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Teacherprofile extends CI_Controller {
+class Trainerprofile extends CI_Controller {
 
 
 	function __construct()
@@ -19,11 +19,6 @@ class Teacherprofile extends CI_Controller {
 		 $user_id=$this->session->userdata('user_id');
 		 $user_type=$this->session->userdata('user_type');
 		 $datas['result'] = $this->teacherprofilemodel->getuser($user_id,$user_type);
-      // echo'<pre>';print_r($datas['result']);exit;
-		 //$datas['resubject'] = $this->subjectmodel->getsubject();
-		 //$datas['getall_class']=$this->class_manage->getall_class();
-		 //$datas['groups']=$this->teacherprofilemodel->get_all_groups_details();
-		 //$datas['activities']=$this->teacherprofilemodel->get_all_activities_details();
 		if($user_type==3){
 		$this->load->view('adminteacher/teacher_header',$datas);
 		$this->load->view('adminteacher/profile_update',$datas);
@@ -43,8 +38,6 @@ class Teacherprofile extends CI_Controller {
 		 	if($user_type==3)
 			{
 		      $user_id=$this->input->post('user_id');
-	         //echo $user_id;exit;
-				//$teachername=$this->input->post('name');
 				$user_pic_old=$this->input->post('user_pic_old');
 		      $teacher_pic = $_FILES["user_pic"]["name"];
 		      $temp = pathinfo($teacher_pic, PATHINFO_EXTENSION);
@@ -60,10 +53,10 @@ class Teacherprofile extends CI_Controller {
 			$res=$this->teacherprofilemodel->teacherprofileupdate($user_id,$userFileName,$user_type,$users_id);
 				if($res['status']=="success"){
 					$this->session->set_flashdata('msg', 'Update Successfully');
-					 redirect('teacherprofile/profilepic');
+					 redirect('trainerprofile/profilepic');
 				    }else{
 					 $this->session->set_flashdata('msg', 'Failed to update');
-					  redirect('teacherprofile/profilepic');
+					  redirect('trainerprofile/profilepic');
 				  }
 		 }
 	}
@@ -108,11 +101,11 @@ class Teacherprofile extends CI_Controller {
 
 						if($res['status']=="success"){
 						 $this->session->set_flashdata('msg', 'Update Successfully');
-						  redirect('teacherprofile/profile');
+						  redirect('trainerprofile/profile');
 
 					      }else{
 					 	        $this->session->set_flashdata('msg', 'Failed to update');
-								 redirect('teacherprofile/profile');
+								 redirect('trainerprofile/profile');
 					          }
 
 	 }

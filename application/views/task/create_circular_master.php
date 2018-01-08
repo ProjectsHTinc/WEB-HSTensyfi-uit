@@ -12,8 +12,8 @@
                         <fieldset>
                            <div class="form-group">
                              <label class="col-sm-2 control-label">Academic Year</label>
-                              <?php  
-                                 $status=$years['status']; 
+                              <?php
+                                 $status=$years['status'];
                                   if($status=="success"){
                                  foreach($years['all_years'] as $rows){}
                                  ?>
@@ -26,7 +26,7 @@
                               <div class="col-sm-4">
                                  <input type="text" name="ctitle" required class="form-control"  />
                               </div>
-                             
+
                            </div>
                         </fieldset>
                         <fieldset>
@@ -82,13 +82,13 @@
                               <tbody>
                                  <?php
                                     $i=1;
-                                    foreach ($result as $rows) { 
+                                    foreach ($result as $rows) {
                                     $stu=$rows->status;
                                     ?>
                                  <tr>
                                     <td><?php  echo $i; ?></td>
                                     <td><?php  echo $rows->circular_title; ?> </td>
-                                    <td><?php 
+                                    <td><?php
                                        if($stu=='Active'){?>
                                        <button class="btn btn-success btn-fill btn-wd">Active</button>
                                        <?php  }else{?>
@@ -118,9 +118,9 @@
 </div>
 <script type="text/javascript">
    $(document).ready(function () {
-    $('#mastersmenu').addClass('collapse in');
-   $('#circular1').addClass('active');
-   $('#circular1').addClass('active'); 
+     $('#communcicationmenu').addClass('collapse in');
+     $('#communication').addClass('active');
+     $('#communication1').addClass('active');
    $('#circularmaster').validate({ // initialize the plugin
    rules: {
    year_id:{required:true},
@@ -128,7 +128,7 @@
    ctitle:{required:true },
    cdescription:{required:true },
    status:{required:true },
-   
+
    },
    messages: {
    year_id:"Year Id Not Found",
@@ -138,9 +138,9 @@
    status: "Select Status",
    }
    });
-   
+
    });
-   
+
    var $table = $('#bootstrap-table');
    $().ready(function(){
    $table.bootstrapTable({
@@ -155,7 +155,7 @@
    pageSize: 8,
    clickToSelect: false,
    pageList: [8,10,25,50,100],
-   
+
    formatShowingRows: function(pageFrom, pageTo, totalRows){
    //do nothing here, we don't want to show the text "showing x of y from..."
    },
@@ -170,15 +170,14 @@
    detailClose: 'fa fa-minus-circle'
    }
    });
-   
+
    //activate the tooltips after the data table is initialized
    $('[rel="tooltip"]').tooltip();
-   
+
    $(window).resize(function () {
    $table.bootstrapTable('resetView');
    });
-   
-   });
-   
-</script>
 
+   });
+
+</script>

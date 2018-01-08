@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Stafftradematerial extends CI_Controller {
 
 
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 	   $this->load->helper('url');
@@ -20,8 +20,6 @@ class Stafftradematerial extends CI_Controller {
 		if($user_type==3)
 		{
 	    $datas['get_all_active_trade']=$this->stafftradematerialmodel->get_all_active_trade($user_id,$user_type);
-        // echo'<pre>';print_r($datas['get_all_active_trade']);exit;
-
 		 $this->load->view('adminteacher/teacher_header');
  		 $this->load->view('adminteacher/tradematerial/add',$datas);
  		 $this->load->view('adminteacher/teacher_footer');
@@ -34,17 +32,15 @@ class Stafftradematerial extends CI_Controller {
     {
         $datas=$this->session->userdata();
         $user_id=$this->session->userdata('user_id');
-		  $user_type=$this->session->userdata('user_type');
+		  	$user_type=$this->session->userdata('user_type');
 				if($user_type==3)
 				{
 				$trade_id=$this->input->post('trade_id');
 			 	$trade_title=$this->input->post('trade_title');
-               echo $trade_id; exit;
-				$check_title=$this->stafftradematerialmodel->checking_title($trade_title,$trade_id);
-
+      	$check_title=$this->stafftradematerialmodel->checking_title($trade_title,$trade_id);
 				if($check_title['status']=='success')
 				{
-					
+
 					$trade_info= $this->db->escape_str($this->input->post('description'));
 					$trade_video_link=$this->input->post('trade_video');
 					$status=$this->input->post('status');
@@ -84,7 +80,7 @@ class Stafftradematerial extends CI_Controller {
 			if($user_type==3)
 			{
 			   $datas['result']=$this->stafftradematerialmodel->get_all_trade_material($user_id,$user_type);
-			  
+
 		      $this->load->view('adminteacher/teacher_header');
 		      $this->load->view('adminteacher/tradematerial/view',$datas);
 		      $this->load->view('adminteacher/teacher_footer');
@@ -154,7 +150,7 @@ class Stafftradematerial extends CI_Controller {
 					$profilepic = $uploaddir.$trade_file;
 					move_uploaded_file($_FILES['trade_file']['tmp_name'], $profilepic);
 				}
-	
+
 				$datas=$this->stafftradematerialmodel->update_trade_material($trade_material_id,$trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id);
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Material Updated Successfully');

@@ -215,12 +215,7 @@ class Adminlogin extends CI_Controller {
 		 }
 	}
 
-	// Admin Students
-	public function special_leave_student(){
-		$datas['res']=$this->dashboard->get_special();
-		// print_r($datas['res']);
-		echo json_encode($datas['res']);
-	}
+
 
 	public function search(){
 		$ser_txt=$this->input->post('ser');
@@ -234,7 +229,7 @@ class Adminlogin extends CI_Controller {
 
 	public function logout(){
 		$datas=$this->session->userdata();
-		$this->session->unset_userdata($datas);
+		//$this->session->unset_userdata($datas);
 		$this->session->sess_destroy();
 		redirect('/');
 	}

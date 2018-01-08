@@ -37,7 +37,7 @@ Class Taskmodel extends CI_Model
 
   function get_mobilizer_name()
   {
-    $query="SELECT u.user_id,u.name,u.user_type,u.user_master_id,u.status,mb.id,mb.role_type,mb.name FROM edu_users AS u, edu_staff_details AS mb WHERE  u.user_master_id=mb.id AND u.user_type='4' AND u.user_type=mb.role_type AND u.status='Active' ";
+    $query="SELECT u.user_id,u.name,u.user_type,u.user_master_id,u.status,mb.id,mb.role_type FROM edu_users AS u, edu_staff_details AS mb WHERE  u.user_master_id=mb.id AND u.user_type='4' AND u.user_type=mb.role_type AND u.status='Active' ";
     $resultset=$this->db->query($query);
     return $resultset->result();
   }
@@ -84,7 +84,7 @@ Class Taskmodel extends CI_Model
       $data=array("status"=>"success","res1"=>$res);
       return $data;
     }
-  } 
+  }
 
   function get_circular_description_lists($ctitle)
   {
@@ -108,8 +108,8 @@ Class Taskmodel extends CI_Model
   }
 
   function circular_create($title,$notes,$circulardate,$musers_id,$status,$user_id)
-  {   
-    $master="SELECT id,circular_title,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_description='$notes' AND status='Active'"; 
+  {
+    $master="SELECT id,circular_title,circular_description,status FROM edu_circular_master WHERE circular_title='$title' AND circular_description='$notes' AND status='Active'";
     $resultset=$this->db->query($master);
     $res=$resultset->result();
     foreach($res as $rows){}
@@ -128,7 +128,7 @@ Class Taskmodel extends CI_Model
       $user_id1=$user_id;
 
       $query3="INSERT INTO edu_circular(user_type,user_id,circular_master_id,circular_type,circular_date,status,created_by,created_at) VALUES ('4','$mobileuserid','$cirmat','Mail,Notification','$circulardate1','$status1','$user_id1',NOW())";
-      $muser=$this->db->query($query3); 
+      $muser=$this->db->query($query3);
       }
       if($muser)
       {

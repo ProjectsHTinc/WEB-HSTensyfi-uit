@@ -102,10 +102,10 @@ Class Admissionmodel extends CI_Model
        function update_details($admission_id,$had_aadhar_card,$aadhar_card_num,$admission_location,$admission_date,$name,$fname,$mname,$sex,$dob_date,$age,$nationality,$religion,$community_class,$community,$mother_tongue,$course,$mobile,$sec_mobile,$email,$userFileName,$institute_name,$last_studied,$qual,$tran_cert,$address,$disability,$city,$state,$blood_group,$status,$user_id,$prefer_time)
        {
            //echo $name;echo $status; echo $tran_cert; exit;
-      echo  $query="UPDATE edu_admission SET have_aadhaar_card='$had_aadhar_card',aadhaar_card_number='$aadhar_card_num',name='$name',sex='$sex',dob='$dob_date',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',father_name='$fname',mother_name='$mname',mobile='$mobile',sec_mobile='$sec_mobile',email='$email',
+        $query="UPDATE edu_admission SET have_aadhaar_card='$had_aadhar_card',aadhaar_card_number='$aadhar_card_num',name='$name',sex='$sex',dob='$dob_date',age='$age',nationality='$nationality',religion='$religion',community_class='$community_class',community='$community',father_name='$fname',mother_name='$mname',mobile='$mobile',sec_mobile='$sec_mobile',email='$email',
        state='$state',city='$city',address='$address',mother_tongue='$mother_tongue',disability='$disability',student_pic='$userFileName',blood_group='$blood_group',admission_date='$admission_date',admission_location='$admission_location',preferred_trade='$course',preferred_timing='$prefer_time',last_institute='$institute_name',last_studied='$last_studied',qualified_promotion='$qual',transfer_certificate='$tran_cert',status='$status',
        updated_by='$user_id',updated_at=NOW() WHERE id='$admission_id'";
-       exit;
+       
 
        $res=$this->db->query($query);
 
