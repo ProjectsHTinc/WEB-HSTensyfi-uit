@@ -297,7 +297,7 @@ $("#gallery_upload").click(function (){
                    var file_size=$("#center_photos").get(0).files[i].size;
                    if(file_size<1000000){
                        var ext = file1.split('.').pop().toLowerCase();
-                       if($.inArray(ext,['jpg','jpeg','gif'])===-1){
+                       if($.inArray(ext,['jpg','jpeg','png'])===-1){
                            alert("Invalid file extension");
                            return false;
                        }
@@ -314,10 +314,7 @@ $("#gallery_upload").click(function (){
        });
 
 
-// $('#gallery_upload_form').validate({
-//     rules: { "center_photos[]": { required: true, accept: "png|jpe?g|gif", filesize: 1048576  }},
-//     messages: { "center_photos[]": "File must be JPG, GIF or PNG, less than 1MB" }
-// });
+
 
     function delete_videos(id) {
         swal({
@@ -483,7 +480,7 @@ $("#gallery_upload").click(function (){
        rules: {
          center_banner: {
              required: true,
-             extension: "jpg,jpeg",
+             extension: "jpg,jpeg,png",
              filesize: 5,
          }
 
@@ -503,7 +500,7 @@ $("#gallery_upload").click(function (){
                       var file_size=$("#center_banner").get(0).files[i].size;
                       if(file_size<1000000){
                           var ext = file1.split('.').pop().toLowerCase();
-                          if($.inArray(ext,['jpg','jpeg','gif'])===-1){
+                          if($.inArray(ext,['jpg','jpeg','png'])===-1){
                               alert("Invalid file extension");
                               return false;
                           }

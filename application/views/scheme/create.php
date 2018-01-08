@@ -234,7 +234,7 @@
                        var file_size=$("#scheme_photos").get(0).files[i].size;
                        if(file_size<1000000){
                            var ext = file1.split('.').pop().toLowerCase();
-                           if($.inArray(ext,['jpg','jpeg','gif'])===-1){
+                           if($.inArray(ext,['jpg','jpeg','png'])===-1){
                                alert("Invalid file extension");
                                return false;
                            }

@@ -7,9 +7,9 @@ Class Trademodel extends CI_Model
       parent::__construct();
    }
 
-      //GET ALL Trade Details 
+      //GET ALL Trade Details
    public function getYear()
-   { 
+   {
     $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
     $year_result = $this->db->query($sqlYear);
     $ress_year = $year_result->result();
@@ -44,7 +44,7 @@ Class Trademodel extends CI_Model
       //CREATE Trade NAME
 
       function add_trade($center_id,$tradename,$status,$user_id)
-      {  
+      {
          $year_id=$this->getYear();
 
          $check_class="SELECT * FROM edu_trade WHERE trade_name='$tradename'";
@@ -72,17 +72,18 @@ Class Trademodel extends CI_Model
       //UPDATE Trade NAME
       function update_trade_details($center_id,$trade_name,$trade_id,$status,$user_id)
       {
-         //$check_class="SELECT * FROM edu_trade WHERE trade_name='$trade_name' AND status='$status'";
-         //$res=$this->db->query($check_class);
-         //if($res->num_rows()==0){
+         $check_class="SELECT * FROM edu_trade WHERE trade_name='$trade_name' AND status='$status' AND id!='$trade_id'";
+         $res=$this->db->query($check_class);
+         if($res->num_rows()>0){
+           $data= array("status" => "Already exist");
+           return $data;
+         }else{
+
         $query="UPDATE edu_trade SET center_id='$center_id',trade_name='$trade_name',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$trade_id'";
          $resultset=$this->db->query($query);
          $data= array("status" => "success");
          return $data;
-         //}else{
-        // $data= array("status" => "Already exist");
-        // return $data;
-         //}
+         }
       }
 
 }

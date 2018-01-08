@@ -7,9 +7,9 @@ Class Batchmodel extends CI_Model
   {
    parent::__construct();
   }
-  
+
   public function getYear()
-  { 
+  {
     $sqlYear = "SELECT * FROM edu_academic_year WHERE NOW() >= from_month AND NOW() <= to_month AND status = 'Active'";
     $year_result = $this->db->query($sqlYear);
     $ress_year = $year_result->result();
@@ -31,18 +31,18 @@ Class Batchmodel extends CI_Model
     $resultset=$this->db->query($query);
     return $resultset->result();
   }
-  
+
   function getall_center_name()
    {
      $query="SELECT id,center_name,status FROM edu_center_details WHERE status='Active'";
       $resultset=$this->db->query($query);
       return $resultset->result();
-   } 
+   }
 
   //CREATE BATCH NAME
 
   function add_batch_details($center_id,$batchname,$status,$user_id)
-  { 
+  {
     $year_id=$this->getYear();
 
     $check_batch="SELECT * FROM edu_batch WHERE batch_name='$batchname'";
@@ -58,7 +58,7 @@ Class Batchmodel extends CI_Model
     }
   }
 
-  //GET SPECIFIC Edit Batch 
+  //GET SPECIFIC Edit Batch
   function edit_batch($batch_id)
   {
     $query="SELECT * FROM edu_batch WHERE id='$batch_id'";
@@ -70,17 +70,19 @@ Class Batchmodel extends CI_Model
   //UPDATE SECTION NAME
   function save_batch($center_id,$batch_name,$batch_id,$status,$user_id)
   {
-    // $check_class="SELECT * FROM edu_batch WHERE batch_name='$batch_name' AND status='$status'";
-    // $res=$this->db->query($check_class);
-    // if($res->num_rows()==0){
+   $check_class="SELECT * FROM edu_batch WHERE batch_name='$batch_name'  AND id!='$batch_id'";
+
+    $res=$this->db->query($check_class);
+    if($res->num_rows()>0){
+      $data= array("status" => "Already exist");
+      return $data;
+    }else{
+
     $query="UPDATE edu_batch SET center_id='$center_id',batch_name='$batch_name',status='$status',updated_at=NOW(),updated_by='$user_id' WHERE id='$batch_id'";
     $resultset=$this->db->query($query);
     $data= array("status" => "success");
     return $data;
-    // }else{
-    // $data= array("status" => "Already exist");
-    // return $data;
-    // }
+    }
   }
 
 
