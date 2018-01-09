@@ -25,7 +25,7 @@
 														<a href="#section_3"><h2><?php echo $key_students->total_students; ?><p>Mobilizer</p></h2></a>
 													</div>
 												</div>
-											
+
 
 											</section>
 										</div>
@@ -42,9 +42,9 @@
                                             <div class="form-group">
                                                 <div class="col-sm-12">
 
-                                                    <input type='radio' name="user_type" value="students" checked style="margin-left:40px;" /><span style="padding-left:10px; padding-right:10px; ">Students</span>
-                                                    <input type='radio' name="user_type" value="teachers" /><span style="padding-left:10px;">Trainers</span>
-                                                    <input type='radio' name="user_type" value="mobilizer" /><span style="padding-left:10px;">Mobilizer</span>
+                                                    <input type='radio' name="user_type" value="5" checked style="margin-left:40px;" /><span style="padding-left:10px; padding-right:10px; ">Students</span>
+                                                    <input type='radio' name="user_type" value="3" /><span style="padding-left:10px;">Trainers</span>
+                                                    <input type='radio' name="user_type" value="4" /><span style="padding-left:10px;">Mobilizer</span>
 
 
                                                 </div>
@@ -135,10 +135,7 @@
 
             var ser = $("#search_txt").val();
             var user_type = $('input[name=user_type]:checked').val();
-            var cls_sec = $("#class_sec").val();
-            //alert(cls_sec);
-
-            if (!ser && !user_type && !cls_sec) {
+            if (!ser) {
                 // alert("enter Text");
                 $('#result').html('<center style="color:red;">Enter The Text in Search Box</center>');
             } else {
@@ -148,7 +145,7 @@
                     data: {
                         ser: ser,
                         user_type: user_type,
-                        cls_sec: cls_sec
+
                     },
                     //  dataType: "JSON",
                     //  cache: false,

@@ -42,7 +42,7 @@
                           </form>
                       </div>
                       <div class="content" id="gallery">
-                          <div class="container">
+                          <div class="row">
                               <?php if(empty($result)){
                                 echo "No Gallery Found";
                             }else{

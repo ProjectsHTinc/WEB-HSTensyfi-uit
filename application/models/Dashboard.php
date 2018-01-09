@@ -53,6 +53,110 @@ Class Dashboard extends CI_Model
 
 
 
+  function search_data($ser_txt,$user_type){
+    if($user_type=="3"){
+
+      $query="SELECT et.id,et.name,et.phone,et.email FROM edu_staff_details AS et WHERE et.role_type='$user_type' AND et.name LIKE '$ser_txt%'";
+       $result=$this->db->query($query);
+       if($result->num_rows()==0){
+        echo "No Data Found";
+       }else{
+        $output='
+<div class="table-responsive">
+ <table class="table table bordered">
+  <tr>
+   <th>S.no </th>
+   <th>Name </th>
+   <th>phone No</th>
+
+   <th>Email </th>
+   <th>Edit</th>
+  </tr>
+';
+$i=1;
+   foreach($result->result() as $row){
+  $output .= '
+   <tr>
+     <td>'.$i.'</td>
+    <td>'.$row->name.'</td>
+    <td>'.$row->phone.'</td>
+
+    <td>'.$row->email.'</td>
+  <td><a href="'. base_url().'staff/get_teacher_id/'.$row->id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+   </tr>
+  ';
+  $i++;
+       }echo $output;}
+
+    }else if($user_type=="4"){
+
+           $query="SELECT et.id,et.name,et.phone,et.email FROM edu_staff_details AS et WHERE et.role_type='$user_type' AND et.name LIKE '$ser_txt%'";
+             $result=$this->db->query($query);
+             if($result->num_rows()==0){
+              echo "No Data Found";
+             }else{
+              $output='
+      <div class="table-responsive">
+       <table class="table table bordered">
+        <tr>
+         <th>S.no </th>
+         <th>Name </th>
+         <th>phone No</th>
+
+         <th>Email </th>
+         <th>Edit</th>
+        </tr>
+      ';
+      $i=1;
+         foreach($result->result() as $row){
+        $output .= '
+         <tr>
+           <td>'.$i.'</td>
+          <td>'.$row->name.'</td>
+          <td>'.$row->phone.'</td>
+
+          <td>'.$row->email.'</td>
+        <td><a href="'. base_url().'staff/get_teacher_id/'.$row->id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+         </tr>
+        ';
+        $i++;
+             }echo $output;}
+    }else if($user_type=="5"){
+      $query="SELECT ea.id,ea.name,ea.mobile,ea.email,ea.enrollment FROM edu_admission AS ea  WHERE ea.name LIKE '$ser_txt%'";
+        $result=$this->db->query($query);
+        if($result->num_rows()==0){
+         echo "No Data Found";
+        }else{
+         $output='
+ <div class="table-responsive">
+  <table class="table table bordered">
+   <tr>
+    <th>S.no </th>
+    <th>Name </th>
+    <th>phone No</th>
+
+    <th>Email </th>
+    <th>Edit</th>
+   </tr>
+ ';
+ $i=1;
+    foreach($result->result() as $row){
+   $output .= '
+    <tr>
+      <td>'.$i.'</td>
+     <td>'.$row->name.'</td>
+     <td>'.$row->mobile.'</td>
+
+     <td>'.$row->email.'</td>
+   <td><a href="'. base_url().'staff/get_teacher_id/'.$row->id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+    </tr>
+   ';
+   $i++;
+        }echo $output;}
+    }else{
+        echo "<center>Enter the Text for Search</center>";
+    }
+  }
 
 
 
