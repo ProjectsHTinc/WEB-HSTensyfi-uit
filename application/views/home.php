@@ -10,19 +10,19 @@
 												<div class="col-sm-3">
 													<div class="circle circle1">
 														<?php foreach ($tot_trainer as $key_trainer) {} ?>
-														<a href="#section_1"><h2><?php echo $key_trainer->total_trainer; ?><p>Students</p></h2></a>
+														<a href="#section_1"><h2><?php echo $key_trainer->total_trainer; ?><p>Trainer</p></h2></a>
 													</div>
 												</div>
 												<div class="col-sm-3">
 													<div class="circle circle2">
 														<?php foreach ($tot_mobilizer as $key_mobilizer) {} ?>
-														<a href="#section_2"><h2><?php echo $key_mobilizer->total_mobilizer; ?><p>Trainer</p></h2></a>
+														<a href="#section_2"><h2><?php echo $key_mobilizer->total_mobilizer; ?><p>Mobilizer</p></h2></a>
 													</div>
 												</div>
 												<div class="col-sm-3">
 													<div class="circle circle3">
 														<?php foreach ($tot_students as $key_students) {} ?>
-														<a href="#section_3"><h2><?php echo $key_students->total_students; ?><p>Mobilizer</p></h2></a>
+														<a href="#section_3"><h2><?php echo $key_students->total_students; ?><p>Students</p></h2></a>
 													</div>
 												</div>
 
@@ -53,7 +53,7 @@
                                         <div class="content">
                                             <div class="form-group">
                                                 <div class="col-md-10">
-                                                    <input class="form-control searchbox" name="text" type="text" id="search_txt" onkeypress="search_load()" autocomplete="off" aria-required="true" placeholder="Search Students,Teacher">
+                                                    <input class="form-control searchbox" name="text" type="text" id="search_txt" onkeypress="search_load()" autocomplete="off" aria-required="true" placeholder="Search Students,Trainer,Mobilizer">
                                                 </div>
                                                 <div class="col-md-2">
                                                     <button type="button" class="btn btn-info btn-fill pull-right" onclick="search_load()">Search </button>
@@ -72,7 +72,7 @@
                             </div>
 
 
-                            <!---                      -->
+
 
 
 
@@ -83,7 +83,7 @@
                                             <div class="img">
                                                 <ul style="padding-left:70px;">
                                                     <li style="padding-top:13px;list-style-type:none;">
-                                                        <a href="<?php echo base_url(); ?>circular/view_circular" class="design">Circular</a>
+                                                        <a href="<?php echo base_url(); ?>task/add_circular" class="design">Task</a>
                                                     </li>
                                                 </ul>
                                             </div>
@@ -110,7 +110,7 @@
                                             <div class="img4">
                                                 <ul style="padding-left:70px;">
                                                     <li style="padding-top:13px;list-style-type:none;">
-                                                        <a href="<?php echo base_url(); ?>adminattendance/monthclass" class="design">Calender</a>
+                                                        <a href="<?php echo base_url(); ?>event/home" class="design">Calender</a>
                                                     </li>
                                                 </ul>
                                             </div>

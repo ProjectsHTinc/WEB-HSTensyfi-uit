@@ -99,6 +99,7 @@ Class Staffmodel extends CI_Model
               $data = array(
                   "status" => "something went wrong"
               );
+                return $data;
             }
             $user_table="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,created_date,status,last_login_date) VALUES('$name','$user_name','$md5pwd','$select_role','$insert_id',NOW(),'Active',NOW())";
               $result_user=$this->db->query($user_table);
@@ -199,6 +200,17 @@ Class Staffmodel extends CI_Model
       return $result->result();
 
     }
+
+    function get_non_exist_class_for_trainer_edit($staff_id){
+      $acd_year=$this->get_cur_year();
+      $year_id= $acd_year['cur_year'];
+      $select="SELECT  e.id as trade_batch_id,c.trade_name,s.batch_name FROM  edu_trade_batch  AS e INNER JOIN edu_trade_batch  AS cm ON e.id=cm.id
+      INNER JOIN edu_trade AS c ON cm.trade_id=c.id INNER JOIN edu_batch AS s ON cm.batch_id=s.id WHERE e.id!='$staff_id' AND e.year_id='$year_id' AND e.status='Active'";
+      $result=$this->db->query($select);
+      return $result->result();
+
+    }
+
     function get_all_trade_batch(){
       $acd_year=$this->get_cur_year();
       $year_id= $acd_year['cur_year'];

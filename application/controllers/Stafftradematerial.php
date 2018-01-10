@@ -188,6 +188,9 @@ class Stafftradematerial extends CI_Controller {
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('gallery', 'Gallery Updated Successfully');
 					redirect('stafftradematerial/gallery/'.$redirect_id.'');
+				}else if($datas['status']=="limit"){
+					$this->session->set_flashdata('gallery', 'Gallery  Maximum  images Exceeds');
+					redirect('stafftradematerial/gallery/'.$redirect_id.'');
 				}else{
 					$this->session->set_flashdata('gallery', 'Failed to Add');
 					redirect('stafftradematerial/gallery/'.$redirect_id.'');

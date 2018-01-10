@@ -32,7 +32,7 @@
                      foreach ($result as $rows) { $type=$rows->user_type;  $stu=$rows->status; ?>
                   <tr>
                      <td><?php echo $i; ?></td>
-                     <td><?php echo $rows->trade_name; ?>(<?php echo $rows->trade_title; ?>)</td>
+                     <td style="width:25%;"><?php echo $rows->trade_name; ?>(<?php echo $rows->trade_title; ?>)</td>
                      <td><?php if(empty($rows->trade_file)){
                         }else{ ?>
                         <a href="<?php echo base_url(); ?>assets/tradematerial/<?php echo $rows->trade_file; ?>" target="_blank">Click here to view </a><br>
@@ -42,8 +42,8 @@
                         <a href="<?php echo $rows->trade_video; ?>" target="_blank">Click here to Watch Video </a><br>
                         <?php  } ?>
                      </td>
-                    
-                     <td><?php if($type==1 || $type==2 ){ echo "ADMIN"; }else{ echo "TRAINER";}?></td>
+
+                     <td><?php echo $rows->name; ?>(<?php $role=$rows->user_type; if($role==1){ echo "Super Admin"; }else if($role==2){ echo "Admin"; } else{ echo "Trainer"; }  ?>)</td>
                      <td><?php echo $new_date = date('d-m-Y',strtotime($rows->created_at));?></td>
                        <td><?php
                            if($stu=='Active'){?>
@@ -92,4 +92,3 @@ $(function () {
 $('[data-toggle="tooltip"]').tooltip()
 })
 </script>
-

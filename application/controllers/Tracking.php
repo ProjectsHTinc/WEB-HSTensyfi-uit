@@ -41,7 +41,7 @@ class Tracking extends CI_Controller {
 	 		 	$datas=$this->session->userdata();
   	 		$user_id=$this->session->userdata('user_id');
   			$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 				$datas['res']=$this->trackingmodel->get_mobilizer_id();
 			 $this->load->view('header');
 	 		 $this->load->view('tracking/view',$datas);
@@ -57,7 +57,7 @@ class Tracking extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 				$user_id=$this->input->post('user_id');
 				$selected_date=$this->input->post('selected_date');
 			 $datas['res']=$this->trackingmodel->get_lat_and_long_id($user_id,$selected_date);
@@ -76,7 +76,7 @@ class Tracking extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 				$user_id=$this->input->post('user_id');
 				$selected_date=$this->input->post('selected_date');
 
@@ -96,7 +96,7 @@ class Tracking extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 					$datas['res']=$this->trackingmodel->testing_track();
 					echo json_encode($datas['res']);
 			 }

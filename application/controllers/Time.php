@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Time extends CI_Controller 
+class Time extends CI_Controller
 {
-  function __construct() 
+  function __construct()
   {
 		parent::__construct();
 		$this->load->model('timemodel');
@@ -19,7 +19,7 @@ public function home()
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['result'] = $this->timemodel->getall_details();
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 		$this->load->view('header');
 		$this->load->view('time/add_time',$datas);
@@ -37,7 +37,7 @@ public function create_session()
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$ses_name=$this->input->post('session_name');
 			$stime=$this->input->post('from_time');
@@ -66,7 +66,7 @@ public function edit_session($time_id)
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 		$datas['res']=$this->timemodel->edit_session_details($time_id);
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$this->load->view('header');
 			$this->load->view('time/edit_time',$datas);
@@ -82,8 +82,8 @@ public function update_session()
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
-		{  
+		if($user_type==1 || $user_type==2)
+		{
 			$tid=$this->input->post('tid');
 			$ses_name=$this->input->post('session_name');
 			$stime=$this->input->post('from_time');

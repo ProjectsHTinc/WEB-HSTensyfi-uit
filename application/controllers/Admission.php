@@ -19,11 +19,15 @@ class Admission extends CI_Controller
 		$datas['lang'] = $this->admissionmodel->getall_trade();
 		$datas['blood'] = $this->admissionmodel->getall_blood_group();
 		$datas['time'] =$this->admissionmodel->getall_session_details();
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 			$this->load->view('header');
 			$this->load->view('admission/add',$datas);
 			$this->load->view('footer');
-		}else{
+		}else	if($user_type==2){
+				$this->load->view('header');
+				$this->load->view('admission/add',$datas);
+				$this->load->view('footer');
+			}else{
 			redirect('/');
 		}
 	}
@@ -35,7 +39,7 @@ class Admission extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$had_aadhar_card=$this->input->post('had_aadhar_card');
 			$aadhar_card_num=$this->input->post('aadhar_card_num');
@@ -117,7 +121,7 @@ class Admission extends CI_Controller
 		$datas['result'] = $this->admissionmodel->get_all_admission();
 		//echo "<pre>";print_r($datas['result']);exit;
 
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 			$this->load->view('header');
 			$this->load->view('admission/view',$datas);
 			$this->load->view('footer');
@@ -137,7 +141,7 @@ class Admission extends CI_Controller
 		$datas['blood'] = $this->admissionmodel->getall_blood_group();
 		$datas['time'] =$this->admissionmodel->getall_session_details();
 		$datas['res']=$this->admissionmodel->get_edit_details($admission_id);
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 			$this->load->view('header');
 			$this->load->view('admission/edit',$datas);
 			$this->load->view('footer');
@@ -152,7 +156,7 @@ class Admission extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$had_aadhar_card=$this->input->post('had_aadhar_card');
 			$aadhar_card_num=$this->input->post('aadhar_card_num');

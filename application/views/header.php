@@ -195,7 +195,7 @@
                     <li id="masters2"><a href="<?php echo base_url();  ?>time/home">Timing</a></li>
                    <li id="masters3"><a href="<?php echo base_url(); ?>trade/addtrade">Trade & Batch</a></li>
                    <li id="masters5"><a href="<?php echo base_url(); ?>classmanage/home">Trade & Batch Management </a></li>
-                    
+
                   <li id="masters6"><a href="<?php echo base_url();  ?>scheme/home">Scheme</a></li>
                   <li id="masters7"><a href="<?php echo base_url();  ?>center/home">Center</a></li>
                      </ul>
@@ -242,6 +242,9 @@
                      </ul>
                   </div>
                </li>
+               <?php  $user_type=$this->session->userdata('user_type');
+
+               if($user_type==1){ ?>
                <li id="teacher">
                   <a data-toggle="collapse" href="#teachermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/teachers.png"/>
@@ -255,6 +258,9 @@
                      </ul>
                   </div>
                </li>
+             <?php }else{
+
+             } ?>
 
 
                <li id="event">
@@ -300,21 +306,27 @@
                   </div>
                </li>
 
+               <?php  $user_type=$this->session->userdata('user_type');
 
-               <li id="user">
-                  <a data-toggle="collapse" href="#usermanagement">
-                     <i class="pe-7s-settings"></i>
-                     <p>Control Panel</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="usermanagement">
-                     <ul class="nav">
-                        <li id="user1"><a href="<?php echo base_url(); ?>userrolemanage/teachers">Stafe</a></li>
-                        <li id="user2"><a href="<?php echo base_url(); ?>userrolemanage/mobilizer">Mobilizer</a></li>
-                        <li id="user3"><a href="<?php echo base_url(); ?>userrolemanage/students">Students</a></li>
-                     </ul>
-                  </div>
-               </li>
+               if($user_type==1){ ?>
+                 <li id="user">
+                    <a data-toggle="collapse" href="#usermanagement">
+                       <i class="pe-7s-settings"></i>
+                       <p>Control Panel</p>
+                       <b class="caret"></b>
+                    </a>
+                    <div class="collapse" id="usermanagement">
+                       <ul class="nav">
+                          <li id="user1"><a href="<?php echo base_url(); ?>userrolemanage/teachers">Staff</a></li>
+                          <li id="user2"><a href="<?php echo base_url(); ?>userrolemanage/mobilizer">Mobilizer</a></li>
+                          <li id="user3"><a href="<?php echo base_url(); ?>userrolemanage/students">Students</a></li>
+                       </ul>
+                    </div>
+                 </li>
+            <?php   }else{
+
+               } ?>
+
 
             </ul>
          </div>

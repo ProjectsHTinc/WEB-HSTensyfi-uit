@@ -68,6 +68,18 @@ class Adminlogin extends CI_Controller {
 								$this->load->view('home',$datas);
 								$this->load->view('footer');
 							break;
+							case '2':
+						$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];
+						$datas= array("user_name"=>$user_name, "msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
+								//$this->session->userdata($user_name);
+								$session_data=$this->session->set_userdata($datas);
+								$datas['tot_trainer']=$this->dashboard->total_trainer();
+								$datas['tot_mobilizer']=$this->dashboard->total_mobilizer();
+								$datas['tot_students']=$this->dashboard->total_students();
+								$this->load->view('header');
+								$this->load->view('home',$datas);
+								$this->load->view('footer');
+							break;
 							case '3':
 							$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];
 							$datas= array("user_name"=>$user_name,"msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
@@ -104,7 +116,11 @@ class Adminlogin extends CI_Controller {
 			$this->load->view('header',$datas);
 			$this->load->view('resetpassword',$datas);
 			$this->load->view('footer');
-			}
+		}else if($user_type==2){
+			$this->load->view('header',$datas);
+			$this->load->view('resetpassword',$datas);
+			$this->load->view('footer');
+		}
 			else{
 				 redirect('/');
 			}
@@ -123,6 +139,13 @@ class Adminlogin extends CI_Controller {
 		 $user_type=$this->session->userdata('user_type');
 			$datas['result'] = $this->login->getuser($user_id);
       if($user_type==1){
+			$datas['tot_trainer']=$this->dashboard->total_trainer();
+			$datas['tot_mobilizer']=$this->dashboard->total_mobilizer();
+			$datas['tot_students']=$this->dashboard->total_students();
+			$this->load->view('header');
+			$this->load->view('home',$datas);
+			$this->load->view('footer');
+		}else if($user_type==2){
 			$datas['tot_trainer']=$this->dashboard->total_trainer();
 			$datas['tot_mobilizer']=$this->dashboard->total_mobilizer();
 			$datas['tot_students']=$this->dashboard->total_students();

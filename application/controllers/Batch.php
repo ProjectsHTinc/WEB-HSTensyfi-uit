@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Batch extends CI_Controller 
+class Batch extends CI_Controller
 {
 	function __construct()
 	{
@@ -18,22 +18,22 @@ class Batch extends CI_Controller
 		$user_type=$this->session->userdata('user_type');
 		$datas['result'] = $this->batchmodel->get_batch_details();
 		$datas['cenert'] = $this->batchmodel->getall_center_name();
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$this->load->view('header');
 			$this->load->view('batch/add',$datas);
 			$this->load->view('footer');
 	   }else{
 	      redirect('/');
-	   } 
+	   }
 	}
 
 	public function create_batch()
-	{  
+	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-        
+
         $center_id=$this->input->post('center_id');
 		$batchname=$this->input->post('batchname');
 		$status=$this->input->post('status');
@@ -58,11 +58,11 @@ class Batch extends CI_Controller
 	}
 
 	public function update_batch()
-	{  
+	{
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-        
+
         $center_id=$this->input->post('center_id');
 		$batch_name=$this->input->post('batchname');
 		$status=$this->input->post('status');

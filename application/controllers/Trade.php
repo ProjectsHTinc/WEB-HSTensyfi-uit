@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Trade extends CI_Controller 
-{ 
-	function __construct() 
+class Trade extends CI_Controller
+{
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('url');
@@ -20,7 +20,7 @@ class Trade extends CI_Controller
 		$datas['result'] = $this->trademodel->getall_trade();
 	    $datas['cenert'] = $this->trademodel->getall_center_name();
         // print_r($datas['cenert']);exit;
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header');
 		$this->load->view('trade/add',$datas);
 		$this->load->view('footer');
@@ -67,7 +67,7 @@ class Trade extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 
-      $center_id=$this->input->post('center_id'); 
+      $center_id=$this->input->post('center_id');
 		$trade_name=$this->input->post('tradename');
 		$trade_id=$this->input->post('trade_id');
 		$status=$this->input->post('status');

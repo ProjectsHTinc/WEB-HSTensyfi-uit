@@ -4,7 +4,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Tradematerial extends CI_Controller {
 
 
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 	   $this->load->helper('url');
@@ -17,7 +17,7 @@ class Tradematerial extends CI_Controller {
 	 	$datas=$this->session->userdata();
   	 	$user_id=$this->session->userdata('user_id');
   		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 		 $datas['get_all_active_trade']=$this->tradematerialmodel->get_all_active_trade();
 		 $this->load->view('header');
@@ -32,7 +32,7 @@ class Tradematerial extends CI_Controller {
         $datas=$this->session->userdata();
         $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 			 	$trade_title=$this->input->post('trade_title');
 				$check_title=$this->tradematerialmodel->checking_title($trade_title);
 				if($check_title['status']=='success'){
@@ -73,7 +73,7 @@ class Tradematerial extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 				$datas['result']=$this->tradematerialmodel->get_all_trade_material();
 				//echo '<pre>';print_r($datas['result']);exit;
 			 $this->load->view('header');
@@ -91,7 +91,7 @@ class Tradematerial extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 			 	$datas['gallery_id']=$id;
 				$trade_material_gallery_id=base64_decode($id);
 				$datas['result']=$this->tradematerialmodel->get_trade_gallery_img($trade_material_gallery_id);
@@ -108,7 +108,7 @@ class Tradematerial extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 				$datas['gallery_id']=$id;
 				$trade_material_id=base64_decode($id);
 				$datas['result']=$this->tradematerialmodel->edit_trade_material($trade_material_id);
@@ -125,9 +125,9 @@ class Tradematerial extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+			if($user_type==1 || $user_type==2){
 			$trade_title=$this->input->post('trade_title');
-        
+
 				$trade_material_id=$this->input->post('trade_material_id');
 				$trade_id=$this->input->post('trade_id');
 				$trade_info= $this->db->escape_str($this->input->post('description'));
@@ -144,7 +144,7 @@ class Tradematerial extends CI_Controller {
 					$profilepic = $uploaddir.$trade_file;
 					move_uploaded_file($_FILES['trade_file']['tmp_name'], $profilepic);
 				}
-	
+
 				$datas=$this->tradematerialmodel->update_trade_material($trade_material_id,$trade_title,$trade_id,$trade_info,$trade_video_link,$trade_file,$status,$user_id);
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('msg', 'Material Updated Successfully');
@@ -165,7 +165,7 @@ class Tradematerial extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 					$redirect_id=$this->input->post('trade_material_gallery_id');
 					$trade_material_gallery_id=base64_decode($this->input->post('trade_material_gallery_id'));
 					$name_array = $_FILES['trade_material_gallery']['name'];
@@ -180,6 +180,9 @@ class Tradematerial extends CI_Controller {
 				$datas=$this->tradematerialmodel->create_trade_gallery($trade_material_gallery_id,$file_name,$user_id);
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('gallery', 'Gallery Updated Successfully');
+					redirect('tradematerial/gallery/'.$redirect_id.'');
+				}else if($datas['status']=="limit"){
+					$this->session->set_flashdata('gallery', 'Gallery  Maximum images Exceeds');
 					redirect('tradematerial/gallery/'.$redirect_id.'');
 				}else{
 					$this->session->set_flashdata('gallery', 'Failed to Add');
@@ -199,7 +202,7 @@ class Tradematerial extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+			if($user_type==1 || $user_type==2){
 				 	$gal_id=$this->input->post('gal_id');
 					$datas['res']=$this->tradematerialmodel->delete_gal($gal_id);
 			}else{

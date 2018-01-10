@@ -49,10 +49,20 @@ Class Schememodel extends CI_Model
             $count_picture=count($file_name);
 
           for($i=0;$i<$count_picture;$i++){
+            $check_batch="SELECT * FROM edu_scheme_photos WHERE scheme_id='1'";
+           $res=$this->db->query($check_batch);
+            $res->num_rows();
+            if($res->num_rows()>10){
+            $data = array(
+                "status" => "limit"
+            );
+            return $data;
+          }else{
             $gal_l=$file_name[$i];
              $gall_img="INSERT INTO edu_scheme_photos(scheme_id,scheme_photo,status,created_by,created_at,updated_at,updated_by) VALUES('1','$gal_l','Active','$user_id',NOW(),NOW(),'$user_id')";
              $res_gal   = $this->db->query($gall_img);
               }
+            }
 
           if ($res_gal) {
               $data = array(

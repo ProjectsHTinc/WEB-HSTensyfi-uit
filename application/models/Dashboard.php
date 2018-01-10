@@ -11,7 +11,7 @@ Class Dashboard extends CI_Model
 
   function getYear()
   {
-      $sqlYear     = "SELECT * FROM euu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month AND status = 'Active'";
+      $sqlYear     = "SELECT * FROM edu_academic_year WHERE CURDATE() >= from_month AND CURDATE() <= to_month AND status = 'Active'";
       $year_result = $this->db->query($sqlYear);
       $ress_year   = $year_result->result();
 
@@ -46,7 +46,8 @@ Class Dashboard extends CI_Model
   }
 
   function total_students(){
-    $total_query=" SELECT COUNT(*) as total_students FROM edu_staff_details WHERE  role_type=5 AND STATUS='Active'";
+    $year_id=$this->getYear();
+    $total_query=" SELECT COUNT(*) as total_students FROM edu_enrollment WHERE  admit_year='$year_id' AND STATUS='Active'";
     $result=$this->db->query($total_query);
     return  $result->result();
   }
@@ -82,7 +83,7 @@ $i=1;
     <td>'.$row->phone.'</td>
 
     <td>'.$row->email.'</td>
-  <td><a href="'. base_url().'staff/get_teacher_id/'.$row->id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+  <td><a href="'. base_url().'staff/edit/'.base64_encode($row->id).'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
    </tr>
   ';
   $i++;
@@ -116,7 +117,7 @@ $i=1;
           <td>'.$row->phone.'</td>
 
           <td>'.$row->email.'</td>
-        <td><a href="'. base_url().'staff/get_teacher_id/'.$row->id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+        <td><a href="'. base_url().'staff/edit/'.base64_encode($row->id).'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
          </tr>
         ';
         $i++;
@@ -148,7 +149,7 @@ $i=1;
      <td>'.$row->mobile.'</td>
 
      <td>'.$row->email.'</td>
-   <td><a href="'. base_url().'staff/get_teacher_id/'.$row->id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
+   <td><a href="'. base_url().'admission/edit_stu_details/'.$row->id.'" rel="tooltip" title="Edit" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-edit"></i></a></td>
     </tr>
    ';
    $i++;
@@ -158,6 +159,64 @@ $i=1;
     }
   }
 
+
+
+
+  function forgotpassword($username)
+ 	{
+       $query="SELECT user_id,user_master_id,user_type,name FROM edu_users WHERE user_name='$username'";
+       $result=$this->db->query($query);
+        if($result->num_rows()==0){
+          echo "Username Not found";
+        }else{
+           foreach($result->result() as $row){}
+                  $name= $row->name;
+                 $user_master_id= $row->user_master_id;
+                $role_id= $row->user_type;
+                $digits = 6;
+                $OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+                $reset_pwd=md5($OTP);
+                $reset="UPDATE edu_users SET user_password='$reset_pwd' WHERE user_type='$role_id' AND user_master_id='$user_master_id'";
+                $result_pwd=$this->db->query($reset);
+                $query="SELECT * FROM edu_staff_details WHERE id='$user_master_id' AND role_type='$role_id'";
+                $resultset=$this->db->query($query);
+                foreach($resultset->result() as $rows){}
+                $email=$rows->email;
+                $to=$email;
+                $subject = '"Password Reset"';
+                $htmlContent = '
+                  <html>
+                  <head>  <title></title>
+                  </head>
+                  <body>
+                  <p>Hi  '.$name.'</p>
+                  <center><p>Hi Your Account Password is Reset.Please Use Below Password to login</p></center>
+                    <table cellspacing="0">
+
+                          <tr>
+                              <th>Password:</th><td>'.$OTP.'</td>
+                          </tr>
+                          <tr>
+                              <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+                          </tr>
+                      </table>
+                  </body>
+                  </html>';
+
+              // Set content-type header for sending HTML email
+              $headers = "MIME-Version: 1.0" . "\r\n";
+              $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+              // Additional headers
+              $headers .= 'From: happysanz<info@happysanz.com>' . "\r\n";
+              $sent= mail($to,$subject,$htmlContent,$headers);
+              if($sent){
+                  echo "Password  Reset and send to your Mail Please check it";
+              }else{
+                echo "Somthing Went Wrong";
+              }
+        }
+
+     }
 
 
 
