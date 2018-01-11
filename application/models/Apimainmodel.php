@@ -175,6 +175,12 @@ class Apimainmodel extends CI_Model {
 				  $user_id = $rows->user_id;
 				  $login_count = $rows->login_count+1;
 				  $user_type = $rows->user_type;
+				  $user_pic = $rows->user_pic;
+				  if ($user_pic!="") {
+				      $user_picurl = base_url().'assets/staff/profile/'.$user_pic;
+				  } else {
+				      $user_picurl = "";
+				  }
 				  $update_sql = "UPDATE edu_users SET last_login_date=NOW(),login_count='$login_count' WHERE user_id='$user_id'";
 				  $update_result = $this->db->query($update_sql);
 			}
@@ -183,7 +189,7 @@ class Apimainmodel extends CI_Model {
 							"user_id" => $ress[0]->user_id,
 							"name" => $ress[0]->name,
 							"user_name" => $ress[0]->user_name,
-							"user_pic" => $ress[0]->user_pic,
+							"user_pic" => $user_picurl,
 							"user_type_name" => $ress[0]->user_type_name,							
 							"user_type" => $ress[0]->user_type,
 							"password_status" => $ress[0]->password_status
@@ -351,16 +357,24 @@ class Apimainmodel extends CI_Model {
 //#################### Add Student ####################//
 	public function addStudent ($have_aadhaar_card,$aadhaar_card_number,$name,$sex,$dob,$age,$nationality,$religion,$community_class,$community,$father_name,$mother_name,$mobile,$sec_mobile,$email,$state,$city,$address,$mother_tongue,$disability,$blood_group,$admission_date,$admission_location,$admission_latitude,$admission_longitude,$preferred_trade,$preferred_timing,$last_institute,$last_studied,$qualified_promotion,$transfer_certificate,$status,$created_by,$created_at)
 	{
+	    
+	        $chk_query = "SELECT * from edu_admission WHERE aadhaar_card_number = '$aadhaar_card_number'";
+			$chk_res = $this->db->query($chk_query);
 
-            $student_query = "INSERT INTO `edu_admission` (`have_aadhaar_card`, `aadhaar_card_number`, `name`, `sex`, `dob`, `age`, `nationality`, `religion`, `community_class`, `community`, `father_name`, `mother_name`, `mobile`, `sec_mobile`, `email`, `state`, `city`, `address`, `mother_tongue`, `disability`, `blood_group`, `admission_date`, `admission_location`, `admission_latitude`, `admission_longitude`, `preferred_trade`, `preferred_timing`, `last_institute`, `last_studied`, `qualified_promotion`, `transfer_certificate`, `status`, `created_by`, `created_at`) VALUES ('$have_aadhaar_card', '$aadhaar_card_number', '$name', '$sex', '$dob', '$age', '$nationality', '$religion', '$community_class', '$community', '$father_name', '$mother_name', '$mobile', '$sec_mobile', '$email', '$state', '$city', '$address', '$mother_tongue', '$disability', '$blood_group', '$admission_date', '$admission_location', '$admission_latitude', '$admission_longitude', '$preferred_trade', '$preferred_timing', '$last_institute', '$last_studied', '$qualified_promotion', '$transfer_certificate', '$status', '$created_by', '$created_at')";
-	        $student_res = $this->db->query($student_query);
-            $admission_id = $this->db->insert_id();
-            
-			if($student_res) {
-			    $response = array("status" => "success", "msg" => "Student Added", "admission_id"=>$admission_id);
-			} else {
-			    $response = array("status" => "error");
-			}
+			 if($chk_res->num_rows()>0){
+			     	$response = array("status" => "error", "msg" => "Already Exist");
+				 
+			}else{
+			        $student_query = "INSERT INTO `edu_admission` (`have_aadhaar_card`, `aadhaar_card_number`, `name`, `sex`, `dob`, `age`, `nationality`, `religion`, `community_class`, `community`, `father_name`, `mother_name`, `mobile`, `sec_mobile`, `email`, `state`, `city`, `address`, `mother_tongue`, `disability`, `blood_group`, `admission_date`, `admission_location`, `admission_latitude`, `admission_longitude`, `preferred_trade`, `preferred_timing`, `last_institute`, `last_studied`, `qualified_promotion`, `transfer_certificate`, `status`, `created_by`, `created_at`) VALUES ('$have_aadhaar_card', '$aadhaar_card_number', '$name', '$sex', '$dob', '$age', '$nationality', '$religion', '$community_class', '$community', '$father_name', '$mother_name', '$mobile', '$sec_mobile', '$email', '$state', '$city', '$address', '$mother_tongue', '$disability', '$blood_group', '$admission_date', '$admission_location', '$admission_latitude', '$admission_longitude', '$preferred_trade', '$preferred_timing', '$last_institute', '$last_studied', '$qualified_promotion', '$transfer_certificate', '$status', '$created_by', '$created_at')";
+	                $student_res = $this->db->query($student_query);
+                    $admission_id = $this->db->insert_id();
+                    
+                	if($student_res) {
+        			    $response = array("status" => "success", "msg" => "Student Added", "admission_id"=>$admission_id);
+        			} else {
+        			    $response = array("status" => "error");
+        			}
+			}  
 			return $response;
 	}
 //#################### Add Student End ####################//
@@ -676,25 +690,11 @@ class Apimainmodel extends CI_Model {
 	}
 //#################### Add Task End ####################//
 
-
-//#################### Student Pic Update ####################//
-	public function taskPic($task_id,$task_pic)
-	{
-	    
-           $task_query = "INSERT INTO `edu_task_photos` (`task_id`, `task_image`) VALUES ('$task_id','$task_pic')";
-	        $task_res = $this->db->query($task_query);
-            $task_id = $this->db->insert_id();
-
-			$response = array("status" => "success", "msg" => "Task Picture Added","task_picture"=>$task_pic);
-			return $response;
-	}
-//#################### Student Pic Update End ####################//
-
 //#################### List Task ####################//
 	public function listTask ($user_id)
 	{
 
-            	$task_query = "SELECT * FROM `edu_task` WHERE created_by  ='$user_id'";
+            $task_query = "SELECT * FROM `edu_task` WHERE created_by  ='$user_id'";
 			$task_res = $this->db->query($task_query);
 			$task_result= $task_res->result();
 			
@@ -712,7 +712,7 @@ class Apimainmodel extends CI_Model {
 	public function viewTask ($task_id)
 	{
 
-            	$task_query = "SELECT * FROM `edu_task` WHERE id  ='$task_id'";
+            $task_query = "SELECT * FROM `edu_task` WHERE id  ='$task_id'";
 			$task_res = $this->db->query($task_query);
 			$task_result= $task_res->result();
 			
@@ -743,10 +743,71 @@ class Apimainmodel extends CI_Model {
 //#################### Update Task End ####################//
 
 
+//#################### Task Pic Add ####################//
+	public function taskPic($task_id,$task_pic)
+	{
+	    
+           $task_query = "INSERT INTO `edu_task_photos` (`task_id`, `task_image`) VALUES ('$task_id','$task_pic')";
+	        $task_res = $this->db->query($task_query);
+            $task_id = $this->db->insert_id();
+
+			$response = array("status" => "success", "msg" => "Task Picture Added","task_picture"=>$task_pic);
+			return $response;
+	}
+//#################### Task Pic Add End ####################//
+
+//#################### Task Pic List  ####################//
+	public function listTaskpic($task_id)
+	{
+           $pic_query = "SELECT * FROM edu_task_photos WHERE task_id = '$task_id' ORDER BY id DESC";
+           $pic_res = $this->db->query($pic_query);
+        	    if($pic_res->num_rows()>0){
+        		    foreach ($pic_res->result() as $rows)
+        	        {
+        		        $pic_result[]  = array(
+        				    "id" => $rows->id,
+        				    "task_id" => $rows->task_id,
+        				    "task_image" => base_url().'assets/task/'.$rows->task_image,
+        		        );
+        	         }
+        	        $response = array("status" => "Sucess", "msg" => "Task Pictures", "Taskpictures" => $pic_result);
+        		} else {
+        		     $response = array("status" => "error", "msg" => "Task Pictures not found.");
+        		}
+            return $response;
+	}
+//#################### Task Pic List End ####################//
+
+//#################### Task Pic Delete ####################//
+	public function deleteTaskpic($pic_id)
+	{
+           $pic_query = "SELECT * FROM edu_task_photos WHERE id = '$pic_id' LIMIT 1";
+           $pic_res = $this->db->query($pic_query);
+        	    if($pic_res->num_rows()>0){
+    	            foreach ($pic_res->result() as $rows)
+		            {
+			            $task_image = $rows->task_image;
+	        	    }
+	        	    
+        	        if (file_exists('./assets/task/'.$task_image)) {
+                        unlink('./assets/task/'.$task_image);
+                    }
+
+                	$sQuery = "DELETE FROM edu_task_photos WHERE id  = '" .$pic_id. "'";
+			        $delete_pic = $this->db->query($sQuery);
+			        
+        	        $response = array("status" => "Sucess", "msg" => "Task Picture Deleted");
+        		} else {
+        		     $response = array("status" => "error", "msg" => "Task Pictures not found.");
+        		}
+            return $response;
+	}
+//#################### Task Pic Delete End ####################//
+
 //#################### Add Mobilizer Location ####################//
 	public function addMobilocation($user_id,$latitude,$longitude,$location,$location_datetime)
 	{
-            $location_query = "INSERT INTO `edu_tracking_details` (`user_id`,`user_lat`,`user_long`,`user_location`,`created_at`) VALUES ('$user_id','$latitude','$longitude','$location',$location_datetime')";
+            $location_query = "INSERT INTO `edu_tracking_details` (`user_id`,`user_lat`,`user_long`,`user_location`,`created_at`) VALUES ('$user_id','$latitude','$longitude','$location','$location_datetime')";
 	        $location_res = $this->db->query($location_query);
             $location_id = $this->db->insert_id();
 

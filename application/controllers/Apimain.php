@@ -88,7 +88,7 @@ class Apimain extends CI_Controller {
 
 	public function user_profilepic()
 	{
-        //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+        $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		$user_id = $this->uri->segment(3);		
 		$profile = $_FILES["user_pic"]["name"];
@@ -108,7 +108,7 @@ class Apimain extends CI_Controller {
 
 	public function change_password()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -132,7 +132,7 @@ class Apimain extends CI_Controller {
 		
 		$user_id = $this->input->post("user_id");
 		$old_password = $this->input->post("old_password");
-	 	$password = $this->input->post("password");
+	 	$password = $this->input->post("new_password");
 
 		$data['result']=$this->apimainmodel->changePassword($user_id,$old_password,$password);
 		$response = $data['result'];
@@ -143,7 +143,7 @@ class Apimain extends CI_Controller {
 
 	public function select_trade()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -175,7 +175,7 @@ class Apimain extends CI_Controller {
 
 	public function select_batch()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -205,7 +205,7 @@ class Apimain extends CI_Controller {
 
 	public function select_timings()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -235,7 +235,7 @@ class Apimain extends CI_Controller {
 
 	public function select_bloodgroup()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -265,7 +265,7 @@ class Apimain extends CI_Controller {
 //-----------------------------------------------//
 	public function add_student()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -363,7 +363,7 @@ class Apimain extends CI_Controller {
 
 	public function student_picupload()
 	{
-	    //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	    $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		$admission_id = $this->uri->segment(3);		
 		$profile = $_FILES["student_pic"]["name"];
@@ -385,7 +385,7 @@ class Apimain extends CI_Controller {
 	public function list_students()
 	{
 	   
-	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -418,7 +418,7 @@ class Apimain extends CI_Controller {
 
 	public function view_student()
 	{
-	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -451,7 +451,7 @@ class Apimain extends CI_Controller {
 
 	public function update_student()
 	{
-	   //$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   $_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -553,7 +553,7 @@ class Apimain extends CI_Controller {
 
 	public function view_centerdetails()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -584,7 +584,7 @@ class Apimain extends CI_Controller {
 
 	public function view_centerimages()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -616,7 +616,7 @@ class Apimain extends CI_Controller {
 
 	public function view_centervideos()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -649,7 +649,7 @@ class Apimain extends CI_Controller {
 
 	public function view_trainers()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -681,7 +681,7 @@ class Apimain extends CI_Controller {
 
 	public function view_sucess_story()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -710,16 +710,11 @@ class Apimain extends CI_Controller {
 //-----------------------------------------------//
 
 
-
-
-
-
-
 //-----------------------------------------------//
 
 	public function disp_circular()
 	{
-	   	//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   	$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -752,7 +747,7 @@ class Apimain extends CI_Controller {
 
 	public function add_task()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -798,29 +793,9 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
-	public function task_picupload()
-	{
-	    //$_POST = json_decode(file_get_contents("php://input"), TRUE);
-
-		$task_id = $this->uri->segment(3);		
-		$profile = $_FILES["task_pic"]["name"];
-		$taskFileName = time().'-'.$task_id.'-'.$profile;
-
-		$uploadPicdir = './assets/task/';
-		$taskpic = $uploadPicdir.$taskFileName;
-		move_uploaded_file($_FILES['task_pic']['tmp_name'], $taskpic);
-
-		$data['result']=$this->apimainmodel->taskPic($task_id,$taskFileName);
-		$response = $data['result'];
-		echo json_encode($response);
-	}
-
-//-----------------------------------------------//	
-//-----------------------------------------------//
-
 	public function list_task()
 	{
-	   	//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   	$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -853,7 +828,7 @@ class Apimain extends CI_Controller {
 
 	public function view_task()
 	{
-	   	//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+	   	$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -886,7 +861,7 @@ class Apimain extends CI_Controller {
 
 	public function update_task()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -931,12 +906,99 @@ class Apimain extends CI_Controller {
 
 //-----------------------------------------------//
 
+//-----------------------------------------------//
+
+	public function task_picupload()
+	{
+	    $_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		$task_id = $this->uri->segment(3);		
+		$profile = $_FILES["task_pic"]["name"];
+		$taskFileName = time().'-'.$task_id.'-'.$profile;
+
+		$uploadPicdir = './assets/task/';
+		$taskpic = $uploadPicdir.$taskFileName;
+		move_uploaded_file($_FILES['task_pic']['tmp_name'], $taskpic);
+
+		$data['result']=$this->apimainmodel->taskPic($task_id,$taskFileName);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//	
+
+//-----------------------------------------------//
+
+	public function list_taskpic()
+	{
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+		    
+			$res = array();
+			$res["opn"] = "List Task Picture";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+        $task_id = '';
+		$task_id = $this->input->post("task_id");
+
+		$data['result']=$this->apimainmodel->listTaskpic($task_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
+//-----------------------------------------------//
+
+	public function delete_taskpic()
+	{
+		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+
+		if(!$this->checkMethod())
+		{
+			return FALSE;
+		}
+
+		if($_POST == FALSE)
+		{
+		    
+			$res = array();
+			$res["opn"] = "Delete Task Picture";
+			$res["scode"] = 204;
+			$res["message"] = "Input error";
+
+			echo json_encode($res);
+			return;
+		}
+
+        $pic_id = '';
+		$pic_id = $this->input->post("pic_id");
+
+		$data['result']=$this->apimainmodel->deleteTaskpic($pic_id);
+		$response = $data['result'];
+		echo json_encode($response);
+	}
+
+//-----------------------------------------------//
+
 
 //-----------------------------------------------//
 
 	public function add_mobilocation()
 	{
-		//$_POST = json_decode(file_get_contents("php://input"), TRUE);
+		$_POST = json_decode(file_get_contents("php://input"), TRUE);
 
 		if(!$this->checkMethod())
 		{
@@ -964,8 +1026,8 @@ class Apimain extends CI_Controller {
 		$user_id = $this->input->post("user_id");
 		$latitude = $this->input->post("latitude");
 		$longitude  = $this->input->post("longitude");
-		$location = $this->input->post("location");
 		$location_datetime = $this->input->post("location_datetime");
+		$location = $this->input->post("location");
 
 		$data['result']=$this->apimainmodel->addMobilocation($user_id,$latitude,$longitude,$location,$location_datetime);
 		$response = $data['result'];
