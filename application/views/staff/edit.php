@@ -18,7 +18,7 @@
                    <div class="form-group">
                      <label class="col-sm-2 control-label">Role</label>
                      <div class="col-sm-4">
-                         <select name="select_role" class="selectpicker form-control"  data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                         <select name="select_role" class=" form-control"  data-style="btn-default btn-block"  disabled="true">
                              <?php foreach($get_all_active_role as $role_id){ ?>
                                  <option value="<?php echo $role_id->id; ?>">
                                      <?php echo $role_id->user_type_name; ?>

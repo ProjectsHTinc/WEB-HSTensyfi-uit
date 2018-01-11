@@ -18,9 +18,9 @@
           <div class="card">
             <div class="content">
               <h4 class="title">View All Task Details</h4>
-             
+
               <!-- Parents-->
-             
+
                 <div id="company" class="tab-pane active">
                   <div class="fresh-datatables">
                     <table id="bootstrap-table" class="table">
@@ -45,7 +45,7 @@
                           <td class="text-left"><?php echo $rows1->task_description;?></td>
                           <td class="text-left"><?php $date=date_create($rows1->task_date);
                             echo date_format($date,"d-m-Y"); ?></td>
-                          <td class="text-left"><a href="<?php echo base_url(); ?>task/view_gallery/<?php echo $rows1->user_id; ?>/<?php echo $rows1->id; ?>" rel="tooltip" title="View Gallery" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
+                          <td class="text-left"><a href="<?php echo base_url(); ?>task/view_gallery/<?php echo $rows1->id; ?>" rel="tooltip" title="View Gallery" class="btn btn-simple btn-warning btn-icon edit"><i class="fa fa-picture-o" aria-hidden="true"></i></a>
                           </td>
                         </tr>
                         <?php $i++;  }   ?>
@@ -53,7 +53,7 @@
                     </table>
                   </div>
                 </div>
-      
+
               </div>
               <!-- end content-->
             </div>
@@ -70,7 +70,7 @@
   $('#communcicationmenu').addClass('collapse in');
   $('#communication').addClass('active');
   $('#communication3').addClass('active');
-  
+
   var $table = $('#bootstrap-table');
   $(document).ready(function()
   {
@@ -86,7 +86,7 @@
   pageSize:10,
   clickToSelect: false,
   pageList: [10,25,50,100,200],
-  
+
   formatShowingRows: function(pageFrom, pageTo, totalRows){
   //do nothing here, we don't want to show the text "showing x of y from..."
   },
@@ -101,18 +101,17 @@
   detailClose: 'fa fa-minus-circle'
   }
   });
-  
-  
-   
+
+
+
   //activate the tooltips after the data table is initialized
   $('[rel="tooltip"]').tooltip();
-  
+
   $(window).resize(function () {
   $table.bootstrapTable('resetView');
-  
-  });
-  });
-  
-  
-</script>
 
+  });
+  });
+
+
+</script>

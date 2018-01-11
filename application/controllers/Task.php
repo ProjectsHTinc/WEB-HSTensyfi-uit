@@ -231,15 +231,12 @@ class Task extends CI_Controller
 	  redirect('/');
 	  }
    }
-  public function view_gallery($mobilizer_id,$taskid)
+  public function view_gallery($taskid)
   {
   	  $datas=$this->session->userdata();
 	  $user_id=$this->session->userdata('user_id');
 	  $user_type=$this->session->userdata('user_type');
-
-	  $datas['view_photos']=$this->taskmodel->view_all_photos($mobilizer_id,$taskid);
-	  //echo '<pre>'; print_r($datas['view_photos']); exit;
-
+	  $datas['view_photos']=$this->taskmodel->view_all_photos($taskid);
 	  if($user_type==1 || $user_type==2)
 	  {
 	  $this->load->view('header');

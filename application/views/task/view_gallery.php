@@ -23,16 +23,16 @@
                   <?php foreach ($view_photos as $value) {
                   ?>
                     <div class="col-sm-6 col-lg-3">
-                        <div class="card">
+                        <div class="">
                             <div class="content text-center">
-                                <img src="<?php echo base_url(); ?>assets/task/<?php echo $value->task_image; ?>" class="img-circle" style="width:100px;">
+                                <img src="<?php echo base_url(); ?>assets/task/<?php echo $value->task_image; ?>" class="img-responsive" style="height:200px;">
                             </div>
                         </div>
                     </div>
                    <?php } ?>
-                  
+
                 </div>
-      
+
               </div>
               <!-- end content-->
             </div>
@@ -50,4 +50,3 @@
   $('#communication').addClass('active');
   $('#communication3').addClass('active');
 </script>
-
