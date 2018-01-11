@@ -99,8 +99,8 @@ Class Tradematerialmodel extends CI_Model
          //echo $status;exit;
           $acd_year=$this->get_cur_year();
           $year_id= $acd_year['cur_year'];
-           $get_alltrade="SELECT * FROM edu_trade_materials  WHERE trade_title='$trade_title' AND year_id='$year_id' AND status='$status'";
-            $res=$this->db->query($get_alltrade);
+          $get_alltrade="SELECT * FROM edu_trade_materials  WHERE trade_title='$trade_title' AND year_id='$year_id' AND id!='$trade_material_id'";
+        $res=$this->db->query($get_alltrade);
               if($res->num_rows()==0){
              $update="UPDATE edu_trade_materials SET trade_title='$trade_title',trade_info='$trade_info',trade_file='$trade_file',trade_video='$trade_video_link',status='$status',updated_by='$user_id',updated_at=NOW() WHERE id='$trade_material_id'";
              $res=$this->db->query($update);

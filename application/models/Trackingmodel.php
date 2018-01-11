@@ -74,6 +74,12 @@ Class Trackingmodel extends CI_Model
   return $get_result->result();
         }
 
+        function testing_map(){
+             $select="SELECT etd.user_lat as lat,etd.user_long as lng FROM edu_tracking_details as etd WHERE etd.user_id='5' AND DATE_FORMAT(etd.created_at, '%Y-%m-%d')='2018-01-09'  ORDER BY etd.created_at ASC";
+            $get_result=$this->db->query($select);
+            return $get_result->result();
+        }
+
         function get_mobilizer_id(){
           $select="SELECT * FROM edu_users AS eu WHERE user_type='4' and status='Active'";
           $get_result=$this->db->query($select);

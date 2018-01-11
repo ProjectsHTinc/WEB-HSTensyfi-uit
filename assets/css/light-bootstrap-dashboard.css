@@ -8502,7 +8502,7 @@ star {
   }
 
   .wrapper {
-  
+
   }
   .wrapper.wrapper-full-page {
     height: auto;
@@ -9467,4 +9467,7 @@ star {
 }
 .content-full-width .tab-pane {
   padding: 15px;
+}
+.topbar{
+  background-color: #3D2D7B !important;
 }

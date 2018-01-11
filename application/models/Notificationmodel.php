@@ -59,8 +59,7 @@ Class Notificationmodel extends CI_Model
                $push = new Push(
                        $title,
                        $notes,
-                       'http://heylaapp.com/notification/images/events.jpg'
-                   );
+                       null);
 
              //getting the push from push object
                $mPushNotification = $push->getPush();

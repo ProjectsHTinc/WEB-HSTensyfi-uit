@@ -71,6 +71,36 @@ class Tracking extends CI_Controller {
 			 }
 		}
 
+		public function test(){
+				$datas=$this->session->userdata();
+				$user_id=$this->session->userdata('user_id');
+				$user_type=$this->session->userdata('user_type');
+				if($user_type==1 || $user_type==2){
+					$user_id=$this->input->post('user_id');
+					$selected_date=$this->input->post('selected_date');
+					$datas['res']=$this->trackingmodel->testing_map($user_id,$selected_date);
+
+			 $this->load->view('header');
+			 $this->load->view('tracking/testing',$datas);
+			 $this->load->view('footer');
+			 }
+			 else{
+					redirect('/');
+			 }
+		}
+
+		public function testing_map(){
+				$datas=$this->session->userdata();
+				$user_id=$this->session->userdata('user_id');
+				$user_type=$this->session->userdata('user_type');
+				if($user_type==1 || $user_type==2){
+					$datas['res']=$this->trackingmodel->testing_map();
+					echo json_encode($datas['res']);
+			 }
+			 else{
+					redirect('/');
+			 }
+		}
 
 		public function track(){
 				$datas=$this->session->userdata();
@@ -104,6 +134,7 @@ class Tracking extends CI_Controller {
 					redirect('/');
 			 }
 		}
+
 
 
 

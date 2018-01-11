@@ -178,7 +178,7 @@
                </li>
                 <li id="tradematerial">
                   <a data-toggle="collapse" href="#tradematerialmenu">
-                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/register.png"/>
+                     <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/material.png"/>
                      <p>Trade Material </p>
                      <b class="caret"></b>
                   </a>
@@ -203,7 +203,7 @@
                      </ul>
                   </div>
                </li>
-      
+
 
             </ul>
          </div>
