@@ -59,7 +59,7 @@ Class Tradematerialmodel extends CI_Model
       function getData($m_title,$trade_id){
        $acd_year=$this->get_cur_year();
         $year_id= $acd_year['cur_year'];
-        
+
         $query="SELECT * FROM edu_trade_materials  WHERE trade_title='$m_title' AND trade_id='$trade_id' AND year_id='$year_id'";
          $resultset = $this->db->query($query);
          return count($resultset->result());
@@ -72,7 +72,7 @@ Class Tradematerialmodel extends CI_Model
         $acd_year=$this->get_cur_year();
         $year_id= $acd_year['cur_year'];
 
-        $get_alltrade="SELECT et.trade_name,etm.*,u.user_id,u.user_type FROM edu_trade_materials AS etm LEFT JOIN edu_trade AS et ON et.id=etm.trade_id LEFT JOIN edu_users AS u ON etm.created_by=u.user_id WHERE etm.year_id='$year_id' ORDER BY etm.id DESC";
+        $get_alltrade="SELECT et.trade_name,etm.*,u.user_id,u.user_type,u.name FROM edu_trade_materials AS etm LEFT JOIN edu_trade AS et ON et.id=etm.trade_id LEFT JOIN edu_users AS u ON etm.created_by=u.user_id WHERE etm.year_id='$year_id' ORDER BY etm.id DESC";
         $res=$this->db->query($get_alltrade);
         return $res->result();
        }
@@ -130,9 +130,20 @@ Class Tradematerialmodel extends CI_Model
            $count_picture=count($file_name);
 
         for($i=0;$i<$count_picture;$i++){
+          $check_batch="SELECT * FROM edu_trade_photos WHERE trade_material_id='$trade_material_gallery_id'";
+         $res=$this->db->query($check_batch);
+          $res->num_rows();
+          if($res->num_rows()>10){
+          $data = array(
+              "status" => "limit"
+          );
+          return $data;
+        }else{
           $gal_l=$file_name[$i];
           $gall_img="INSERT INTO edu_trade_photos(trade_material_id,trade_picture,status,created_by,created_at,updated_at,updated_by) VALUES('$trade_material_gallery_id','$gal_l','Active','$user_id',NOW(),NOW(),'$user_id')";
            $res_gal   = $this->db->query($gall_img);
+        }
+
             }
 
         if ($res_gal) {

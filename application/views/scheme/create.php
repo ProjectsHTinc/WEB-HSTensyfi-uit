@@ -92,7 +92,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-4">
-                                            <button type="submit" class="btn btn-info btn-fill center">Update Gallery </button>
+                                            <button type="submit" id="scheme_gallery" class="btn btn-info btn-fill center">Update Gallery </button>
                                         </div>
 
                                     </div>
@@ -224,4 +224,29 @@
             }
         });
     });
+
+    $("#scheme_gallery").click(function (){
+               //var modelname=$("#inputmodelname").val();
+               for (var i = 0; i < $("#scheme_photos").get(0).files.length; ++i) {
+                   var file1=$("#scheme_photos").get(0).files[i].name;
+
+                   if(file1){
+                       var file_size=$("#scheme_photos").get(0).files[i].size;
+                       if(file_size<1000000){
+                           var ext = file1.split('.').pop().toLowerCase();
+                           if($.inArray(ext,['jpg','jpeg','png'])===-1){
+                               alert("Invalid file extension");
+                               return false;
+                           }
+
+                       }else{
+                           alert("Images size should be less than 1 MB.");
+                           return false;
+                       }
+                   }else{
+                       alert("fill all fields..");
+                       return false;
+                   }
+               }
+           });
 </script>

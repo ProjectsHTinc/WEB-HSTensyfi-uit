@@ -15,8 +15,8 @@
                     <input type="hidden" name="year_id"  value="<?php  echo $res->academic_year_id; ?>">
                     <input type="hidden" name="cid"  value="<?php  echo $res->id; ?>">
                        <label class="col-sm-2 control-label">Academic Year</label>
-                              <?php  
-                                 $status=$years['status']; 
+                              <?php
+                                 $status=$years['status'];
                                   if($status=="success"){
                                  foreach($years['all_years'] as $rows){}
                                  ?>
@@ -69,10 +69,10 @@
 </div>
 <script type="text/javascript">
   $().ready(function(){
-  $('#mastersmenu').addClass('collapse in');
-  $('#circular1').addClass('active');
-  $('#circular1').addClass('active');
-  
+    $('#communcicationmenu').addClass('collapse in');
+    $('#communication').addClass('active');
+    $('#communication1').addClass('active');
+
   $('#circularmaster').validate({ // initialize the plugin
   rules: {
   year_id:{required:true},
@@ -80,7 +80,7 @@
   ctitle:{required:true },
   cdescription:{required:true },
   status:{required:true },
-  
+
   },
   messages: {
   ctype: "Enter Type",
@@ -90,8 +90,7 @@
   status: "Select Status",
   }
   });
-  
-  
+
+
   });
 </script>
-

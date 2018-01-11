@@ -94,6 +94,5 @@
 
    $('#mastersmenu').addClass('collapse in');
    $('#master').addClass('active');
-   $('#masters1').addClass('active');
+   $('#masters2').addClass('active');
 </script>
-

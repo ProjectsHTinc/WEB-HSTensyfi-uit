@@ -78,7 +78,7 @@
                               <?php
                                  $i=1;
                                  foreach ($result as $rows)
-                                 { 
+                                 {
                                   $sta=$rows->status; ?>
                               <tr>
                                  <td><?php  echo $i; ?></td>
@@ -126,8 +126,8 @@
              to_time:" Enter End Time"
            }
    });
-   
-   
+
+
    var $table = $('#bootstrap-table');
         $().ready(function(){
             $table.bootstrapTable({
@@ -142,7 +142,7 @@
                 pageSize: 8,
                 clickToSelect: false,
                 pageList: [8,10,25,50,100],
-   
+
                 formatShowingRows: function(pageFrom, pageTo, totalRows){
                     //do nothing here, we don't want to show the text "showing x of y from..."
                 },
@@ -157,22 +157,22 @@
                     detailClose: 'fa fa-minus-circle'
                 }
             });
-   
+
             //activate the tooltips after the data table is initialized
             $('[rel="tooltip"]').tooltip();
-   
+
             $(window).resize(function () {
                 $table.bootstrapTable('resetView');
             });
-   
-   
+
+
         });
 </script>
 <script type="text/javascript">
    $().ready(function(){
      $('#mastersmenu').addClass('collapse in');
      $('#master').addClass('active');
-     $('#masters1').addClass('active');
+     $('#masters2').addClass('active');
      $('.datepicker').datetimepicker({
        format: 'DD-MM-YYYY',
        icons: {
@@ -189,4 +189,3 @@
     });
    });
 </script>
-

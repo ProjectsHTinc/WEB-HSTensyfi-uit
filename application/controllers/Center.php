@@ -41,7 +41,7 @@ class Center extends CI_Controller {
 	 		 	$datas=$this->session->userdata();
   	 		$user_id=$this->session->userdata('user_id');
   			$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 			 $datas['res_img']=$this->centermodel->get_scheme_gallery_img();
 			 $datas['res_scheme']=$this->centermodel->get_center_details();
 			 $datas['res_videos']=$this->centermodel->get_all_videos();
@@ -60,7 +60,7 @@ class Center extends CI_Controller {
         $datas=$this->session->userdata();
         $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 			 	$center_name=$this->input->post('center_name');
 				$center_info= $this->db->escape_str($this->input->post('center_info'));
 
@@ -82,7 +82,7 @@ class Center extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 				$video_link= $this->db->escape_str($this->input->post('video_link'));
 				$video_title= $this->db->escape_str($this->input->post('video_title'));
 				$datas=$this->centermodel->add_video_link($video_title,$video_link,$user_id);
@@ -103,7 +103,7 @@ class Center extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+			if($user_type==1 || $user_type==2){
 				$profilepic = $_FILES['center_banner']['name'];
 				$temp = pathinfo($profilepic, PATHINFO_EXTENSION);
 				$center_logo = round(microtime(true)) . '.' . $temp;
@@ -127,7 +127,7 @@ class Center extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 					$name_array = $_FILES['center_photos']['name'];
 					$tmp_name_array = $_FILES['center_photos']['tmp_name'];
 					$count_tmp_name_array = count($tmp_name_array);
@@ -140,6 +140,9 @@ class Center extends CI_Controller {
 				$datas=$this->centermodel->create_gallery($file_name,$user_id);
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('gallery', 'Gallery Updated Successfully');
+					redirect('center/home');
+				}else if($datas['status']=="limit"){
+					$this->session->set_flashdata('gallery', 'Center Gallery  Maximum  images Exceeds');
 					redirect('center/home');
 				}else{
 					$this->session->set_flashdata('gallery', 'Failed to Add');
@@ -156,7 +159,7 @@ class Center extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+			if($user_type==1 || $user_type==2){
 					$status=$this->input->post('stat');
 						$id=$this->input->post('id');
 					$datas=$this->centermodel->change_status($status,$id,$user_id);
@@ -169,7 +172,7 @@ class Center extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+			if($user_type==1 || $user_type==2){
 					$id=$this->input->post('id');
 					$datas=$this->centermodel->delete_videos($id);
 			}else{
@@ -181,7 +184,7 @@ class Center extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+			if($user_type==1 || $user_type==2){
 				 	$center_photo_id=$this->input->post('gal_id');
 					$datas['res']=$this->centermodel->delete_gal($center_photo_id);
 			}else{

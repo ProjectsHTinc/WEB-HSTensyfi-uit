@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Years extends CI_Controller 
+class Years extends CI_Controller
 {
   function __construct() {
 		parent::__construct();
@@ -18,7 +18,7 @@ public function home()
 		$user_id=$this->session->userdata('user_id');
 		$datas['result'] = $this->yearsmodel->getall_years();
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 		$this->load->view('header');
 		$this->load->view('years/add_years',$datas);
@@ -36,7 +36,7 @@ public function create()
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 		$from_month=$this->input->post('from_month');
 		$end_month=$this->input->post('end_month');
@@ -82,7 +82,7 @@ public function edit_years($year_id)
 		$datas['res']=$this->yearsmodel->edit_year($year_id);
 		//echo "<pre>";print_r(	$datas['res']);exit;
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 		$this->load->view('header');
 		$this->load->view('years/edit_year',$datas);
@@ -100,7 +100,7 @@ public function update_year()
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$year_id=$this->input->post('year_id');
 			$status=$this->input->post('status');
@@ -116,7 +116,7 @@ public function update_year()
 			if($datas['status']=="success"){
 			$this->session->set_flashdata('msg','Updated Successfully');
 			redirect('years/home');
-			}else if($datas['status']=="The From Year Must be Grater Than To Year"){		
+			}else if($datas['status']=="The From Year Must be Grater Than To Year"){
 		    $this->session->set_flashdata('msg','The From Year Must be Grater Than To Year');
 		   redirect('years/home');
 		   }else{
@@ -136,7 +136,7 @@ public function view()
 		$user_type=$this->session->userdata('user_type');
 		$datas['years'] = $this->yearsmodel->getall_years();
 		$datas['terms'] = $this->yearsmodel->getall_terms();
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header');
 		$this->load->view('years/view',$datas);
 		$this->load->view('footer');

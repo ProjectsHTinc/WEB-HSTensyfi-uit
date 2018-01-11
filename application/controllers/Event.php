@@ -1,9 +1,9 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Event extends CI_Controller 
+class Event extends CI_Controller
 {
-	function __construct() 
+	function __construct()
 	{
 	parent::__construct();
 	$this->load->helper('url');
@@ -22,7 +22,7 @@ class Event extends CI_Controller
 		$user_type=$this->session->userdata('user_type');
 		$datas['years'] = $this->yearsmodel->getall_years();
 		//$datas['terms'] = $this->yearsmodel->getall_terms();
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$this->load->view('header');
 			$this->load->view('event/calender',$datas);
@@ -41,7 +41,7 @@ class Event extends CI_Controller
 		$datas['trade_batch']=$this->eventmodel->get_all_trade_batch();
 		$datas['result']=$this->eventmodel->getall_events();
 
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header',$datas);
 		$this->load->view('event/add',$datas);
 		$this->load->view('footer');
@@ -57,7 +57,7 @@ class Event extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$event_date=$this->input->post('event_date');
 		$event_name=$this->input->post('event_name');
 		$event_details= $this->db->escape_str($this->input->post('event_details'));
@@ -85,7 +85,7 @@ class Event extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$datas['result']=$this->eventmodel->getall_events();
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header',$datas);
 		$this->load->view('event/create');
 		$this->load->view('footer');
@@ -103,7 +103,7 @@ class Event extends CI_Controller
 		$user_type=$this->session->userdata('user_type');
 		$datas['res']=$this->eventmodel->get_event_id($event_id);
 		$datas['trade_batch']=$this->eventmodel->get_all_trade_batch();
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header',$datas);
 		$this->load->view('event/edit',$datas);
 		$this->load->view('footer');
@@ -119,7 +119,7 @@ class Event extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$event_id=$this->input->post('event_id');
 		$event_date=$this->input->post('event_date');
 		$event_name=$this->input->post('event_name');
@@ -158,7 +158,7 @@ class Event extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 		$event_id=$this->input->post('event_id');
 		$sub_event_name=$this->input->post('sub_name');
@@ -196,7 +196,7 @@ class Event extends CI_Controller
 		//print_r($datas['res']);
 		//exit;
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header',$datas);
 		$this->load->view('event/sub_event_view',$datas);
 		$this->load->view('footer');
@@ -215,7 +215,7 @@ class Event extends CI_Controller
 		//print_r($datas['res']);
 		//exit;
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header',$datas);
 		$this->load->view('event/edit_sub_event',$datas);
 		$this->load->view('footer');
@@ -230,7 +230,7 @@ class Event extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 		$event_id=$this->input->post('event_id');
 		$co_id=$this->input->post('co_id');
@@ -254,7 +254,7 @@ class Event extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$to_do_date=$this->input->post('to_do_date');
 		$to_do_list=$this->input->post('to_do_list');
 		$to_do_notes=$this->input->post('to_do_notes');

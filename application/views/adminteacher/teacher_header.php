@@ -29,11 +29,11 @@
       <script src="<?php echo base_url(); ?>assets/js/jspdf.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/FileSaver.js" type="text/javascript"></script>
       <script src="<?php echo base_url(); ?>assets/js/jspdf.plugin.table.js" type="text/javascript"></script>
-	  
+
 	  <!-- Excel -->
 	  <script src="<?php echo base_url(); ?>assets/js/jquery.table2excel.js" type="text/javascript"></script>
-	  
-     
+
+
       <style>
          .navbar{
          margin-bottom:0px;}
@@ -84,16 +84,7 @@
             </div>
             <div class="collapse navbar-collapse"  style="float:right;padding-top: 18px;">
                <ul class="nav navbar-nav navbar-right">
-                  <li class="dropdown" style="padding:08px 10px;">
-                     <a href="#" class="dropdown-toggle abox" data-toggle="dropdown" style="padding:03px 15px;font-size: 12px; color: white;border-color: white;text-transform: uppercase;">
-                     Quick Links</a>
-                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo base_url(); ?>teacheronduty/home">On Duty Form</a></li>
-						 <li><a href="<?php echo base_url(); ?>teachercommunication/home">Apply Leaves </a></li>
-                        <li><a href="<?php echo base_url(); ?>teacheronduty/special_class_details">Special Class </a></li>
-                        <li><a href="<?php echo base_url(); ?>teacheronduty/view_substitution">Substitution </a></li>
-                     </ul>
-                  </li>
+
                   <li class="dropdown dropdown-with-icons">
                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="margin:3px;">
                         <div class="photo">
@@ -117,12 +108,12 @@
                      </a>
                      <ul class="dropdown-menu dropdown-with-icons">
                         <li>
-                           <a href="<?php echo base_url(); ?>teacherprofile/profilepic">
+                           <a href="<?php echo base_url(); ?>trainerprofile/profilepic">
                            <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/profile.png"/> Profile
                            </a>
                         </li>
                         <li>
-                           <a href="<?php echo base_url(); ?>teacherprofile/profile">
+                           <a href="<?php echo base_url(); ?>trainerprofile/profile">
                            <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/setting.png"/>  Setting
                            </a>
                         </li>
@@ -180,7 +171,7 @@
                   </a>
                </li>
                <li id="classhandling">
-                  <a href="<?php echo base_url(); ?>teacherprofile/profilepic">
+                  <a href="<?php echo base_url(); ?>trainerprofile/profilepic">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/classhandling.png"/>
                      <p>Profile</p>
                   </a>
@@ -198,7 +189,7 @@
                      </ul>
                   </div>
                </li>
-              
+
                <li id="calendar">
                   <a data-toggle="collapse" href="#calendermenu">
                      <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/calender.png"/>
@@ -212,20 +203,8 @@
                      </ul>
                   </div>
                </li>
-               <li id="comm">
-                  <a data-toggle="collapse" href="#commmenu">
-                    <img class="menuimg" src="<?php echo base_url(); ?>assets/img/icons/circular.png"/>
-                     <p>Circular</p>
-                     <b class="caret"></b>
-                  </a>
-                  <div class="collapse" id="commmenu">
-                     <ul class="nav">
-                      
-                        <li id="comm2"><a href="<?php echo base_url(); ?>teachercommunication/view_circular">View Circulars</a></li>
-                     </ul>
-                  </div>
-               </li>
-             
+      
+
             </ul>
          </div>
       </div>

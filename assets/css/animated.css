@@ -1,0 +1,218 @@
+
+.circle {
+  margin: 36px;
+  display: inline-block;
+  padding: 16px;
+  text-align: center;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  border: 2px solid #1d2087;
+}
+
+.circle::before,
+.circle::after {
+  position: absolute;
+  z-index: -1;
+  display: block;
+  content: '';
+}
+.circle,
+.circle::before,
+.circle::after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-transition: all .5s;
+  transition: all .5s;
+}
+
+.circle {
+  position: relative;
+  z-index: 2;
+  background-color: #fff;
+  border: 2px solid #5c5eae;
+  color: #5c5eae;
+  line-height: 50px;
+  overflow: hidden;
+}
+
+.circle:hover {
+  color: #fff;
+}
+.circle::after {
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  -webkit-transform: scale(.5);
+  transform: scale(.5);
+}
+.circle:hover::after {
+  background: #5c5eae;
+  border-radius: 50%;
+  -webkit-transform: scale(.9);
+  transform: scale(.9);
+}
+
+.circle1 {
+  opacity: 0.8;
+}
+
+.circle2 {
+  opacity: 0.8;
+}
+
+.circle3 {
+  opacity: 0.8;
+}
+
+.circle a {
+  text-decoration: none;
+  color: #1d2087;
+}
+
+.circle h2 {
+  font-size: 60px;
+}
+
+.circle h2 small {
+  color: #1d2087;
+}
+
+.circle p {
+  font-size: 24px;
+  line-height: 26px;
+}
+.box {
+    padding: 12px 0px 66px 0px;
+    border: 2px solid #9a8585;
+}
+
+.head-count {
+    text-align: center;
+    border-bottom: 2px solid #9a8585;
+}
+
+.cnt {
+    font-size: 20px;
+}
+
+.alinks {
+    color: #888282;
+    font-size: 17px;
+}
+
+.fc-month-button {
+    display: none;
+}
+
+.fc-basicWeek-button {
+    display: none;
+}
+
+.fc-basicDay-button {
+    display: none;
+}
+
+.fc-scroller {
+    overflow-y: hidden;
+    overflow-x: hidden;
+    height: 265px !important;
+    width: 300px;
+}
+
+.fc-toolbar h2 {
+    font-size: 20px;
+}
+
+.fc-view-container {
+    margin-top: -25px;
+}
+
+.img {
+    background: url(../img/circular1.png);
+    width: 55px;
+    height: 50px;
+}
+
+.img1 {
+    background: url(../img/events1.png);
+    width: 55px;
+    height: 50px;
+}
+
+.imgs {
+    background: url(../img/leave.png);
+    width: 55px;
+    height: 50px;
+}
+
+.img4 {
+    background: url(../img/attendance1.png);
+    width: 55px;
+    height: 50px;
+}
+
+.plusicon {
+    display: inline-block;
+    float: right;
+}
+
+.design {
+    color: #663366;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.setcolor {
+    background-color: #323546;
+}
+
+.textborder {
+    height: 58px;
+    padding-left: 0px;
+    border-left: 2px solid #c6c6c7;
+    float: left;
+}
+
+.rem {
+    color: white;
+    font-size: 18px;
+    text-transform: capitalize;
+}
+
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: 0px;
+    left: -1px;
+    position: relative;
+    background-color: #a2a09d;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 0px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: 0px;
+    left: -1px;
+    position: relative;
+    background-color: #642160;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 0px solid white;
+}
+
+.imgdesign {
+    border: 1px solid #F5F5F5;
+    height: 52px;
+    background-color: #F5F5F5;
+}

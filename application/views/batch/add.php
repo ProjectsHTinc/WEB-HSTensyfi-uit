@@ -26,7 +26,7 @@
                                  <label>Batch Name</label>
                                  <input type="text" class="form-control"  placeholder="Enter Batch Name" name="batchname" id="batchname">
                               </div>
-                           </div>                          
+                           </div>
                         </div>
                         <div class="row">
                            <div class="col-md-5">
@@ -74,14 +74,14 @@
                               <tbody>
                                  <?php
                                     $i=1;
-                                    foreach ($result as $rows) { 
+                                    foreach ($result as $rows) {
                                       $sts=$rows->status;
                                     ?>
                                  <tr>
                                     <td><?php echo $i; ?></td>
                                     <td><?php echo $rows->batch_name; ?></td>
                                     <td>
-                                       <?php 
+                                       <?php
                                           if($sts=='Active'){?>
                                        <button class="btn btn-success btn-fill btn-wd">Active</button>
                                        <?php  }else{?>
@@ -113,7 +113,7 @@
      $('#mastersmenu').addClass('collapse in');
      $('#master').addClass('active');
      $('#masters3').addClass('active');
-   
+
     $('#batchform').validate({ // initialize the plugin
         rules: {
            batchname:{required:true },
@@ -125,7 +125,7 @@
             }
      });
    });
-   
+
    var $table = $('#bootstrap-table');
          $().ready(function(){
              $table.bootstrapTable({
@@ -140,7 +140,7 @@
                  pageSize:10,
                  clickToSelect: false,
                  pageList: [10,25,50,100,150],
-   
+
                  formatShowingRows: function(pageFrom, pageTo, totalRows){
                      //do nothing here, we don't want to show the text "showing x of y from..."
                  },
@@ -155,15 +155,14 @@
                      detailClose: 'fa fa-minus-circle'
                  }
              });
-   
+
              //activate the tooltips after the data table is initialized
              $('[rel="tooltip"]').tooltip();
-   
+
              $(window).resize(function () {
                  $table.bootstrapTable('resetView');
              });
-   
-   
+
+
          });
 </script>
-

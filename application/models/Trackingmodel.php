@@ -38,6 +38,7 @@ Class Trackingmodel extends CI_Model
 
         function testing_track($user_id,$selected_date){
           $select="SELECT etd.user_location AS address,etd.user_lat AS lat ,etd.user_long AS lng FROM edu_users AS eu LEFT JOIN edu_tracking_details AS etd ON eu.user_id=etd.user_id  WHERE eu.user_id='$user_id'  AND DATE_FORMAT(created_at, '%Y-%m-%d')='$selected_date' ORDER BY created_at ASC";
+          // $select="SELECT etd.user_location AS address, LEFT(etd.user_lat , 6) AS lat ,LEFT(etd.user_long , 6) AS lng FROM edu_users AS eu LEFT JOIN edu_tracking_details AS etd ON eu.user_id=etd.user_id  WHERE eu.user_id='$user_id'  AND DATE_FORMAT(created_at, '%Y-%m-%d')='$selected_date' ORDER BY created_at ASC";
           $get_result=$this->db->query($select);
           $get_res=$get_result->result();
           // $data= array("address" =>$get_res);
@@ -61,6 +62,16 @@ Class Trackingmodel extends CI_Model
           $get_result=$this->db->query($select);
           return $get_result->result();
 
+        }
+
+
+        function map_inter($user_id,$selected_date){
+            $select="SELECT (@cnt := @cnt + 1) AS DisplayText,user_location AS ADDRESS, CONCAT(user_lat,',',user_long) AS LatitudeLongitude,created_at FROM edu_tracking_details
+  CROSS JOIN (SELECT @cnt := 0) AS dummy
+  WHERE user_id='$user_id' AND DATE_FORMAT(created_at, '%Y-%m-%d')='$selected_date'  ORDER BY created_at ASC";
+
+  $get_result=$this->db->query($select);
+  return $get_result->result();
         }
 
         function get_mobilizer_id(){

@@ -1,5 +1,5 @@
 <style>
-   
+
    #close {
    display: block;
    position: absolute;
@@ -11,7 +11,7 @@
    background-size: 100% 100%;
    background-repeat: no-repeat;
    }
-   
+
 </style>
 <div class="main-panel">
 <div class="content">
@@ -30,7 +30,7 @@
          </div>
          <?php endif; ?>
          <div class="content">
-            <form method="post" action="<?php echo base_url(); ?>stafftradematerial/addgallery" class="form-horizontal" enctype="multipart/form-data" id="eventform">
+            <form method="post" action="<?php echo base_url(); ?>stafftradematerial/addgallery" class="form-horizontal" id="" enctype="multipart/form-data" id="eventform">
                <fieldset>
                   <div class="form-group">
                      <label class="col-sm-2 control-label">Add Multiple Pictures</label>
@@ -44,7 +44,7 @@
                   <div class="form-group">
                      <label class="col-sm-2 control-label"></label>
                      <div class="col-sm-4">
-                        <button type="submit" class="btn btn-info btn-fill center">Update Gallery </button>
+                        <button type="submit" id="gallery_upload" class="btn btn-info btn-fill center">Update Gallery </button>
                      </div>
                   </div>
                </fieldset>
@@ -73,10 +73,35 @@
 </div>
 
 <script type="text/javascript">
+
+$("#gallery_upload").click(function (){
+           //var modelname=$("#inputmodelname").val();
+           for (var i = 0; i < $("#trade_material_gallery").get(0).files.length; ++i) {
+               var file1=$("#trade_material_gallery").get(0).files[i].name;
+
+               if(file1){
+                   var file_size=$("#trade_material_gallery").get(0).files[i].size;
+                   if(file_size<1000000){
+                       var ext = file1.split('.').pop().toLowerCase();
+                       if($.inArray(ext,['jpg','jpeg','png'])===-1){
+                           alert("Invalid file extension");
+                           return false;
+                       }
+
+                   }else{
+                       alert("Images size should be less than 1 MB.");
+                       return false;
+                   }
+               }else{
+                   alert("fill all fields..");
+                   return false;
+               }
+           }
+       });
    function delgal(gal_id) {
        swal({
             title: "Are you sure?",
-            text: "You Want to Delete the this Timetable",
+            text: "You Want to Delete this",
             type: "warning",
             showCancelButton: true,
             confirmButtonColor: '#DD6B55',
@@ -109,7 +134,7 @@
                            }
                        }
                    });
-   
+
                } else {
                    swal("Cancelled", "Process Cancel :)", "error");
                }
@@ -118,6 +143,5 @@
    $('#tradematerialmenu').addClass('collapse in');
    $('#tradematerial').addClass('active');
    $('#trade2').addClass('active');
-          
-</script>
 
+</script>

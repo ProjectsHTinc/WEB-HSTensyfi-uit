@@ -74,65 +74,79 @@ Class Staffmodel extends CI_Model
     }
 
     function create_staff_details($select_role,$name,$address,$email,$class_tutor,$mobile,$sec_phone,$sex,$dob,$nationality,$religion,$community_class,$community,$qualification,$status,$staff_prof_pic,$user_id){
-     $insert="INSERT INTO edu_staff_details (role_type,name,sex,dob,nationality,religion,community_class,community,address,email,phone,sec_phone,profile_pic,trade_batch_id,qualification,status,created_by,created_at) VALUES('$select_role','$name','$sex','$dob','$nationality','$religion','$community_class','$community','$address','$email','$mobile','$sec_phone','$staff_prof_pic','$class_tutor','$qualification','$status','$user_id',NOW())";
-      $result=$this->db->query($insert);
-      $insert_id = $this->db->insert_id();
-      $digits = 6;
-  		$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
-  		$md5pwd=md5($OTP);
-      if($select_role=='2'){
-          $user_name='admin_'.$insert_id.'';
-      }else if($select_role=='3'){
-        $user_name=$insert_id+800000;
-      }else if($select_role=='4'){
-        $user_name=$insert_id+600000;
-      }else{
-        $data = array(
-            "status" => "something went wrong"
-        );
-      }
-      $user_table="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,created_date,status,last_login_date) VALUES('$name','$user_name','$md5pwd','$select_role','$insert_id',NOW(),'Active',NOW())";
-        $result_user=$this->db->query($user_table);
-        $to =$email;
-        $subject ='"Welcome Message"';
-        $htmlContent = '
-        <html>
-        <head>  <title></title>
-        </head>
-        <body style="background-color:beige;">
-        <table cellspacing="0" style=" width: 300px; height: 200px;">
-        <tr>
-        <th>Email:</th><td>'.$email.'</td>
-        </tr>
-        <tr>
-        <th>Username :</th><td>'.$user_name.'</td>
-        </tr>
-        <tr>
-        <th>Password:</th><td>'.$OTP.'</td>
-        </tr>
-        <tr>
-        <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
-        </tr>
-        </table>
-        </body>
-        </html>';
-        // Set content-type header for sending HTML email
-        $headers = "MIME-Version: 1.0" . "\r\n";
-        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-        // Additional headers
-        $headers .= 'From: ensyi<info@ensyi.com>' . "\r\n";
-        mail($to,$subject,$htmlContent,$headers);
-      if ($result_user) {
-          $data = array(
-              "status" => "success"
-          );
-          return $data;
-      } else {
-          $data = array(
-              "status" => "failed"
-          );
-          return $data;
-      }
+
+      $select="SELECT * FROM edu_staff_details Where email='$email' AND phone='$mobile'";
+       $result=$this->db->query($select);
+       if($result->num_rows()>0){
+         $data = array(
+             "status" => "already"
+         );
+         return $data;
+         }else{
+           $insert="INSERT INTO edu_staff_details (role_type,name,sex,dob,nationality,religion,community_class,community,address,email,phone,sec_phone,profile_pic,trade_batch_id,qualification,status,created_by,created_at) VALUES('$select_role','$name','$sex','$dob','$nationality','$religion','$community_class','$community','$address','$email','$mobile','$sec_phone','$staff_prof_pic','$class_tutor','$qualification','$status','$user_id',NOW())";
+            $result=$this->db->query($insert);
+            $insert_id = $this->db->insert_id();
+            $digits = 6;
+        		$OTP = str_pad(rand(0, pow(10, $digits)-1), $digits, '0', STR_PAD_LEFT);
+        		$md5pwd=md5($OTP);
+            if($select_role=='2'){
+                $user_name='admin_'.$insert_id.'';
+            }else if($select_role=='3'){
+              $user_name=$insert_id+800000;
+            }else if($select_role=='4'){
+              $user_name=$insert_id+600000;
+            }else{
+              $data = array(
+                  "status" => "something went wrong"
+              );
+                return $data;
+            }
+            $user_table="INSERT INTO edu_users (name,user_name,user_password,user_type,user_master_id,created_date,status,last_login_date) VALUES('$name','$user_name','$md5pwd','$select_role','$insert_id',NOW(),'Active',NOW())";
+              $result_user=$this->db->query($user_table);
+              $to =$email;
+              $subject ='"Welcome Message"';
+              $htmlContent = '
+              <html>
+              <head>  <title></title>
+              </head>
+              <body style="background-color:beige;">
+              <table cellspacing="0" style=" width: 300px; height: 200px;">
+              <tr>
+              <th>Email:</th><td>'.$email.'</td>
+              </tr>
+              <tr>
+              <th>Username :</th><td>'.$user_name.'</td>
+              </tr>
+              <tr>
+              <th>Password:</th><td>'.$OTP.'</td>
+              </tr>
+              <tr>
+              <th></th><td><a href="'.base_url() .'">Click here  to Login</a></td>
+              </tr>
+              </table>
+              </body>
+              </html>';
+              // Set content-type header for sending HTML email
+              $headers = "MIME-Version: 1.0" . "\r\n";
+              $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+              // Additional headers
+              $headers .= 'From: ensyi<info@ensyi.com>' . "\r\n";
+              mail($to,$subject,$htmlContent,$headers);
+            if ($result_user) {
+                $data = array(
+                    "status" => "success"
+                );
+                return $data;
+            } else {
+                $data = array(
+                    "status" => "failed"
+                );
+                return $data;
+            }
+       }
+
+
+
 
     }
 
@@ -156,7 +170,7 @@ Class Staffmodel extends CI_Model
 
        $update="UPDATE edu_staff_details SET name='$name',sex='$sex',address='$address',email='$email',trade_batch_id='$class_tutor',phone='$mobile',sec_phone='$sec_phone',dob='$dob',nationality='$nationality',religion='$religion',community_class='$community',community='$community',
       qualification='$qualification',status='$status',profile_pic='$staff_prof_pic',updated_at=NOW(),updated_by='$user_id' WHERE id='$staff_id'";
-      
+
       $result=$this->db->query($update);
 
       $update_user="UPDATE edu_users SET name='$name' WHERE user_type='$select_role' AND user_master_id='$staff_id'";
@@ -181,11 +195,22 @@ Class Staffmodel extends CI_Model
       $year_id= $acd_year['cur_year'];
       $select="SELECT  e.id as trade_batch_id,c.trade_name,s.batch_name FROM  edu_trade_batch  AS e INNER JOIN edu_trade_batch  AS cm ON e.id=cm.id
       INNER JOIN edu_trade AS c ON cm.trade_id=c.id INNER JOIN edu_batch AS s ON cm.batch_id=s.id WHERE
-      NOT EXISTS (SELECT  NULL FROM edu_staff_details AS  sd WHERE   sd.trade_batch_id = e.id) AND e.year_id='$year_id'";
+      NOT EXISTS (SELECT  NULL FROM edu_staff_details AS  sd WHERE   sd.trade_batch_id = e.id) AND e.year_id='$year_id' AND e.status='Active'";
       $result=$this->db->query($select);
       return $result->result();
 
     }
+
+    function get_non_exist_class_for_trainer_edit($staff_id){
+      $acd_year=$this->get_cur_year();
+      $year_id= $acd_year['cur_year'];
+      $select="SELECT  e.id as trade_batch_id,c.trade_name,s.batch_name FROM  edu_trade_batch  AS e INNER JOIN edu_trade_batch  AS cm ON e.id=cm.id
+      INNER JOIN edu_trade AS c ON cm.trade_id=c.id INNER JOIN edu_batch AS s ON cm.batch_id=s.id WHERE e.id!='$staff_id' AND e.year_id='$year_id' AND e.status='Active'";
+      $result=$this->db->query($select);
+      return $result->result();
+
+    }
+
     function get_all_trade_batch(){
       $acd_year=$this->get_cur_year();
       $year_id= $acd_year['cur_year'];

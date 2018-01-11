@@ -44,7 +44,7 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label"></label>
                                                 <div class="col-sm-4">
-                                                    <button type="submit" class="btn btn-info btn-fill center">Update Logo </button>
+                                                    <button type="submit" id="center_banner_btn" class="btn btn-info btn-fill center">Update Logo </button>
                                                 </div>
 
                                             </div>
@@ -214,7 +214,7 @@
                   </div>
 
                         <div class="content">
-                            <form method="post" action="<?php echo base_url(); ?>center/gallery" class="form-horizontal" enctype="multipart/form-data" id="eventform">
+                            <form method="post" action="<?php echo base_url(); ?>center/gallery" class="form-horizontal" enctype="multipart/form-data" id="gallery_upload_form">
                                 <fieldset>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Center Pictures</label>
@@ -228,7 +228,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label"></label>
                                         <div class="col-sm-4">
-                                            <button type="submit" class="btn btn-info btn-fill center">Update Gallery </button>
+                                            <button type="submit" id="gallery_upload" class="btn btn-info btn-fill center">Update Gallery </button>
                                         </div>
 
                                     </div>
@@ -288,6 +288,34 @@
 }
 </style>
 <script type="text/javascript">
+$("#gallery_upload").click(function (){
+           //var modelname=$("#inputmodelname").val();
+           for (var i = 0; i < $("#center_photos").get(0).files.length; ++i) {
+               var file1=$("#center_photos").get(0).files[i].name;
+
+               if(file1){
+                   var file_size=$("#center_photos").get(0).files[i].size;
+                   if(file_size<1000000){
+                       var ext = file1.split('.').pop().toLowerCase();
+                       if($.inArray(ext,['jpg','jpeg','png'])===-1){
+                           alert("Invalid file extension");
+                           return false;
+                       }
+
+                   }else{
+                       alert("Images size should be less than 1 MB.");
+                       return false;
+                   }
+               }else{
+                   alert("fill all fields..");
+                   return false;
+               }
+           }
+       });
+
+
+
+
     function delete_videos(id) {
         swal({
                 title: "Are you sure?",
@@ -335,7 +363,7 @@
     function changestatus(stat, id) {
         swal({
                 title: "Are you sure?",
-                text: "You Want to Delete the this Timetable",
+                text: "You Want to Change  the Status",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
@@ -381,7 +409,7 @@
 
         swal({
                 title: "Are you sure?",
-                text: "You Want to Delete the this Timetable",
+                text: "You Want to Do this",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: '#DD6B55',
@@ -452,7 +480,7 @@
        rules: {
          center_banner: {
              required: true,
-             extension: "jpg,jpeg",
+             extension: "jpg,jpeg,png",
              filesize: 5,
          }
 
@@ -463,5 +491,29 @@
 
            }
    });
+   $("#center_banner_btn").click(function (){
+              //var modelname=$("#inputmodelname").val();
+              for (var i = 0; i < $("#center_banner").get(0).files.length; ++i) {
+                  var file1=$("#center_banner").get(0).files[i].name;
+
+                  if(file1){
+                      var file_size=$("#center_banner").get(0).files[i].size;
+                      if(file_size<1000000){
+                          var ext = file1.split('.').pop().toLowerCase();
+                          if($.inArray(ext,['jpg','jpeg','png'])===-1){
+                              alert("Invalid file extension");
+                              return false;
+                          }
+
+                      }else{
+                          alert("Images size should be less than 1 MB.");
+                          return false;
+                      }
+                  }else{
+                      alert("fill all fields..");
+                      return false;
+                  }
+              }
+          });
 
 </script>

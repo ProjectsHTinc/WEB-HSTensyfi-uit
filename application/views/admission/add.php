@@ -19,19 +19,20 @@
 
                 <fieldset>
                      <div class="form-group">
-                      <label class="col-sm-2 control-label">Had Aadhar Card</label>
+                       <label class="col-sm-2 control-label">Aadhaar Card Number</label>
+                       <div class="col-sm-4">
+                           <label for="phonenum">Aadhaar Card Number (format: xxxx-xxx-xxxx):</label><br/>
+                          <input type="text" placeholder="Enter Aadhaar Card Number" name="aadhar_card_num" maxlength="12"  class="form-control" >
+                       </div>
+                      <!-- <label class="col-sm-2 control-label">Had Aadhar Card</label>
                         <div class="col-sm-4">
                            <select name="had_aadhar_card"  id="aadhar_card" class="selectpicker form-control" data-title="Select" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                               <option value="1">Yes</option>
                               <option value="0">No</option>
                            </select>
-                        </div>
+                        </div> -->
                         <div id="aadhar_card_num">
-                        <label class="col-sm-2 control-label">Aadhar Card Number</label>
-                        <div class="col-sm-4">
-                            <label for="phonenum">Aadhar Card Number (format: xxxx-xxx-xxxx):</label><br/>
-                           <input type="text" placeholder="Enter Aadhar Card Number" name="aadhar_card_num" pattern="^\d{4}-\d{4}-\d{4}$" class="form-control" >
-                        </div>
+
                       </div>
                      </div>
                   </fieldset>
@@ -103,11 +104,7 @@
                         <div class="col-sm-4">
                            <input type="text" name="dob" class="form-control datepicker" placeholder="Date of Birth "/>
                         </div>
-                        <label class="col-sm-2 control-label">Age</label>
-                        <div class="col-sm-4">
-                           <input type="text" placeholder="Age" name="age" class="form-control">
-                        </div>
-                     </div>
+
                   </fieldset>
 
                    <fieldset>
@@ -121,7 +118,7 @@
                             <!--input  type="text" class="form-control" id="stime" name="prefer_time"-->
                             <select name="prefer_time" class="selectpicker" data-title="Select Preferred Time" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
                             <?php foreach($time as $times){ ?>
-                              <option value="<?php echo $times->id;?>"><?php echo $times->from_time;?> ( To ) <?php echo $times->to_time;?></option>
+                              <option value="<?php echo $times->id;?>"><?php echo $times->session_name; ?> - <?php echo $times->from_time;?> ( To ) <?php echo $times->to_time;?></option>
                               <?php } ?>
                            </select>
                         </div>
@@ -180,7 +177,11 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Nationality</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Nationality" name="nationality" class="form-control">
+                           <!-- <input type="text" placeholder="Nationality" name="nationality" class="form-control"> -->
+                           <select name="nationality" class="selectpicker form-control" data-title="Select Gender" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                               <option value="Indian">Indian</option>
+                               <option value="Others">Others</option>
+                           </select>
                         </div>
                         <label class="col-sm-2 control-label">Religion</label>
                         <div class="col-sm-4">
@@ -212,7 +213,15 @@
                      <div class="form-group">
                         <label class="col-sm-2 control-label">Mother Tongue</label>
                         <div class="col-sm-4">
-                           <input type="text" placeholder="Mother Tongue" name="mother_tongue" class="form-control">
+                           <!-- <input type="text" placeholder="Mother Tongue" name="mother_tongue" class="form-control"> -->
+                           <select name="mother_tongue" class="selectpicker" data-title="Mother Tongue" data-style="btn-default btn-block" data-menu-style="dropdown-blue">
+                             <option value="Tamil">Tamil</option>
+                              <option value="English">Telegu</option>
+                               <option value="Hindi">Hindi</option>
+                                <option value="Kannada">Kannada</option>
+                                  <option value="English">English</option>
+
+                           </select>
                         </div>
                         <label class="col-sm-2 control-label">Preferred Course</label>
                         <div class="col-sm-4">
@@ -299,18 +308,26 @@
 
    $('#admissionform').validate({ // initialize the plugin
       rules: {
-        had_aadhar_card:{required:true },
-        aadhar_card_num:{required:true },
+        // had_aadhar_card:{required:true },
+        aadhar_card_num:{
+          maxlength: 12,
+          minlength:12,
+          number:true,
+          remote: {
+                 url: "<?php echo base_url(); ?>admission/check_aadhar_exist",
+                 type: "post"
+              }
+             },
         admission_location:{required:true },
         admission_date:{required:true },
         name:{required:true },
         fname:{required:true},
-        mname:{required:true},
+        // mname:{required:true},
         sex:{required:true },
         dob:{required:true },
-        email:{required:true },
+        email:{required:true,email:true },
         disability:{required:true },
-        age:{required:true,number:true,maxlength:2 },
+        // age:{required:true,number:true,maxlength:2 },
         nationality:{required:true },
         religion:{required:true },
         community_class:{required:true },
@@ -321,12 +338,23 @@
         state:{required:true },
         course:{required:true },
         mother_tongue:{required:true},
-        prefer_time:{required:true},
-        mobile:{required:true}
+        // prefer_time:{required:true},
+        mobile:{required:true,
+          maxlength: 10,
+          minlength:10,
+          number:true
+        }
         },
     messages: {
-        had_aadhar_card: "Select Yes Or No ",
-        aadhar_card_num:"Enter The Aadhar Card Number",
+
+        aadhar_card_num: {
+             required: "Enter The Aadhar Card Number",
+             remote: "Aadhar Card Number Already Exist",
+             maxlength:"Maximum 12 digits",
+             minlength:"Minimum 12 digits",
+             number:"Only Numbers"
+
+         },
         admission_location: "Enter Admission Location",
         admission_date: "Select Admission Date",
         name: "Enter Full Name",
@@ -348,7 +376,13 @@
         state:"Enter State Name",
         course:"Select Course",
         mother_tongue:"Enter Mother Tongue",
-        mobile:"Enter The Mobile Number"
+        mobile: {
+             required: "Enter mobile number",
+             maxlength:"Maximum 10 digits",
+             minlength:"Minimum 10 digits",
+             number:"Only Numbers"
+
+         }
     }
     });
    });

@@ -88,7 +88,11 @@ class Staff extends CI_Controller {
 					if($datas['status']=="success"){
 						$this->session->set_flashdata('msg', 'Staff Created Successfully');
 						redirect('staff/view');
-					}else{
+					}else if($datas['status']=="already"){
+						$this->session->set_flashdata('msg', 'User Already Exists');
+						redirect('staff/view');
+					}
+					else{
 						$this->session->set_flashdata('msg', 'Failed to Add');
 						redirect('staff/view');
 					}
@@ -123,7 +127,7 @@ class Staff extends CI_Controller {
 				if($user_type==1){
 			 	$datas['staff']=$id;
 				$staff_id=base64_decode($id);
-				 $datas['get_non_exist_class_for_trainer']=$this->staffmodel->get_non_exist_class_for_trainer();
+				 $datas['get_non_exist_class_for_trainer']=$this->staffmodel->get_non_exist_class_for_trainer_edit($staff_id);
 				$datas['result']=$this->staffmodel->get_all_staff_details_by_id($staff_id);
 				$datas['get_all_active_role']=$this->staffmodel->get_all_active_role();
 			 $this->load->view('header');

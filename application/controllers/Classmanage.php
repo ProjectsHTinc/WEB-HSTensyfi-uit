@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Classmanage extends CI_Controller 
+class Classmanage extends CI_Controller
 {
 
-	function __construct() 
+	function __construct()
 	{
 		parent::__construct();
 		$this->load->helper('url');
@@ -22,7 +22,7 @@ class Classmanage extends CI_Controller
 		$datas['batch'] = $this->classmanagemodel->get_all_batch_details();
 		$datas['getall'] = $this->classmanagemodel->get_all_details();
 		//print_r($datas['getall_class']);exit;
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header');
 		$this->load->view('classmanage/add',$datas);
 		$this->load->view('footer');
@@ -87,7 +87,7 @@ class Classmanage extends CI_Controller
 		$datas['batch'] = $this->classmanagemodel->get_all_batch_details();
 		$datas['res']=$this->classmanagemodel->edit_cs($class_sec_id);
 		//echo "<pre>"; print_r($datas['res']);exit;
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$this->load->view('header');
 		$this->load->view('classmanage/edit',$datas);
 		$this->load->view('footer');
@@ -103,7 +103,7 @@ class Classmanage extends CI_Controller
 		$datas=$this->session->userdata();
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
-		if($user_type==1){
+		if($user_type==1 || $user_type==2){
 		$datas['sec'] = $this->sectionmodel->getsection();
 		$datas['class'] = $this->classmodel->getclass();
 		$datas['getall_class']=$this->classmanagemodel->getall_class();
@@ -126,7 +126,7 @@ class Classmanage extends CI_Controller
 		$user_id=$this->session->userdata('user_id');
 		$user_type=$this->session->userdata('user_type');
 
-		if($user_type==1)
+		if($user_type==1 || $user_type==2)
 		{
 			$clsmanage_id=$this->input->post('clsmanage_id');
 			$trade_id=$this->input->post('trade_name');

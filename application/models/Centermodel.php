@@ -55,6 +55,9 @@ Class Centermodel extends CI_Model
 
 
        function add_video_link($video_title,$video_link,$user_id){
+         $check_batch="SELECT * FROM edu_center_videos WHERE video_title='$video_title'";
+         $res=$this->db->query($check_batch);
+         if($res->num_rows()==0){
          $insert="INSERT INTO edu_center_videos (center_id,video_title,center_videos,status,created_by,created_at) values('1','$video_title','$video_link','Active','$user_id',NOW())";
          $result=$this->db->query($insert);
          if($result){
@@ -64,6 +67,11 @@ Class Centermodel extends CI_Model
            $data= array("status" => "failed");
            return $data;
          }
+       }else{
+         $data= array("status" => "Already exist");
+         return $data;
+       }
+
        }
 
        //GET ALL gallery
@@ -74,9 +82,21 @@ Class Centermodel extends CI_Model
             $count_picture=count($file_name);
 
           for($i=0;$i<$count_picture;$i++){
-            $gal_l=$file_name[$i];
-             $gall_img="INSERT INTO edu_center_photos(center_id,center_photos,status,created_by,created_at,updated_at,updated_by) VALUES('1','$gal_l','Active','$user_id',NOW(),NOW(),'$user_id')";
-             $res_gal   = $this->db->query($gall_img);
+             $check_batch="SELECT * FROM edu_center_photos WHERE center_id='1'";
+            $res=$this->db->query($check_batch);
+             $res->num_rows();
+              if($res->num_rows()>10){
+              $data = array(
+                  "status" => "limit"
+              );
+              return $data;
+            }else{
+
+              $gal_l=$file_name[$i];
+               $gall_img="INSERT INTO edu_center_photos(center_id,center_photos,status,created_by,created_at,updated_at,updated_by) VALUES('1','$gal_l','Active','$user_id',NOW(),NOW(),'$user_id')";
+               $res_gal   = $this->db->query($gall_img);
+            }
+
               }
 
           if ($res_gal) {

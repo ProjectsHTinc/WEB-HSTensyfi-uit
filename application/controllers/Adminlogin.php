@@ -35,7 +35,7 @@ class Adminlogin extends CI_Controller {
 	  $password=md5($this->input->post('password'));
 	  $result = $this->login->login($email,$password);
 	  $msg=$result['msg'];
-	  //echo $msg1=$result['status'];exit;
+	  // echo $msg1=$result['status'];exit;
 
 			if($result['status']=='Deactive'){
 				$datas['user_data']=array("status"=>$result['status'],"msg"=>$result['msg']);
@@ -49,7 +49,9 @@ class Adminlogin extends CI_Controller {
 			}
 			$user_type=$this->session->userdata('user_type');
 			$user_type1=$result['user_type'];
-                  
+
+
+
 					if($result['status']=='Active')
 					{
 						switch($user_type1)
@@ -59,24 +61,35 @@ class Adminlogin extends CI_Controller {
 						$datas= array("user_name"=>$user_name, "msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
 								//$this->session->userdata($user_name);
 								$session_data=$this->session->set_userdata($datas);
+								$datas['tot_trainer']=$this->dashboard->total_trainer();
+								$datas['tot_mobilizer']=$this->dashboard->total_mobilizer();
+								$datas['tot_students']=$this->dashboard->total_students();
 								$this->load->view('header');
 								$this->load->view('home',$datas);
 								$this->load->view('footer');
 							break;
-
+							case '2':
+						$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];
+						$datas= array("user_name"=>$user_name, "msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
+								//$this->session->userdata($user_name);
+								$session_data=$this->session->set_userdata($datas);
+								$datas['tot_trainer']=$this->dashboard->total_trainer();
+								$datas['tot_mobilizer']=$this->dashboard->total_mobilizer();
+								$datas['tot_students']=$this->dashboard->total_students();
+								$this->load->view('header');
+								$this->load->view('home',$datas);
+								$this->load->view('footer');
+							break;
 							case '3':
-                                      
 							$user_name=$result['user_name'];$msg=$result['msg'];$name=$result['name'];$user_type=$result['user_type'];$status=$result['status'];$user_id=$result['user_id'];$user_pic=$result['user_pic'];
-                            
 							$datas= array("user_name"=>$user_name,"msg"=>$msg,"name"=>$name,"user_type"=>$user_type,"status"=>$status,"user_id"=>$user_id,"user_pic"=>$user_pic);
-                                
 							$datas['user_details']=$this->dashboard->dash_teacher($user_id);
-                 		$session_data=$this->session->set_userdata($datas);
+              $session_data=$this->session->set_userdata($datas);
 							$this->load->view('adminteacher/teacher_header');
 							$this->load->view('adminteacher/home',$datas);
 							$this->load->view('adminteacher/teacher_footer');
 							break;
-							
+
 						}
 	 			}
 				elseif($msg=="Password Wrong"){
@@ -103,7 +116,11 @@ class Adminlogin extends CI_Controller {
 			$this->load->view('header',$datas);
 			$this->load->view('resetpassword',$datas);
 			$this->load->view('footer');
-			}
+		}else if($user_type==2){
+			$this->load->view('header',$datas);
+			$this->load->view('resetpassword',$datas);
+			$this->load->view('footer');
+		}
 			else{
 				 redirect('/');
 			}
@@ -120,10 +137,18 @@ class Adminlogin extends CI_Controller {
 		 $datas=$this->session->userdata();
 		 $user_id=$this->session->userdata('user_id');
 		 $user_type=$this->session->userdata('user_type');
-
-		$datas['result'] = $this->login->getuser($user_id);
-
+			$datas['result'] = $this->login->getuser($user_id);
       if($user_type==1){
+			$datas['tot_trainer']=$this->dashboard->total_trainer();
+			$datas['tot_mobilizer']=$this->dashboard->total_mobilizer();
+			$datas['tot_students']=$this->dashboard->total_students();
+			$this->load->view('header');
+			$this->load->view('home',$datas);
+			$this->load->view('footer');
+		}else if($user_type==2){
+			$datas['tot_trainer']=$this->dashboard->total_trainer();
+			$datas['tot_mobilizer']=$this->dashboard->total_mobilizer();
+			$datas['tot_students']=$this->dashboard->total_students();
 			$this->load->view('header');
 			$this->load->view('home',$datas);
 			$this->load->view('footer');
@@ -213,26 +238,18 @@ class Adminlogin extends CI_Controller {
 		 }
 	}
 
-	// Admin Students
-	public function special_leave_student(){
-		$datas['res']=$this->dashboard->get_special();
-		// print_r($datas['res']);
-		echo json_encode($datas['res']);
-	}
+
 
 	public function search(){
 		$ser_txt=$this->input->post('ser');
 		$user_type=$this->input->post('user_type');
-		$class_sec=$this->input->post('cls_sec');
-          //echo $class_sec;
-		$datas['res']=$this->dashboard->search_data($ser_txt,$user_type,$class_sec);
-		// print_r($datas['res']);
+		$datas['res']=$this->dashboard->search_data($ser_txt,$user_type);
 		echo $datas['res'];
 	}
 
 	public function logout(){
 		$datas=$this->session->userdata();
-		$this->session->unset_userdata($datas);
+		//$this->session->unset_userdata($datas);
 		$this->session->sess_destroy();
 		redirect('/');
 	}

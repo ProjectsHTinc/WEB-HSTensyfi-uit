@@ -41,7 +41,7 @@ class Scheme extends CI_Controller {
 	 		 	$datas=$this->session->userdata();
   	 		$user_id=$this->session->userdata('user_id');
   			$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 			 $datas['res_img']=$this->schememodel->get_scheme_gallery_img();
 
 			 $datas['res_scheme']=$this->schememodel->get_scheme_details();
@@ -59,7 +59,7 @@ class Scheme extends CI_Controller {
         $datas=$this->session->userdata();
         $user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 			 	$scheme_name=$this->input->post('scheme_name');
 				$scheme_info= $this->db->escape_str($this->input->post('scheme_info'));
 				$scheme_video_link=$this->input->post('scheme_video_link');
@@ -83,7 +83,7 @@ class Scheme extends CI_Controller {
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
-				if($user_type==1){
+				if($user_type==1 || $user_type==2){
 					$name_array = $_FILES['scheme_photos']['name'];
 					$tmp_name_array = $_FILES['scheme_photos']['tmp_name'];
 					$count_tmp_name_array = count($tmp_name_array);
@@ -96,6 +96,9 @@ class Scheme extends CI_Controller {
 				$datas=$this->schememodel->create_gallery($file_name,$user_id);
 				if($datas['status']=="success"){
 					$this->session->set_flashdata('gallery', 'Gallery Updated Successfully');
+					redirect('scheme/home');
+				}else if($datas['status']=="limit"){
+					$this->session->set_flashdata('gallery', 'Gallery Maximum images Exceeds');
 					redirect('scheme/home');
 				}else{
 					$this->session->set_flashdata('gallery', 'Failed to Add');
@@ -112,7 +115,7 @@ class Scheme extends CI_Controller {
 			$datas=$this->session->userdata();
 			$user_id=$this->session->userdata('user_id');
 			$user_type=$this->session->userdata('user_type');
-			if($user_type==1){
+			if($user_type==1 || $user_type==2){
 				 	$scheme_photo_id=$this->input->post('gal_id');
 					$datas['res']=$this->schememodel->delete_gal($scheme_photo_id);
 			}else{

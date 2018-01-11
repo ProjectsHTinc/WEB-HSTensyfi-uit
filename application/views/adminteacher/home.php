@@ -194,7 +194,7 @@ font-weight: bold;}
                   <div class="tab-pane" id="help-logo">
                         <div class="col-md-3" style="padding-bottom:25px; ">
                            <div class="header">
-                              <h6 class="title">Class Teacher </h6>
+                              <h6 class="title">Incharge </h6>
                               <p class="category"><a> <?php echo $rows->trade_name; ?>-<?php echo $rows->batch_name; ?></a></p>
                            </div>
 						      </div>

@@ -21,7 +21,7 @@
                        }
                         ?>
                        <div class="content">
-                           <form action="<?php echo base_url(); ?>teacherprofile/updateprofile" method="post" enctype="multipart/form-data" id="myformpass">
+                           <form action="<?php echo base_url(); ?>trainerprofile/updateprofile" method="post" enctype="multipart/form-data" id="myformpass">
                                <div class="row">
                                    <div class="col-md-5">
                                        <div class="form-group">
