@@ -71,15 +71,16 @@ class Tracking extends CI_Controller {
 			 }
 		}
 
-		public function test(){
+		public function usertrack(){
 				$datas=$this->session->userdata();
 				$user_id=$this->session->userdata('user_id');
 				$user_type=$this->session->userdata('user_type');
 				if($user_type==1 || $user_type==2){
 					$user_id=$this->input->post('user_id');
 					$selected_date=$this->input->post('selected_date');
+					$datas['kms']=$this->trackingmodel->calculatekms($user_id,$selected_date);
 					$datas['res']=$this->trackingmodel->testing_map($user_id,$selected_date);
-
+					// echo json_encode($datas['res']);exit;
 			 $this->load->view('header');
 			 $this->load->view('tracking/testing',$datas);
 			 $this->load->view('footer');
