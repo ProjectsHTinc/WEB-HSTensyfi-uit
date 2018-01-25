@@ -77,7 +77,7 @@
                                             <span><?php if(empty($rows->trade_video)){
 
                                             }else{ ?>
-                                              <a href="<?php echo $rows->trade_video; ?>" target="_blank">Click here to Watch</a>
+                                              <a href="https://www.youtube.com/watch?v=<?php echo $rows->trade_video; ?>" target="_blank">Click here to Watch</a>
                                           <?php  } ?></span>
 
                                         </div>
@@ -146,7 +146,7 @@
                     trade_id: "Select Trade",
                     status: "Select Status"
                 },
-                
+
             });
-               
+
     </script>

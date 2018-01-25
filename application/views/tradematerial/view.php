@@ -39,7 +39,7 @@
                         <?php  } ?>
                         <?php if(empty($rows->trade_video)){
                            }else{ ?>
-                        <a href="<?php echo $rows->trade_video; ?>" target="_blank">Click here to Watch Video </a><br>
+                        <a href="https://www.youtube.com/watch?v=<?php echo $rows->trade_video; ?>" target="_blank">Click here to Watch Video </a><br>
                         <?php  } ?>
                      </td>
 

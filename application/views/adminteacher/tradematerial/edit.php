@@ -63,7 +63,7 @@
                         <input type="text" name="trade_video" id="trade_video" class="form-control" value="  <?php echo $rows->trade_video; ?>" >
                         <span><?php if(empty($rows->trade_video)){
                            }else{ ?>
-                        <a href="<?php echo $rows->trade_video; ?>" target="_blank">Click here to Watch</a>
+                        <a href="https://www.youtube.com/watch?v=<?php echo $rows->trade_video; ?>" target="_blank">Click here to Watch</a>
                         <?php  } ?></span>
                      </div>
                   </div>
@@ -97,15 +97,15 @@
 <script type="text/javascript">
 
    function check_title(val)
-   { 
+   {
       var tid=document.getElementById("trade_id").value;
-      
+
       $.ajax({
       type:'post',
       url:'<?php echo base_url(); ?>/stafftradematerial/check_title_function',
       data:'ctitle=' + val + '&tradeid=' + tid,
       success:function(test)
-      {   
+      {
         if(test=="AE")
         {
           $("#msg").html("<span style=color:red;>Title Already Exit For This Trade</span>");
@@ -117,7 +117,7 @@
         }
       }
       });
-   } 
+   }
 
 
    $('#tradematerialmenu').addClass('collapse in');
@@ -129,10 +129,10 @@
         trade_title: {
             required: true
         },
-   
+
         description: {
         required:true
-   
+
     },
         trade_id: {
             required: true
@@ -159,4 +159,3 @@
    });
    // CKEDITOR.replace('editor1');
 </script>
-

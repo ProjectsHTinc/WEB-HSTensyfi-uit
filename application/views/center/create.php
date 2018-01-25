@@ -181,7 +181,7 @@
                                                 <td>
                                                     <?php echo $videos->video_title; ?>
                                                 </td>
-                                                <td><a href="<?php echo $videos->center_videos; ?>" target="_blank">Click here to watch</a></td>
+                                                <td><a href="https://www.youtube.com/watch?v=<?php echo $videos->center_videos; ?>" target="_blank">Click here to watch</a></td>
                                                 <td>
                                                     <?php if($videos->status=='Active'){ ?>
                                                         <button type="" class="btn btn-success" onclick="changestatus('Deactive',<?php  echo $videos->id; ?>)">Active</button>
