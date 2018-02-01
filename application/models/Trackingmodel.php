@@ -105,6 +105,26 @@ Class Trackingmodel extends CI_Model
         }
 
 
+        function kms_using_lat($user_id,$selected_date){
+          $select="SELECT (6371 * ACOS(
+                COS( RADIANS(to_lat) )
+              * COS( RADIANS( user_lat ) )
+              * COS( RADIANS( user_long ) - RADIANS(to_long) )
+              + SIN( RADIANS(to_lat) )
+              * SIN( RADIANS( user_lat ) )
+                ) ) AS distance,SUM((6371 * ACOS(
+                COS( RADIANS(to_lat) )
+              * COS( RADIANS( user_lat ) )
+              * COS( RADIANS( user_long ) - RADIANS(to_long) )
+              + SIN( RADIANS(to_lat) )
+              * SIN( RADIANS( user_lat ) )
+                ) )) AS km FROM edu_tracking_details WHERE user_id='$user_id'  AND DATE_FORMAT(created_at, '%Y-%m-%d')='$selected_date'";
+          $get_result=$this->db->query($select);
+          return $get_result->result();
+
+        }
+
+
 
 
 

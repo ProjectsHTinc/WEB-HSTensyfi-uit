@@ -24,11 +24,11 @@ Total KMS Travelled
    // $str= json_encode($res);
    //  $array_final = preg_replace('/"([a-zA-Z]+[a-zA-Z0-9_]*)":/','$1:',$str);
 $lats= json_encode( $res, JSON_NUMERIC_CHECK );
-if(empty($kms)){
+if(empty($kms_using_lat)){
   echo "no data found";
 }else{
-  foreach($kms as $mile){}
-    echo "<h3>".$mile->miles*0.609344."</h3>";
+  foreach($kms_using_lat as $mile){}
+    echo "<h3>".$mile->km."</h3>";
 }
    ?>
 </div>
@@ -44,7 +44,6 @@ if(empty($kms)){
 </div>
 </div>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD79f4g1cuT6teKfopSTGYBs1-wMm4v4DY&libraries=geometry"></script>
-
      <script>
 
      $(function() {
