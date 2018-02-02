@@ -81,6 +81,7 @@ class Tracking extends CI_Controller {
 					//$datas['kms']=$this->trackingmodel->calculatekms($user_id,$selected_date);
 					$datas['kms_using_lat']=$this->trackingmodel->kms_using_lat($user_id,$selected_date);
 					$datas['res']=$this->trackingmodel->testing_map($user_id,$selected_date);
+					$datas['lat_long']=$this->trackingmodel->only_lat_long($user_id,$selected_date);
 					// echo json_encode($datas['res']);exit;
 			 $this->load->view('header');
 			 $this->load->view('tracking/testing',$datas);

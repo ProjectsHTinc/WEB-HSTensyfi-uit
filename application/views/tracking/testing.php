@@ -18,22 +18,30 @@ th{
   <div id="map" style="width:700px; height:400px;"></div>
 </div>
 <div class="col-md-4">
-Total KMS Travelled
+
+Total KM  Travelled
 <div id="totals">
   <?php
-   // $str= json_encode($res);
-   //  $array_final = preg_replace('/"([a-zA-Z]+[a-zA-Z0-9_]*)":/','$1:',$str);
+
 $lats= json_encode( $res, JSON_NUMERIC_CHECK );
 if(empty($kms_using_lat)){
   echo "no data found";
 }else{
   foreach($kms_using_lat as $mile){}
-    echo "<h3>".$mile->km."</h3>";
+    $kms=$mile->km;
+    if(empty($kms)){
+      echo "no data";
+    }else{
+      echo "<h3>".$mile->km."</h3>";
+    }
+
 }
    ?>
+   <a href="<?php echo base_url();  ?>tracking/home" class="btn btn ">Track others</a>
 </div>
 </div>
 <div class="col-md-10">
+<div id="map_se"></div>
 
 </div>
 
@@ -43,7 +51,74 @@ if(empty($kms_using_lat)){
 </div>
 </div>
 </div>
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD79f4g1cuT6teKfopSTGYBs1-wMm4v4DY&libraries=geometry"></script>
+<style type="text/css">
+
+#map_se { height: 20% }
+</style>
+<!-- <script src="http://maps.googleapis.com/maps/api/js"></script> -->
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD79f4g1cuT6teKfopSTGYBs1-wMm4v4DY&libraries=geometry"></script>
+<script>
+
+function initialize() {
+		var homeLatlng = new google.maps.LatLng(11.00267307,77.01692274);
+
+		var map = new google.maps.Map(document.getElementById("map"), {
+			zoom: 15,
+			center: homeLatlng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		});
+		// add start marker
+
+
+
+		var startMarker = new google.maps.Marker({
+      <?php   foreach($lat_long as $onlylat){
+        if ($onlylat === reset($lat_long)){ ?>
+        position: new google.maps.LatLng(<?php   echo $onlylat->lat; ?>,<?php   echo $onlylat->lng; ?>),
+        <?php    }} ?>
+			map: map,
+			icon: 'http://maps.google.co.uk/intl/en_ALL/mapfiles/ms/micons/green-dot.png'
+		});
+
+		// add end marker
+		var endMarker = new google.maps.Marker({
+      <?php foreach($lat_long as $onlylat){
+        if ($onlylat === end($lat_long)){ ?>
+			position: new google.maps.LatLng(<?php echo $onlylat->lat;  ?>,<?php  echo $onlylat->lng; ?>),
+      <?php }} ?>
+			map: map,
+			icon: 'http://maps.google.co.uk/intl/en_ALL/mapfiles/ms/micons/red-dot.png'
+		});
+
+		// create an array of coordinates
+		var arrCoords = [
+        <?php  foreach($lat_long as $onlylat){ ?>
+            new google.maps.LatLng(<?php echo $onlylat->lat; ?>,<?php echo $onlylat->lng; ?>),
+
+      <?php  }  ?>
+
+
+
+  			// new google.maps.LatLng(11.09699699,77.01954478),
+  			// new google.maps.LatLng(11.04807485,77.01371733),
+  			new google.maps.LatLng(11.36773795,77.07507485)
+
+
+		];
+
+		// draw the route
+		var route = new google.maps.Polyline({
+			path: arrCoords,
+			strokeColor: "green",
+			strokeOpacity: 0.5,
+			strokeWeight: 4,
+			map: map
+		});
+	}
+
+	google.maps.event.addDomListener(window, 'load', initialize);
+</script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD79f4g1cuT6teKfopSTGYBs1-wMm4v4DY&libraries=geometry"></script>
      <script>
 
      $(function() {
@@ -468,4 +543,4 @@ return marker;
     //
     //      flightPath.setMap(map);
     //    }
-     </script>
+     </script> -->
