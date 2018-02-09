@@ -60,10 +60,10 @@ if(empty($kms_using_lat)){
 <script>
 
 function initialize() {
-		var homeLatlng = new google.maps.LatLng(11.00267307,77.01692274);
+		var homeLatlng = new google.maps.LatLng(11.004556,76.961632);
 
 		var map = new google.maps.Map(document.getElementById("map"), {
-			zoom: 15,
+			zoom: 7,
 			center: homeLatlng,
 			mapTypeId: google.maps.MapTypeId.ROADMAP
 		});
@@ -96,12 +96,16 @@ function initialize() {
             new google.maps.LatLng(<?php echo $onlylat->lat; ?>,<?php echo $onlylat->lng; ?>),
 
       <?php  }  ?>
+      <?php foreach($lat_long as $onlylat){
+        if ($onlylat === end($lat_long)){ ?>
+        new google.maps.LatLng(<?php echo $onlylat->lat; ?>,<?php echo $onlylat->lng; ?>)
+      <?php }} ?>
 
 
 
   			// new google.maps.LatLng(11.09699699,77.01954478),
   			// new google.maps.LatLng(11.04807485,77.01371733),
-  			new google.maps.LatLng(11.36773795,77.07507485)
+  			//new google.maps.LatLng(11.36773795,77.07507485)
 
 
 		];
@@ -109,8 +113,8 @@ function initialize() {
 		// draw the route
 		var route = new google.maps.Polyline({
 			path: arrCoords,
-			strokeColor: "green",
-			strokeOpacity: 0.5,
+			strokeColor: "#0000FF",
+			strokeOpacity: 1,
 			strokeWeight: 4,
 			map: map
 		});
